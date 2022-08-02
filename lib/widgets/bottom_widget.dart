@@ -19,7 +19,7 @@ class BottomWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05),
-                    child: Text("History", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
+                    child: const Text("History", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05, top: MediaQuery.of(context).size.height*0.05),

@@ -18,8 +18,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          TopWidget(),
-          BottomWidget(),
+          const TopWidget(),
+          const BottomWidget(),
           Padding(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../models/data.dart';
 import '../models/radial_gauge.dart';
 
@@ -36,7 +35,7 @@ class TopWidget extends StatelessWidget {
             ),
             Positioned(
               bottom: MediaQuery.of(context).size.height * 0.08,
-              child: RadialGauge(),
+              child: const RadialGauge(),
             ),
             Positioned(
               left: MediaQuery.of(context).size.height * 0.0,
@@ -51,7 +50,7 @@ class TopWidget extends StatelessWidget {
                       // Renders column chart
                       ColumnSeries<ChartData, String>(
                           color: Colors.lightBlueAccent,
-                          markerSettings: MarkerSettings(
+                          markerSettings: const MarkerSettings(
                             isVisible: false,
                           ),
                           dataSource: chartData,
