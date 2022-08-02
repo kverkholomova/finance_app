@@ -24,7 +24,7 @@ class TopWidget extends StatelessWidget {
               child: const Align(
                 alignment: Alignment.topCenter,
                 child: Text("125.71 Zl",
-                style: TextStyle(color: Colors.black, fontSize: 25),),
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 25),),
               ),
             ),
             Positioned(
@@ -62,8 +62,9 @@ class TopWidget extends StatelessWidget {
               ),
             ),
             Positioned(
+              left: MediaQuery.of(context).size.height*0.0,
               top: MediaQuery.of(context).size.height*0.35,
-              bottom: MediaQuery.of(context).size.height*0.02,
+              bottom: MediaQuery.of(context).size.height*0.03,
               child: Align(
                 alignment: Alignment.center,
                 child: SfCartesianChart(
