@@ -61,10 +61,6 @@ class TopWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // SfCircularChart(
-            //
-            // ),
-
             Positioned(
               top: MediaQuery.of(context).size.height*0.35,
               bottom: MediaQuery.of(context).size.height*0.02,
