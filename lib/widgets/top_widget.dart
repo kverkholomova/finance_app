@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../models/data.dart';
 import '../models/radial_gauge.dart';
@@ -25,15 +26,19 @@ class TopWidget extends StatelessWidget {
                   top: MediaQuery.of(context).size.height * 0.1,
                   // bottom: MediaQuery.of(context).size.height * 0.01
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.topCenter,
                 child: Text(
                   "125.71 PLN",
-                  style:
-                  TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                  style: GoogleFonts.raleway(
+                    fontSize: 25,
+                    color: Colors.white,
+                    // fontWeight: FontWeight.bold
+                  )
+                  // TextStyle(
+                  //     color: Colors.white,
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 25),
                 ),
               ),
             ),
