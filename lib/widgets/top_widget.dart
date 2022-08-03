@@ -17,15 +17,18 @@ class TopWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.6,
         color: Colors.purple,
         child: Stack(
-          alignment: Alignment.center,
+
+          alignment: Alignment.topCenter,
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.1),
+                  top: MediaQuery.of(context).size.height * 0.1,
+                  // bottom: MediaQuery.of(context).size.height * 0.01
+              ),
               child: const Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "125.71 Zl",
+                  "125.71 PLN",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -33,13 +36,14 @@ class TopWidget extends StatelessWidget {
                 ),
               ),
             ),
+            FittedBox(
+                fit: BoxFit.fitHeight,
+                child: RadialGauge()),
+
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.08,
-              child: const RadialGauge(),
-            ),
-            Positioned(
-              left: MediaQuery.of(context).size.height * 0.0,
-              top: MediaQuery.of(context).size.height * 0.35,
+              left: MediaQuery.of(context).size.width * 0.0,
+              right: MediaQuery.of(context).size.width * 0.0,
+              top: MediaQuery.of(context).size.height * 0.36,
               bottom: MediaQuery.of(context).size.height * 0.03,
               child: Align(
                 alignment: Alignment.center,

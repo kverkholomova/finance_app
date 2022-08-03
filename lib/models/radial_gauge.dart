@@ -18,7 +18,7 @@ class RadialGauge extends StatelessWidget {
           minimum: 0,
           maximum: 360,
           interval: 10,
-          radiusFactor: 0.30,
+          radiusFactor: 0.26,
           axisLineStyle: const AxisLineStyle(
             thickness: 0.2,
             color: Colors.orangeAccent,
