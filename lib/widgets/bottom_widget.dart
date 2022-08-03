@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../models/labels.dart';
 
@@ -20,7 +21,11 @@ class BottomWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: const Text("History", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
+                    child: Text("History", style: GoogleFonts.raleway(
+                      fontSize: 22,
+                      color: Colors.black,
+                      // fontWeight: FontWeight.bold
+                    ),),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.05),

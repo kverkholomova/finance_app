@@ -14,10 +14,19 @@ class Histogram extends StatelessWidget {
       alignment: Alignment.center,
       child: SfCartesianChart(
           primaryYAxis: NumericAxis(
+              axisLine: AxisLine(
+                  color: Colors.orange
+              ),
               isVisible: false
           ),
           // title: ChartTitle(text: "Column Chart"),
           primaryXAxis: CategoryAxis(
+            axisLine: AxisLine(
+              color: Colors.orange
+            ),
+              // labelRotation: 35,
+              // maximumLabelWidth: 50,
+              labelPlacement: LabelPlacement.betweenTicks,
               labelStyle: const TextStyle(
                   color: Colors.white
               )

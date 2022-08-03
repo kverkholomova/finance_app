@@ -20,9 +20,9 @@ class ChartData{
 }
 
 final List<ChartData> chartData = [
-  ChartData('John', 10),
-  ChartData('Parker', 11),
-  ChartData('David', 9),
-  ChartData('Peter', 10),
-  ChartData('Brit', 10)
+  ChartData('Groceries', 15),
+  ChartData('Leisure', 7),
+  ChartData('Fuel', 12),
+  ChartData('Cosmetics', 10),
+  ChartData('Health', 5)
 ];
