@@ -17,10 +17,7 @@ class Labels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        // left: 20,
-        right: 10
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -73,7 +70,7 @@ class Labels extends StatelessWidget {
           ),
           Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.height * 0.05),
+                  right: MediaQuery.of(context).size.height * 0.00),
               child: Text(
                 price,
                 softWrap: true,

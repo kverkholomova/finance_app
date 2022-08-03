@@ -19,19 +19,19 @@ class BottomWidget extends StatelessWidget {
               ListView(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: const Text("History", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05, top: MediaQuery.of(context).size.height*0.05),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.05),
                     child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05, top: MediaQuery.of(context).size.height*0.03),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
                     child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.05, top: MediaQuery.of(context).size.height*0.03),
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
                     child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
                   )
                 ],

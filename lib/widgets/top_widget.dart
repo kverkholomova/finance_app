@@ -29,7 +29,8 @@ class TopWidget extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: Text(
                   "125.71 PLN",
-                  style: TextStyle(
+                  style:
+                  TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 25),
@@ -45,29 +46,45 @@ class TopWidget extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.0,
               top: MediaQuery.of(context).size.height * 0.36,
               bottom: MediaQuery.of(context).size.height * 0.03,
-              child: Align(
-                alignment: Alignment.center,
-                child: SfCartesianChart(
-                    // title: ChartTitle(text: "Column Chart"),
-                    primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries<ChartData, String>>[
-                      // Renders column chart
-                      ColumnSeries<ChartData, String>(
-                          color: Colors.lightBlueAccent,
-                          markerSettings: const MarkerSettings(
-                            isVisible: false,
-                          ),
-                          dataSource: chartData,
-                          xValueMapper: (ChartData data, _) => data.x,
-                          yValueMapper: (ChartData data, _) => data.y)
-                    ]
-                    // series: <ChartSeries>[
-                    //   ColumnSeries<SalesData, double>(
-                    //       dataSource: chartData,
-                    //       xValueMapper: (SalesData sales, _) => sales.year,
-                    //       yValueMapper: (SalesData sales, _) => sales.sales),
-                    // ],
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SfCartesianChart(
+                      primaryYAxis: NumericAxis(
+                        isVisible: false
+                      ),
+                      // title: ChartTitle(text: "Column Chart"),
+                      primaryXAxis: CategoryAxis(
+                        labelStyle: TextStyle(
+                          color: Colors.white
+                        )
+                      ),
+                      plotAreaBorderWidth: 0,
+                      series: <ChartSeries<ChartData, String>>[
+
+                        // Renders column chart
+                        ColumnSeries<ChartData, String>(
+
+                            color: Colors.indigoAccent,
+                            width: 0.3,
+                            markerSettings: const MarkerSettings(
+                              isVisible: false,
+                            ),
+                            dataSource: chartData,
+
+
+                            xValueMapper: (ChartData data, _) => data.x,
+                            yValueMapper: (ChartData data, _) => data.y)
+                      ]
+                      // series: <ChartSeries>[
+                      //   ColumnSeries<SalesData, double>(
+                      //       dataSource: chartData,
+                      //       xValueMapper: (SalesData sales, _) => sales.year,
+                      //       yValueMapper: (SalesData sales, _) => sales.sales),
+                      // ],
+                      ),
+                ),
               ),
             )
           ],
