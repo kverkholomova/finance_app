@@ -1,11 +1,12 @@
+import 'package:finance_app/screens/add_transaction.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_widget.dart';
 import '../widgets/top_widget.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -31,7 +32,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     Icons.add,
                     size: 50,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddTransaction()),
+                    );
+                  }),
             ),
           ),
         ],
