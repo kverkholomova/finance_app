@@ -37,6 +37,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.2.40
   syncfusion_flutter_gauges: ^20.2.40
   google_fonts: ^3.0.1
+  cool_dropdown: ^1.4.2
 
 dev_dependencies:
   flutter_test:

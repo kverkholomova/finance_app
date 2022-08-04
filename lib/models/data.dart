@@ -42,3 +42,13 @@ List<DropDownData> data = [
   DropDownData(Icon(Icons.ac_unit_rounded), 'Cosmetics'),
   DropDownData(Icon(Icons.ac_unit_rounded), 'Health'),
 ];
+
+List dropdownItemList = [
+  {'label': 'apple', 'value': 'apple'}, // label is required and unique
+  {'label': 'banana', 'value': 'banana'},
+  {'label': 'grape', 'value': 'grape'},
+  {'label': 'pineapple', 'value': 'pineapple'},
+  {'label': 'grape fruit', 'value': 'grape fruit'},
+  {'label': 'kiwi', 'value': 'kiwi'},
+];
+
