@@ -25,6 +25,7 @@ class ButtonAddTransaction extends StatelessWidget {
                 ),
                 onPressed: (){
 
+
                 },
                 child: Text("Add transaction", style: TextStyle(color: Colors.black, fontSize: 16),)),
           ),

@@ -14,43 +14,36 @@ class BottomWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.6,),
-      child: MaterialButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => History()),
-          );
-        },
-        child: Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            color: Colors.white,
-            child:
-                ListView(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text("History", style: GoogleFonts.raleway(
-                        fontSize: 22,
-                        color: Colors.black,
-                        // fontWeight: FontWeight.bold
-                      ),),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.05),
-                      child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
-                      child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
-                      child: Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: const Icon(Icons.local_grocery_store,)),
-                    )
-                  ],
-                ),
+      child: Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+          // width: MediaQuery.of(context).size.width * 1,
+          color: Colors.white,
+          child:
+              ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text("History", style: GoogleFonts.raleway(
+                      fontSize: 22,
+                      color: Colors.black,
+                      // fontWeight: FontWeight.bold
+                    ),),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.05),
+                    child: const Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: Icon(Icons.local_grocery_store,)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
+                    child: const Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: Icon(Icons.local_grocery_store,)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.height*0.00, top: MediaQuery.of(context).size.height*0.03),
+                    child: const Labels(name: "Groceries", date: "21.02.2022", price: "21.99 PLN", icon: Icon(Icons.local_grocery_store,)),
+                  )
+                ],
               ),
-      ),
+            ),
     );
   }
 }
