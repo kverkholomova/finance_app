@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/data.dart';
-import '../to_delete/bottom_widget_add_transaction.dart';
+
 import '../widgets/button_add_transaction.dart';
-import '../to_delete/top_widget_add_transaction.dart';
+
 import 'home_screen.dart';
 
 Color iconColor = Colors.orangeAccent;
@@ -37,7 +37,7 @@ class _AddTransactionState extends State<AddTransaction> {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.calendar_month,
                 color: Colors.orangeAccent,
               ))
@@ -53,7 +53,7 @@ class _AddTransactionState extends State<AddTransaction> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.close,
             color: Colors.orangeAccent,
           ),
@@ -71,7 +71,7 @@ class _AddTransactionState extends State<AddTransaction> {
         children: [
           buildTopWidget(context),
           buildBottomWidget(context),
-          ButtonAddTransaction(),
+          const ButtonAddTransaction(),
         ],
       ),
     );
@@ -141,7 +141,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   alignment: Alignment.center,
                   child: CoolDropdown(
 
-                    unselectedItemTS: TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    unselectedItemTS: const TextStyle(color: Colors.orangeAccent, fontSize: 20),
                     dropdownItemPadding: const EdgeInsets.symmetric(horizontal: 20),
                     resultHeight: MediaQuery.of(context).size.height * 0.09,
                     resultBD: BoxDecoration(
@@ -292,7 +292,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         Expanded(
                           flex: 1,
                           child: IconButton(
-                              icon: Icon(Icons.backspace),
+                              icon: const Icon(Icons.backspace),
                               onPressed: () {
 
                               }),
