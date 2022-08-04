@@ -36,19 +36,18 @@ class DropDownData{
 }
 
 List<DropDownData> data = [
-  DropDownData(Icon(Icons.ac_unit_rounded), 'Groceries'),
-  DropDownData(Icon(Icons.ac_unit_rounded), 'Leisure'),
-  DropDownData(Icon(Icons.ac_unit_rounded), 'Fuel'),
-  DropDownData(Icon(Icons.ac_unit_rounded), 'Cosmetics'),
-  DropDownData(Icon(Icons.ac_unit_rounded), 'Health'),
+  DropDownData(Icon(Icons.local_grocery_store), 'Groceries'),
+  DropDownData(Icon(Icons.event_seat), 'Leisure'),
+  DropDownData(Icon(Icons.car_crash_rounded), 'Fuel'),
+  DropDownData(Icon(Icons.network_wifi_rounded), 'Cosmetics'),
+  DropDownData(Icon(Icons.medical_services_outlined), 'Health'),
 ];
 
 List dropdownItemList = [
-  {'label': 'apple', 'value': 'apple'}, // label is required and unique
-  {'label': 'banana', 'value': 'banana'},
-  {'label': 'grape', 'value': 'grape'},
-  {'label': 'pineapple', 'value': 'pineapple'},
-  {'label': 'grape fruit', 'value': 'grape fruit'},
-  {'label': 'kiwi', 'value': 'kiwi'},
+  {'label': 'Groceries', 'value': 'Groceries', 'icon': Icon(Icons.local_grocery_store)}, // label is required and unique
+  {'label': 'Leisure', 'value': 'Leisure', 'icon': Icon(Icons.event_seat)},
+  {'label': 'Fuel', 'value': 'Fuel', 'icon': Icon(Icons.car_crash_rounded)},
+  {'label': 'Cosmetics', 'value': 'Cosmetics', 'icon': Icon(Icons.network_wifi_rounded)},
+  {'label': 'Health', 'value': 'Health', 'icon': Icon(Icons.medical_services_outlined)},
 ];
 
