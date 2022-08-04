@@ -6,10 +6,11 @@ class BottomWidgetTransaction extends StatefulWidget {
   @override
   State<BottomWidgetTransaction> createState() => _BottomWidgetTransactionState();
 }
+String userInput = '0';
 
 class _BottomWidgetTransactionState extends State<BottomWidgetTransaction> {
 
-  String userInput = '0';
+
   String option = '';
   int index = 0;
   double second = 0;
@@ -23,9 +24,9 @@ class _BottomWidgetTransactionState extends State<BottomWidgetTransaction> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.6,
+        height: MediaQuery.of(context).size.height * 0.55,
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.07),
