@@ -1,4 +1,5 @@
 import 'package:finance_app/screens/home_screen.dart';
+import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const SignIn(),
     );
   }
 }
