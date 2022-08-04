@@ -1,17 +1,15 @@
-import 'package:finance_app/screens/home_screen.dart';
-import 'package:finance_app/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
 
 
   final _formKey = GlobalKey<FormState>();
@@ -55,10 +53,10 @@ class _SignInState extends State<SignIn> {
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                        "Email",
-                        style: TextStyle(
+                      "Email",
+                      style: TextStyle(
                           fontSize: 16
-                        ),
+                      ),
                     )),
               ),
               TextFormField(
@@ -73,10 +71,10 @@ class _SignInState extends State<SignIn> {
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                        'Password',
-                        style: TextStyle(
-                        fontSize: 16
-                    ),
+                      'Password',
+                      style: TextStyle(
+                          fontSize: 16
+                      ),
                     )),
               ),
               TextFormField(
@@ -89,7 +87,7 @@ class _SignInState extends State<SignIn> {
               ),
 
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -102,35 +100,21 @@ class _SignInState extends State<SignIn> {
                     child: TextButton(
 
                         child: const Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                         onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const MyHomePage()),
-                          );
+
                         }
                     ),
                   ),
                 ),
               ),
-
+              const SizedBox(height: 12.0),
               Text(
                 error,
                 style: const TextStyle(color: Colors.red, fontSize: 14.0),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUp()),
-                  );
-                },
-                child: Text(
-                "I don't have an account",
-                style: const TextStyle(color: Colors.black, fontSize: 14.0),
-              ),)
             ],
           ),
         ),
