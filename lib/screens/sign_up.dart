@@ -1,3 +1,4 @@
+import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
@@ -87,7 +88,7 @@ class _SignUpState extends State<SignUp> {
               ),
 
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -110,11 +111,21 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
-              const SizedBox(height: 12.0),
               Text(
                 error,
                 style: const TextStyle(color: Colors.red, fontSize: 14.0),
               ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignIn()),
+                  );
+                },
+                child: Text(
+                  "I already have an account",
+                  style: const TextStyle(color: Colors.black, fontSize: 14.0),
+                ),)
             ],
           ),
         ),
