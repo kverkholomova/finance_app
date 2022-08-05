@@ -1,6 +1,7 @@
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/screens/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../constants.dart';
 
 class SignIn extends StatefulWidget {
@@ -13,6 +14,11 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
+  final String assetName = 'assets/logo.svg';
+
+  final Widget svg = SvgPicture.asset(
+      'assets/logo.svg'
+  );
 
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -49,9 +55,13 @@ class _SignInState extends State<SignIn> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+                child: SvgPicture.asset('assets/logo.svg'),
+              ),
 
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(

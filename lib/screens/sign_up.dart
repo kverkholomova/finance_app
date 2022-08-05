@@ -1,5 +1,6 @@
 import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../constants.dart';
 
 class SignUp extends StatefulWidget {
@@ -50,7 +51,11 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
 
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+                child: SvgPicture.asset('assets/logo.svg'),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
