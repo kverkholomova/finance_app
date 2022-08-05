@@ -100,7 +100,6 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: TextButton(
-
                         child: const Text(
                           'Sign In',
                           style: TextStyle(color: Colors.black, fontSize: 20),
