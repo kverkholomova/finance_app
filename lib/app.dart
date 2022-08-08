@@ -1,4 +1,4 @@
-import 'package:finance_app/screens/home_screen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignIn(),
+      home: AnimatedSplashScreen(
+        splash: 'assets/logo.png',
+        splashIconSize: 180,
+        nextScreen: const SignIn(),
+        splashTransition: SplashTransition.fadeTransition,
+        duration: 2000,
+      )
     );
   }
 }

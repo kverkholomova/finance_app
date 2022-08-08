@@ -8,7 +8,7 @@ class ButtonAddTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.7),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.7,  bottom: MediaQuery.of(context).size.height * 0.05),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(

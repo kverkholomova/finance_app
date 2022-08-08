@@ -190,7 +190,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Padding buildBottomWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.32,  bottom: MediaQuery.of(context).size.height * 0.05),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.55,
         color: Colors.white,
