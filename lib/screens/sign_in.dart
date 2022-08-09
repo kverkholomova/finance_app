@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
+import '../services/auth.dart';
 
+bool optionSignIn = true;
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
 
-
+  final Function toggleView;
+  SignIn({ required this.toggleView });
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
 
+  final AuthService _auth = AuthService();
   final String assetName = 'assets/logo.svg';
 
   final Widget svg = SvgPicture.asset(
@@ -33,6 +36,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
       // appBar: AppBar(
       //   backgroundColor: Colors.purple,
@@ -124,6 +128,17 @@ class _SignInState extends State<SignIn> {
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                         onPressed: () async {
+                          if(_formKey.currentState!.validate()){
+                            setState(() => loading = true);
+                            dynamic result = await _auth.signInWithEmailAndPasswordVol(email, password);
+                            if(result == null) {
+                              setState(() {
+                                loading = false;
+                                error = 'Could not sign in with those credentials';
+                              });
+                            }
+                          }
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -140,10 +155,9 @@ class _SignInState extends State<SignIn> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUp()),
-                  );
+                  optionSignIn = !optionSignIn;
+                  widget.toggleView();
+
                 },
                 child: Text(
                 "I don't have an account",

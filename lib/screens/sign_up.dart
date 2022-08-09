@@ -3,17 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
+import '../services/auth.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+
+  final Function toggleView;
+  SignUp({ required this.toggleView });
 
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
+String user_name = '';
+String phone_number = '';
+
 class _SignUpState extends State<SignUp> {
 
+  final AuthService _auth_vol = AuthService();
 
   final _formKey = GlobalKey<FormState>();
   String error = '';
@@ -27,6 +34,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(49, 72, 103, 0.8),
       // appBar: AppBar(
       //   backgroundColor: Colors.purple,
@@ -54,12 +62,12 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
 
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
                   child: SvgPicture.asset('assets/logo.svg'),
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -83,7 +91,42 @@ class _SignUpState extends State<SignUp> {
                 //       )),
                 // ),
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+                  child: SizedBox(
+                    height: 55,
+                    child: TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Name'),
+                      validator: (val) =>
+                      val!.isEmpty
+                          ? 'Enter your name'
+                          : null,
+                      onChanged: (val) {
+                        setState(() => user_name = val);
+                      },
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+                  child: SizedBox(
+                    height: 55,
+                    child: TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          hintText: 'Phone number'),
+                      validator: (val) =>
+                      val!.isEmpty
+                          ? 'Enter your phone number'
+                          : null,
+                      onChanged: (val) {
+                        setState(() => phone_number = val);
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
                   child: TextFormField(
                     decoration: textInputDecoration.copyWith(hintText:"Email"),
                     validator: (val) => val!.isEmpty ? 'Enter an email' : null,
@@ -104,7 +147,7 @@ class _SignUpState extends State<SignUp> {
                 //       )),
                 // ),
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
                   child: TextFormField(
                     obscureText: true,
                     decoration: textInputDecoration.copyWith(hintText: "Password"),
@@ -134,6 +177,16 @@ class _SignUpState extends State<SignUp> {
                           ),
                           onPressed: () async {
 
+                            if(_formKey.currentState!.validate()){
+                              setState(() => loading = true);
+                              dynamic result = await _auth_vol.registerWithEmailAndPasswordVol(email, password, user_name, phone_number);
+                              if(result == null) {
+                                setState(() {
+                                  loading = false;
+                                  error = 'Please supply a valid data';
+                                });
+                              }
+                            }
                           }
                       ),
                     ),
@@ -144,11 +197,13 @@ class _SignUpState extends State<SignUp> {
                   style: const TextStyle(color: Colors.red, fontSize: 14.0),
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignIn()),
-                    );
+                  onPressed: () async {
+                    optionSignIn = !optionSignIn;
+                    widget.toggleView();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => SignIn()),
+                    // );
                   },
                   child: Text(
                     "I already have an account",

@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:finance_app/screens/sign_in.dart';
+import 'package:finance_app/wrapper.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
         splash: 'assets/logo.png',
         splashIconSize: 180,
-        nextScreen: const SignIn(),
+        nextScreen: Wrapper(),
         splashTransition: SplashTransition.fadeTransition,
         duration: 2000,
       )
