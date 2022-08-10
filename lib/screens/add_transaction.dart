@@ -16,10 +16,13 @@ class AddTransaction extends StatefulWidget {
   State<AddTransaction> createState() => _AddTransactionState();
 }
 
-
+var valueChosen = '';
+var valueIcon;
+String userInput = '0';
 class _AddTransactionState extends State<AddTransaction> {
 
-  String userInput = '0';
+
+
   String option = '';
   int index = 0;
   double second = 0;
@@ -173,7 +176,12 @@ class _AddTransactionState extends State<AddTransaction> {
                     resultWidth: double.infinity,
                     dropdownWidth: MediaQuery.of(context).size.width * 0.8,
                     dropdownList: dropdownItemList,
-                    onChange: (_) {
+                    onChange: (newVal) {
+
+                      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                      print(newVal["value"]);
+                      valueChosen = newVal["value"];
+                      valueIcon = newVal["icon"].toString();
                       // label_name = dropdownItemList.toString();
                       // iconColor = Colors.orangeAccent;
                     },
