@@ -1,3 +1,4 @@
+import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,13 +16,13 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-String user_name = '';
-String phone_number = '';
+
 
 class _SignUpState extends State<SignUp> {
 
   final AuthService _auth_vol = AuthService();
-
+  String userName = '';
+  String phoneNumber = '';
   final _formKey = GlobalKey<FormState>();
   String error = '';
   bool loading = false;
@@ -62,12 +63,14 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
 
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.08),
-                  child: SvgPicture.asset('assets/logo.svg'),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.06),
+                  child: SizedBox(
+                      width: 130,
+                      child: SvgPicture.asset('assets/logo.svg')),
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -102,7 +105,7 @@ class _SignUpState extends State<SignUp> {
                           ? 'Enter your name'
                           : null,
                       onChanged: (val) {
-                        setState(() => user_name = val);
+                        setState(() => userName = val);
                       },
                     ),
                   ),
@@ -120,7 +123,7 @@ class _SignUpState extends State<SignUp> {
                           ? 'Enter your phone number'
                           : null,
                       onChanged: (val) {
-                        setState(() => phone_number = val);
+                        setState(() => phoneNumber = val);
                       },
                     ),
                   ),
@@ -179,14 +182,28 @@ class _SignUpState extends State<SignUp> {
 
                             if(_formKey.currentState!.validate()){
                               setState(() => loading = true);
-                              dynamic result = await _auth_vol.registerWithEmailAndPasswordVol(email, password, user_name, phone_number);
+                              dynamic result = await _auth_vol.registerWithEmailAndPasswordVol(email, password, userName, phoneNumber);
                               if(result == null) {
                                 setState(() {
                                   loading = false;
                                   error = 'Please supply a valid data';
+                                  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+                                  print(email);
+                                  print(password);
+                                  print(userName);
+                                  print(phoneNumber);
+                                  print(result);
+
                                 });
                               }
+
+                              else{
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage()));
+                              }
                             }
+
                           }
                       ),
                     ),

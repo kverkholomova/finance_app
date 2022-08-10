@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finance_app/models/users.dart';
+import 'package:finance_app/models/database/users.dart';
 
 import 'all_users.dart';
 
@@ -44,7 +44,7 @@ class DatabaseService{
     return snapshot.docs.map((doc){
       return AllUsers(
         name: doc.get('name') ?? '',
-        phone: doc.get('strength') ?? '0',
+        phone: doc.get('phone') ?? '',
         // volunteer_name: doc.get('volunteer_name') ?? '',
         // surname: doc.get('surname') ?? '',
         // phone_number: doc.get('phone_number') ?? '',
@@ -60,7 +60,7 @@ class DatabaseService{
     return UserData(
       uid: uid,
       name: snapshot.get('name'),
-      phone: snapshot.get('role'),
+      phone: snapshot.get('phone'),
 
       // volunteer_name: snapshot.get('volunteer_name'),
       // volunteer_surname: snapshot.get('volunteer_surname'),

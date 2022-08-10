@@ -133,16 +133,22 @@ class _SignInState extends State<SignIn> {
                             dynamic result = await _auth.signInWithEmailAndPasswordVol(email, password);
                             if(result == null) {
                               setState(() {
+                                print("ENTER VALID DATA");
                                 loading = false;
                                 error = 'Could not sign in with those credentials';
                               });
                             }
+                            else{
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => MyHomePage()));
+                            }
                           }
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const MyHomePage()),
-                          );
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => const MyHomePage()),
+                          // );
                         }
                     ),
                   ),

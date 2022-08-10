@@ -26,23 +26,14 @@ class _AuthenticateState extends State<Authenticate> {
       if(optionSignIn){
         return SignIn(toggleView:  toggleView);
       }
-      // else if(!optionSignIn){
-      //   return SignIn(toggleView:  toggleView);
-      // }
 
       return MyHomePage();
     }
-    // else{
-    //   return MyHomePage();
-    // }
 
     else {
       if(!optionSignIn){
         return SignUp(toggleView:  toggleView);
       }
-      // else if(!optionRefugee){
-      //   return RegisterVol1(toggleView:  toggleView);
-      // }
       return MyHomePage();
     }
   }

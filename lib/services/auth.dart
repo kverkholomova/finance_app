@@ -1,8 +1,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../models/database.dart';
-import '../models/users.dart';
+import '../models/database/database.dart';
+import '../models/database/users.dart';
 
 
 // String userID = '';
@@ -35,18 +35,18 @@ class AuthService {
     }
   }
 
-// sign in with email and password refugee
-  Future signInWithEmailAndPasswordRef(String email, String password) async {
-    try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User? user = result.user;
-      return user;
-    } catch (error) {
-      print(error.toString());
-      return null;
-    }
-  }
+// // sign in with email and password refugee
+//   Future signInWithEmailAndPasswordRef(String email, String password) async {
+//     try {
+//       UserCredential result = await _auth.signInWithEmailAndPassword(
+//           email: email, password: password);
+//       User? user = result.user;
+//       return user;
+//     } catch (error) {
+//       print(error.toString());
+//       return null;
+//     }
+//   }
 
   // sign in with email and password volunteer
   Future signInWithEmailAndPasswordVol(String email, String password) async {
@@ -70,7 +70,7 @@ class AuthService {
       User? user = result.user;
       // create a new document for the user with the uid
       await DatabaseService(uid: user!.uid).updateUserData(
-          'Name', '+48880408256');
+          userName, phoneNumber);
       return _userFromCredUser(user);
     } catch (error) {
       print(error.toString());
