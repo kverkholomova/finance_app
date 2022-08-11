@@ -4,14 +4,14 @@ class Labels extends StatelessWidget {
   final String name;
   final String date;
   final String price;
-  final Icon icon;
+
 
   const Labels(
       {Key? key,
       required this.name,
       required this.date,
       required this.price,
-      required this.icon})
+    })
       : super(key: key);
 
   @override
@@ -35,13 +35,33 @@ class Labels extends StatelessWidget {
             //     shape: BoxShape.circle,
             //     color: Colors.orange
             // ),
-            child: Icon(
-              icon.icon,
+            child: name == 'Groceries' ? const Icon(
+              Icons.local_grocery_store,
+              color: Colors.orangeAccent,
+              size: 25,
+            ): name == "Leisure"? const Icon(
+              Icons.event_seat,
+              color: Colors.orangeAccent,
+              size: 25,
+            ):name == "Fuel"? const Icon(
+              Icons.car_crash_rounded,
+              color: Colors.orangeAccent,
+              size: 25,
+            ):name == "Cosmetics"? const Icon(
+              Icons.network_wifi_rounded,
+              color: Colors.orangeAccent,
+              size: 25,
+            ):name == "Health"? const Icon(
+              Icons.medical_services_outlined,
+              color: Colors.orangeAccent,
+              size: 25,
+            ):const Icon(
+              Icons.add,
               color: Colors.orangeAccent,
               size: 25,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Padding(

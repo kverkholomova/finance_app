@@ -4,7 +4,10 @@ import 'package:finance_app/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../models/data.dart';
+
 var ID;
+double sumTransactions = 0;
 class ButtonAddTransaction extends StatelessWidget {
   const ButtonAddTransaction({
     Key? key,
@@ -29,6 +32,7 @@ class ButtonAddTransaction extends StatelessWidget {
                   side: BorderSide(color: Colors.orangeAccent, width: 2),
                 ),
                 onPressed: () async{
+                  sumTransactions = sumTransactions + double.parse(userInput);
                   ID = FirebaseAuth.instance.currentUser?.uid;
                   await FirebaseFirestore.instance
                       .collection('transactions')
@@ -36,10 +40,13 @@ class ButtonAddTransaction extends StatelessWidget {
                     'userID': ID,
                     "transfer_amount": userInput,
                     "category_name": valueChosen,
+                    "summa": sumTransactions,
                     // "category_icon": valueIcon.toString(),
                     "date": '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
 
                   });
+                  chartData.add(ChartData(valueChosen, double.parse(userInput)));
+                  // sumTransactions = sumTransactions + double.parse(userInput);
                   userInput = "0";
                   Navigator.push(
                     context,

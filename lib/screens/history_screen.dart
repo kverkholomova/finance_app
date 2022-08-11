@@ -49,82 +49,92 @@ class _HistoryState extends State<History> {
             ),
           ),
         ),
-        body: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('transactions')
-              // .where('Id', isEqualTo: Id_Of_current_application)
-              //     .where('title', isEqualTo: card_title_accepted)
-              //     .where('category', isEqualTo: card_category_accepted)
-              //     .where('comment', isEqualTo: card_comment_accepted)
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                return ListView.builder(
-                    itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
-                    itemBuilder: (ctx, index) {
-                      if (streamSnapshot.hasData){
-                        switch (streamSnapshot.connectionState){
-                          case ConnectionState.waiting:
-                            return  ListView(
-                                children: [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
-                                  )
-                                ]
-
-                            );
-
-                          case ConnectionState.active:
-                            return Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                          // left: MediaQuery.of(context).size.height * 0.01,
-                                          bottom: MediaQuery.of(context).size.height * 0.02,
-                                          top: MediaQuery.of(context).size.height * 0.02),
-                                  child: Labels(
-                                      name: streamSnapshot.data?.docs[index]['category_name'],
-                                      date: streamSnapshot.data?.docs[index]['date'],
-                                      price: '${streamSnapshot.data?.docs[index]["transfer_amount"]} PLN',
-                                      icon: Icon(
-                                        Icons.local_grocery_store,
-                                      )),
-                                ),
-
-                              ],
-                            );}}
-                      return Center(
-                        child: Padding(padding: EdgeInsets.only(top: 100),
-                          child: Column(
-                            children: [
-                              SpinKitChasingDots(
-                                color: Colors.orangeAccent,
-                                size: 50.0,
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                    "Waiting...",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 20),)
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              },
-            ),
+        body: StreamBuilder_transactions(),
 
 
       ),
     );
+  }
+}
+
+class StreamBuilder_transactions extends StatelessWidget {
+  const StreamBuilder_transactions({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('transactions')
+          // .where('Id', isEqualTo: Id_Of_current_application)
+          //     .where('title', isEqualTo: card_title_accepted)
+          //     .where('category', isEqualTo: card_category_accepted)
+          //     .where('comment', isEqualTo: card_comment_accepted)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+            return ListView.builder(
+                itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
+                itemBuilder: (ctx, index) {
+                  if (streamSnapshot.hasData){
+                    switch (streamSnapshot.connectionState){
+                      case ConnectionState.waiting:
+                        return  ListView(
+                            children: [
+                              SizedBox(
+                                width: 60,
+                                height: 60,
+                                child: CircularProgressIndicator(),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 16),
+                                child: Text('Awaiting data...'),
+                              )
+                            ]
+
+                        );
+
+                      case ConnectionState.active:
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                      // left: MediaQuery.of(context).size.height * 0.01,
+                                      bottom: MediaQuery.of(context).size.height * 0.02,
+                                      top: MediaQuery.of(context).size.height * 0.02),
+                              child: Labels(
+                                  name: streamSnapshot.data?.docs[index]['category_name'],
+                                  date: streamSnapshot.data?.docs[index]['date'],
+                                  price: '${streamSnapshot.data?.docs[index]["transfer_amount"]} PLN',
+
+                              ),
+                            ),
+
+                          ],
+                        );}}
+                  return Center(
+                    child: Padding(padding: EdgeInsets.only(top: 100),
+                      child: Column(
+                        children: [
+                          SpinKitChasingDots(
+                            color: Colors.orangeAccent,
+                            size: 50.0,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                                "Waiting...",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,fontSize: 24,color: Colors.black,)
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 20),)
+                        ],
+                      ),
+                    ),
+                  );
+                });
+          },
+        );
   }
 }

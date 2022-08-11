@@ -19,9 +19,12 @@ class BottomWidget extends StatelessWidget {
       ),
       child: Stack(
         children: [
-
           Container(
-
+            height: MediaQuery.of(context).size.height * 0.4,
+            // width: MediaQuery.of(context).size.width * 1,
+            color: Colors.white,
+          ),
+          Container(
             height: MediaQuery.of(context).size.height * 0.4,
             // width: MediaQuery.of(context).size.width * 1,
             color: Colors.white,
@@ -38,81 +41,146 @@ class BottomWidget extends StatelessWidget {
                   //     .where('comment', isEqualTo: card_comment_accepted)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                  ),
-                  child: ListView.builder(
-                      itemCount: !streamSnapshot.hasData
-                          ? 1
-                      : 3,
-                          // : streamSnapshot.data?.docs.length,
-                      itemBuilder: (ctx, index) {
-                        if (streamSnapshot.hasData) {
-                          switch (streamSnapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return ListView(children: const [
-                                SizedBox(
-                                  width: 60,
-                                  height: 60,
-                                  child: CircularProgressIndicator(),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 16),
-                                  child: Text('Awaiting data...'),
-                                )
-                              ]);
-                            case ConnectionState.active:
-                              return Column(
-                                children: [
+
+                if (streamSnapshot.data!.docs.isEmpty){
+                  return Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 100),
+                      child: Column(
+                        children: const [
+                          // SpinKitChasingDots(
+                          //   color: Colors.orangeAccent,
+                          //   size: 50.0,
+                          // ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text("There is no data...",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Colors.black,
+                                )),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                else if(streamSnapshot.data!.docs.isNotEmpty){
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    child: ListView.builder(
+                        itemCount: streamSnapshot.hasData ? streamSnapshot.data!.docs.length>3?3:streamSnapshot.data?.docs.length : 0,
+                        // : streamSnapshot.data?.docs.length,
+                        itemBuilder: (ctx, index) {
+                          if (streamSnapshot.hasData) {
+                            switch (streamSnapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return ListView(children: const [
+                                  SizedBox(
+                                    width: 60,
+                                    height: 60,
+                                    child: CircularProgressIndicator(),
+                                  ),
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: EdgeInsets.only(top: 16),
+                                    child: Text('Awaiting data...'),
+                                  )
+                                ]);
+                              case ConnectionState.active:
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
                                         // left: MediaQuery.of(context).size.height * 0.01,
                                         //   bottom: MediaQuery.of(context).size.height * 0.02,
-                                        top: MediaQuery.of(context).size.height *
-                                            0.03),
-                                    child: Labels(
+                                          top:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height *
+                                              0.03),
+                                      child: Labels(
                                         name: streamSnapshot.data?.docs[index]
-                                            ['category_name'],
+                                        ['category_name'],
                                         date: streamSnapshot.data?.docs[index]
-                                            ['date'],
+                                        ['date'],
                                         price:
-                                            '${streamSnapshot.data?.docs[index]["transfer_amount"]} PLN',
-                                        icon: Icon(
-                                          Icons.local_grocery_store,
+                                        '${streamSnapshot.data
+                                            ?.docs[index]["transfer_amount"]} PLN',
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              case ConnectionState.none:
+
+                              case ConnectionState.done:
+                              // TODO: Handle this case.
+                                break;
+                            }
+                          }
+                          // else if (!streamSnapshot.hasData) {
+                          //   return Center(
+                          //     child: Padding(
+                          //       padding: const EdgeInsets.only(top: 100),
+                          //       child: Column(
+                          //         children: const [
+                          //           SpinKitChasingDots(
+                          //             color: Colors.orangeAccent,
+                          //             size: 50.0,
+                          //           ),
+                          //           Align(
+                          //             alignment: Alignment.center,
+                          //             child:
+                          //             Text("There is still no transfers...",
+                          //                 style: TextStyle(
+                          //                   fontWeight: FontWeight.bold,
+                          //                   fontSize: 24,
+                          //                   color: Colors.black,
+                          //                 )),
+                          //           ),
+                          //           Padding(
+                          //             padding: EdgeInsets.only(top: 20),
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   );
+                          // }
+                          return Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: const [
+                                  SpinKitChasingDots(
+                                    color: Colors.orangeAccent,
+                                    size: 50.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("Waiting...",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          color: Colors.black,
                                         )),
                                   ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                  )
                                 ],
-                              );
-                          }
-                        }
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 100),
-                            child: Column(
-                              children: const [
-                                SpinKitChasingDots(
-                                  color: Colors.orangeAccent,
-                                  size: 50.0,
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text("Waiting...",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                        color: Colors.black,
-                                      )),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 20),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                );
+                          );
+                        }),
+                  );
+                }
+                return Container();
               },
             ),
             // Padding(
@@ -142,7 +210,8 @@ class BottomWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const History()),
+                        MaterialPageRoute(
+                            builder: (context) => const History()),
                       );
                     },
                     child: Text("History",
