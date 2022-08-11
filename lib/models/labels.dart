@@ -19,64 +19,73 @@ class Labels extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                // margin: EdgeInsets.all(20),
-                // padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(width: 2, color: Colors.orangeAccent)),
-                width: 37,
-                height: 37,
-                // decoration: const BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     color: Colors.orange
-                // ),
-                child: Icon(
-                  icon.icon,
-                  color: Colors.orangeAccent,
-                  size: 25,
-                ),
-              ),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.03),
-                      child: Text(
-                        name,
-                        softWrap: true,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.01),
-                      child: Text(
-                        date,
-                        softWrap: true,
-                        style: const TextStyle(fontSize: 12),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ]),
-            ],
+          Container(
+            // margin: EdgeInsets.all(20),
+            // padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              // shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(width: 2, color: Colors.orangeAccent)),
+            width: 37,
+            height: 37,
+            // decoration: const BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     color: Colors.orange
+            // ),
+            child: Icon(
+              icon.icon,
+              color: Colors.orangeAccent,
+              size: 25,
+            ),
+          ),
+          SizedBox(
+            width: 10,
           ),
           Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.height * 0.00),
-              child: Text(
-                price,
-                softWrap: true,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
-                textAlign: TextAlign.right,
-              ))
+            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Expanded(
+                flex: 7,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          name,
+                          softWrap: true,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          date,
+                          softWrap: true,
+                          style: const TextStyle(fontSize: 12),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              price,
+              softWrap: true,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+              textAlign: TextAlign.right,
+            ),
+          )
         ],
       ),
     );

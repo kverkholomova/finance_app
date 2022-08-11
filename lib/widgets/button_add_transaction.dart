@@ -31,7 +31,7 @@ class ButtonAddTransaction extends StatelessWidget {
                 onPressed: () async{
                   ID = FirebaseAuth.instance.currentUser?.uid;
                   await FirebaseFirestore.instance
-                      .collection('transfers')
+                      .collection('transactions')
                       .add({
                     'userID': ID,
                     "transfer_amount": userInput,

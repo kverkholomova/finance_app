@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/logo.png',
         splashIconSize: 180,
         nextScreen: Wrapper(),
-        splashTransition: SplashTransition.fadeTransition,
+        splashTransition: SplashTransition.rotationTransition,
         duration: 2000,
       )
     );
