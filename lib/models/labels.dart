@@ -19,7 +19,7 @@ class Labels extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -64,46 +64,37 @@ class Labels extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Padding(
-            padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Expanded(
-                flex: 7,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          name,
-                          softWrap: true,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          date,
-                          softWrap: true,
-                          style: const TextStyle(fontSize: 12),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ]),
-              ),
+          Expanded(
+            flex: 7,
+            child: Padding(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      softWrap: true,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 17),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      date,
+                      softWrap: true,
+                      style: const TextStyle(fontSize: 12),
+                      textAlign: TextAlign.left,
+                    ),
+                  ]),
             ),
           ),
           Expanded(
-            flex: 2,
+            flex:4,
             child: Text(
               price,
               softWrap: true,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.left,
             ),
           )
         ],

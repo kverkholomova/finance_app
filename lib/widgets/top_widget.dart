@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/histogram.dart';
@@ -25,9 +26,9 @@ class TopWidget extends StatelessWidget {
 
             StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection('transactions')
+                  .collection('users')
               // .where('Id', isEqualTo: Id_Of_current_application)
-              //     .where('title', isEqualTo: card_title_accepted)
+              //     .where('time', isLessThanOrEqualTo: DateTime.now())
               //     .where('category', isEqualTo: card_category_accepted)
               //     .where('comment', isEqualTo: card_comment_accepted)
                   .snapshots(),
@@ -95,8 +96,7 @@ class TopWidget extends StatelessWidget {
                                 child: Align(
                                   alignment: Alignment.topCenter,
                                   child: Text(
-                                      '${streamSnapshot.data
-                                          ?.docs[index]["summa"]} PLN',
+                                      '${streamSnapshot.data?.docs[index]['summa']} PLN',
                                       style: GoogleFonts.raleway(
                                         fontSize: 25,
                                         color: Colors.white,

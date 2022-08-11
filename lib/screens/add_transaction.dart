@@ -48,7 +48,7 @@ class _AddTransactionState extends State<AddTransaction> {
         title: Align(
           alignment: Alignment.topCenter,
           child: Text(
-            "0${DateTime.now().day}.0${DateTime.now().month}.${DateTime.now().year}",
+            '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
             style: GoogleFonts.raleway(
               fontSize: 25,
               color: Colors.orangeAccent,
@@ -302,7 +302,11 @@ class _AddTransactionState extends State<AddTransaction> {
                           child: IconButton(
                               icon: const Icon(Icons.backspace),
                               onPressed: () {
-
+                                setState(() {
+                                  userInput = userInput.substring(0, userInput.length - 1);
+                                  print("LLLLLLLLOOOOOOOOOOOOOOOOKKKKKKKKKKK");
+                                  print(userInput);
+                                });
                               }),
                         )
                       ],

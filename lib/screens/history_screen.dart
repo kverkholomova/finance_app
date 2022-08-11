@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/screens/home_screen.dart';
+import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,7 +77,9 @@ class StreamBuilder_transactions extends StatelessWidget {
             return ListView.builder(
                 itemCount: !streamSnapshot.hasData? 1:streamSnapshot.data?.docs.length,
                 itemBuilder: (ctx, index) {
+
                   if (streamSnapshot.hasData){
+
                     switch (streamSnapshot.connectionState){
                       case ConnectionState.waiting:
                         return  ListView(

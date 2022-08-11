@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../models/labels.dart';
 import '../screens/history_screen.dart';
+import 'button_add_transaction.dart';
 
+var userId;
 class BottomWidget extends StatelessWidget {
   const BottomWidget({
     Key? key,
@@ -79,19 +81,31 @@ class BottomWidget extends StatelessWidget {
                         // : streamSnapshot.data?.docs.length,
                         itemBuilder: (ctx, index) {
                           if (streamSnapshot.hasData) {
+
+                            userId = streamSnapshot.data?.docs[index]['userID'];
                             switch (streamSnapshot.connectionState) {
                               case ConnectionState.waiting:
-                                return ListView(children: const [
-                                  SizedBox(
-                                    width: 60,
-                                    height: 60,
-                                    child: CircularProgressIndicator(),
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height * 0.0,
+                                    // bottom: MediaQuery.of(context).size.height * 0.01
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16),
-                                    child: Text('Awaiting data...'),
-                                  )
-                                ]);
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Text(
+                                        "Waiting for data",
+                                        style: GoogleFonts.raleway(
+                                          fontSize: 25,
+                                          color: Colors.white,
+                                          // fontWeight: FontWeight.bold
+                                        )
+                                      // TextStyle(
+                                      //     color: Colors.white,
+                                      //     fontWeight: FontWeight.bold,
+                                      //     fontSize: 25),
+                                    ),
+                                  ),
+                                );
                               case ConnectionState.active:
                                 return Column(
                                   children: [
