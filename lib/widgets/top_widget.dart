@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/histogram.dart';
@@ -27,10 +28,7 @@ class TopWidget extends StatelessWidget {
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('users')
-              // .where('Id', isEqualTo: Id_Of_current_application)
-              //     .where('time', isLessThanOrEqualTo: DateTime.now())
-              //     .where('category', isEqualTo: card_category_accepted)
-              //     .where('comment', isEqualTo: card_comment_accepted)
+                  .where('ID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
 

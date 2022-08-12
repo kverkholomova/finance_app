@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,14 +31,10 @@ class BottomWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.4,
             // width: MediaQuery.of(context).size.width * 1,
             color: Colors.white,
-            child:
-                // ListView(
-                //   children: [
-
-                StreamBuilder(
+            child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('transactions')
-                  // .where('Id', isEqualTo: Id_Of_current_application)
+                  .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                   //     .where('title', isEqualTo: card_title_accepted)
                   //     .where('category', isEqualTo: card_category_accepted)
                   //     .where('comment', isEqualTo: card_comment_accepted)
@@ -50,10 +47,6 @@ class BottomWidget extends StatelessWidget {
                       padding: EdgeInsets.only(top: 100),
                       child: Column(
                         children: const [
-                          // SpinKitChasingDots(
-                          //   color: Colors.orangeAccent,
-                          //   size: 50.0,
-                          // ),
                           Align(
                             alignment: Alignment.center,
                             child: Text("There is no data...",
@@ -138,34 +131,6 @@ class BottomWidget extends StatelessWidget {
                                 break;
                             }
                           }
-                          // else if (!streamSnapshot.hasData) {
-                          //   return Center(
-                          //     child: Padding(
-                          //       padding: const EdgeInsets.only(top: 100),
-                          //       child: Column(
-                          //         children: const [
-                          //           SpinKitChasingDots(
-                          //             color: Colors.orangeAccent,
-                          //             size: 50.0,
-                          //           ),
-                          //           Align(
-                          //             alignment: Alignment.center,
-                          //             child:
-                          //             Text("There is still no transfers...",
-                          //                 style: TextStyle(
-                          //                   fontWeight: FontWeight.bold,
-                          //                   fontSize: 24,
-                          //                   color: Colors.black,
-                          //                 )),
-                          //           ),
-                          //           Padding(
-                          //             padding: EdgeInsets.only(top: 20),
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   );
-                          // }
                           return Center(
                             child: Padding(
                               padding: EdgeInsets.only(top: 100),

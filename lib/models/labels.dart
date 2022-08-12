@@ -94,7 +94,7 @@ class Labels extends StatelessWidget {
               price,
               softWrap: true,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
-              textAlign: TextAlign.left,
+              textAlign: TextAlign.right,
             ),
           )
         ],

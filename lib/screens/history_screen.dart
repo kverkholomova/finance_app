@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,10 +69,7 @@ class StreamBuilder_transactions extends StatelessWidget {
     return StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('transactions')
-          // .where('Id', isEqualTo: Id_Of_current_application)
-          //     .where('title', isEqualTo: card_title_accepted)
-          //     .where('category', isEqualTo: card_category_accepted)
-          //     .where('comment', isEqualTo: card_comment_accepted)
+              .where('userID', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
             return ListView.builder(

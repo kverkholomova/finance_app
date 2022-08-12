@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/models/database/users.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'all_users.dart';
 
@@ -19,7 +20,8 @@ class DatabaseService{
       'leisure_summa':0,
       'fuel_summa':0,
       'cosmetics_summa':0,
-      'health_summa':0
+      'health_summa':0,
+      'ID': FirebaseAuth.instance.currentUser!.uid
 
 
       // 'volunteer_name': volunteer_name,

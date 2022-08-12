@@ -80,12 +80,21 @@ class _SignInState extends State<SignIn> {
 
               Padding(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-                child: TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: "Email"),
-                  validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-                  onChanged: (val) {
-                    setState(() => email = val);
+                child: GestureDetector(
+                  onTap: (){
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                   },
+
+                  child: TextFormField(
+                    decoration: textInputDecoration.copyWith(hintText: "Email"),
+                    validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                    onChanged: (val) {
+                      setState(() => email = val);
+                    },
+                  ),
                 ),
               ),
               // Padding(
@@ -101,13 +110,21 @@ class _SignInState extends State<SignIn> {
               // ),
               Padding(
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03),
-                child: TextFormField(
-                  obscureText: true,
-                  decoration: textInputDecoration.copyWith(hintText: "Password"),
-                  validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
-                  onChanged: (val) {
-                    setState(() => password = val);
+                child: GestureDetector(
+                  onTap: (){
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                   },
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration: textInputDecoration.copyWith(hintText: "Password"),
+                    validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long' : null,
+                    onChanged: (val) {
+                      setState(() => password = val);
+                    },
+                  ),
                 ),
               ),
 
