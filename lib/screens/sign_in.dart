@@ -1,12 +1,18 @@
+import 'dart:html';
+
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 import '../services/auth.dart';
 
 bool optionSignIn = true;
+const String SHARED_LOGGED = "USER_IS_LOGGED";
+const String SHARED_USER = "USER";
+const String SHARED_PASSWORD = "PASSWORD";
 class SignIn extends StatefulWidget {
 
   final Function toggleView;
@@ -207,6 +213,15 @@ class _SignInState extends State<SignIn> {
                                   });
                                 }
                                 else{
+                                  // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  // prefs.setBool("isLoggedIn", true);
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('email', email);
+                                  prefs.setString('password', password);
+                                  // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  // await prefs.setBool(SHARED_LOGGED, true);
+                                  // await prefs.setString(SHARED_USER, email);
+                                  // await prefs.setString(SHARED_PASSWORD, password);
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) => MyHomePage()));
                                 }
