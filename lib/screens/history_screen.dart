@@ -24,7 +24,7 @@ class _HistoryState extends State<History> {
       onWillPop: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const MyHomePage()),
+          MaterialPageRoute(builder: (context) =>  MyHomePage()),
         );
         return poop;
       },
@@ -42,7 +42,7 @@ class _HistoryState extends State<History> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyHomePage()),
+                MaterialPageRoute(builder: (context) =>  MyHomePage()),
               );
             },
             icon: const Icon(

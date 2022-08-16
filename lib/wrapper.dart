@@ -7,7 +7,8 @@ import 'authenticate/authenticate.dart';
 import 'models/database/users.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  Wrapper({Key? key}) : super(key: key);
+  String id = "wrapper";
 
   @override
   Widget build(BuildContext context) {

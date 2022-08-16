@@ -5,8 +5,9 @@ import '../widgets/bottom_widget.dart';
 import '../widgets/top_widget.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
+  String id = "homepage";
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
