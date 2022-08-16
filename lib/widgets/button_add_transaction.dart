@@ -85,7 +85,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       'cosmetics_summa':cosmeticsTransactions,
                       'health_summa':healthTransactions
                     });
-
                     if(valueChosen == "Groceries"){
                       chartData.add(ChartData(valueChosen, groceriesTransactions));
                     }

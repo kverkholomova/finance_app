@@ -81,7 +81,7 @@ class StreamBuilder_transactions extends StatelessWidget {
                     switch (streamSnapshot.connectionState){
                       case ConnectionState.waiting:
                         return  ListView(
-                            children: [
+                            children: const [
                               SizedBox(
                                 width: 60,
                                 height: 60,
@@ -92,7 +92,6 @@ class StreamBuilder_transactions extends StatelessWidget {
                                 child: Text('Awaiting data...'),
                               )
                             ]
-
                         );
 
                       case ConnectionState.active:
@@ -116,7 +115,7 @@ class StreamBuilder_transactions extends StatelessWidget {
                   return Center(
                     child: Padding(padding: EdgeInsets.only(top: 100),
                       child: Column(
-                        children: [
+                        children: const [
                           SpinKitChasingDots(
                             color: Colors.orangeAccent,
                             size: 50.0,
