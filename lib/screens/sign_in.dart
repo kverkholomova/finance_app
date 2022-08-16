@@ -273,7 +273,7 @@ class _SignInState extends State<SignIn> {
           validator: (val) =>
           val!.isEmpty
               ? errorText
-              : hintTextName == "Password"? val!.length < 6 ? 'Enter a password 6+ chars long' : null: null,
+              : hintTextName == "Password"? val.length < 6 ? 'Enter a password 6+ chars long' : null: null,
           onChanged: (val) {
             setState(() => valueChanged = val);
           },

@@ -69,7 +69,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                         .collection('transactions')
                         .add({
                       'userID': ID,
-                      "transfer_amount": userInput,
+                      "transfer_amount": double.parse(userInput),
                       "category_name": valueChosen,
                       "summa": sumTransactions,
                       "time": '${DateTime.now()}',

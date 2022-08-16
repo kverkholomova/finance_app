@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         // fit: StackFit.passthrough,
         children: [
-          const TopWidget(),
+          TopWidget(),
           const BottomWidget(),
           Padding(
             padding:
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AddTransaction()),
+                      MaterialPageRoute(builder: (context) => AddTransaction()),
                     );
                   }),
             ),

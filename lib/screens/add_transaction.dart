@@ -81,6 +81,7 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   Padding buildTopWidget(BuildContext context) {
+    valueChosen = dropdownItemList[3]["value"];
     return Padding(
       padding:
       EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.5),

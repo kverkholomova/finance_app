@@ -89,7 +89,7 @@ class Labels extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex:4,
+            flex:6,
             child: Text(
               price,
               softWrap: true,

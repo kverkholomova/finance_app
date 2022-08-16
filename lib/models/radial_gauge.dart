@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -11,12 +12,13 @@ class RadialGauge extends StatelessWidget {
     return SfRadialGauge(
       axes: [
         RadialAxis(
+          canScaleToFit: true,
           startAngle: 0,
           endAngle: 360,
           showLabels: false,
           showTicks: false,
           minimum: 0,
-          maximum: 360,
+          maximum: 100,
           interval: 10,
           radiusFactor: 0.26,
           axisLineStyle: const AxisLineStyle(
