@@ -23,30 +23,14 @@ class _TopWidgetState extends State<TopWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.purple,
-        actions: [
-          Positioned(
-              top: MediaQuery.of(context).size.height * 0.08,
-              left: MediaQuery.of(context).size.width * 0.8,
-              child: IconButton(
-                icon: Icon(Icons.logout, color: Colors.orangeAccent,size: 30,),
-                onPressed: () async {
-                  setState(() async {
-                    print("PPPPPPPPPresssssssssssssssed");
-                    await _auth.signOut();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Wrapper()),
-                    );
-                  });
-
-                },
-              )),
-        ],
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   elevation: 0,
+      //   backgroundColor: Colors.purple,
+      //   actions: [
+      //
+      //   ],
+      // ),
       body: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.4),
