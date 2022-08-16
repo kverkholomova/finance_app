@@ -1,9 +1,10 @@
 class AllUsers{
 
   final String name;
-  final String phone;
+  final String emailAddress;
 
-  AllUsers({required this.name,required this.phone});
+
+  AllUsers({required this.name, required this.emailAddress});
 
 
 }

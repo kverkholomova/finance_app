@@ -11,10 +11,10 @@ class DatabaseService{
   //collection reference
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
-  Future updateUserData(String name, String phone,) async{
+  Future updateUserData(String name, String email_address,) async{
     return await userCollection.doc(uid).set({
       'name': name,
-      'phone_number': phone,
+      'email': email_address,
       'summa': 0,
       'groceries_summa': 0,
       'leisure_summa':0,
@@ -53,7 +53,7 @@ class DatabaseService{
     return snapshot.docs.map((doc){
       return AllUsers(
         name: doc.get('name') ?? '',
-        phone: doc.get('phone') ?? '',
+        emailAddress: doc.get('email_address') ?? '',
         // volunteer_name: doc.get('volunteer_name') ?? '',
         // surname: doc.get('surname') ?? '',
         // phone_number: doc.get('phone_number') ?? '',
@@ -69,7 +69,7 @@ class DatabaseService{
     return UserData(
       uid: uid,
       name: snapshot.get('name'),
-      phone: snapshot.get('phone'),
+      emailAddress: snapshot.get('email_address'),
 
       // volunteer_name: snapshot.get('volunteer_name'),
       // volunteer_surname: snapshot.get('volunteer_surname'),
