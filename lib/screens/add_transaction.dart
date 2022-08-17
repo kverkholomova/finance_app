@@ -2,6 +2,7 @@ import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants.dart';
 import '../models/data.dart';
 
 import '../widgets/button_add_transaction.dart';
@@ -9,6 +10,7 @@ import '../widgets/button_add_transaction.dart';
 import 'home_screen.dart';
 
 Color iconColor = Colors.orangeAccent;
+
 class AddTransaction extends StatefulWidget {
   const AddTransaction({Key? key}) : super(key: key);
 
@@ -19,19 +21,17 @@ class AddTransaction extends StatefulWidget {
 var valueChosen = '';
 var valueIcon;
 String userInput = '0';
+
 class _AddTransactionState extends State<AddTransaction> {
-
-
-
   String option = '';
   int index = 0;
   double second = 0;
   double first = 0;
   String number = '';
   double answerDouble = 0;
-  int answerInt=0;
+  int answerInt = 0;
   double answer = 0;
-  num third =0;
+  num third = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +48,12 @@ class _AddTransactionState extends State<AddTransaction> {
         title: Align(
           alignment: Alignment.topCenter,
           child: Text(
-            '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
-            style: GoogleFonts.raleway(
-              fontSize: 25,
-              color: Colors.orangeAccent,
-            ),
+            '${DateTime.now().day.toString().length < 2 ? "0${DateTime.now().day}" : DateTime.now().day} / ${DateTime.now().month.toString().length < 2 ? "0${DateTime.now().month}" : DateTime.now().month} / ${DateTime.now().year}',
+            style: headStyle,
           ),
         ),
         leading: IconButton(
-          icon: const Icon(
-            Icons.close,
-            color: Colors.orangeAccent,
-          ),
+          icon: closeIcon,
           onPressed: () {
             Navigator.push(
               context,
@@ -84,7 +78,7 @@ class _AddTransactionState extends State<AddTransaction> {
     valueChosen = dropdownItemList[3]["value"];
     return Padding(
       padding:
-      EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.5),
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.5),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.4,
         color: Colors.purple,
@@ -106,60 +100,29 @@ class _AddTransactionState extends State<AddTransaction> {
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //       top: MediaQuery.of(context).size.height * 0.05),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(10),
-              //         color: Colors.purple,
-              //         border: Border.all(color: Colors.orangeAccent, width: 3)),
-              //     child: DropdownButton(
-              //       // value: dropdownValue,
-              //       items: data.map((DropDownData items) {
-              //         return DropdownMenuItem(
-              //           value: items,
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Row(
-              //               children: [
-              //                 Icon(items.icon.icon),
-              //                 Text(items.name),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       }).toList(),
-              //       onChanged: (value) {
-              //         setState(() {
-              //           value;
-              //         });
-              //       },
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.05),
                 child: Align(
                   alignment: Alignment.center,
                   child: CoolDropdown(
-
-                    unselectedItemTS: const TextStyle(color: Colors.orangeAccent, fontSize: 20),
-                    dropdownItemPadding: const EdgeInsets.symmetric(horizontal: 20),
+                    unselectedItemTS: const TextStyle(
+                        color: Colors.orangeAccent, fontSize: 20),
+                    dropdownItemPadding:
+                        const EdgeInsets.symmetric(horizontal: 20),
                     resultHeight: MediaQuery.of(context).size.height * 0.09,
                     resultBD: BoxDecoration(
                         color: Colors.purple,
                         borderRadius: BorderRadius.circular(10),
                         border:
-                        Border.all(width: 3.5, color: Colors.orangeAccent)),
-                    resultTS:
-                    const TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                            Border.all(width: 3.5, color: Colors.orangeAccent)),
+                    resultTS: const TextStyle(
+                        color: Colors.orangeAccent, fontSize: 20),
                     placeholderTS: TextStyle(
                         color: Colors.orangeAccent.withOpacity(0.7),
                         fontSize: 20),
-                    selectedItemTS:
-                    const TextStyle(color: Colors.orangeAccent, fontSize: 20),
+                    selectedItemTS: const TextStyle(
+                        color: Colors.orangeAccent, fontSize: 20),
                     selectedItemBD: BoxDecoration(
                         color: Colors.orangeAccent.withOpacity(0.2)),
                     dropdownBD: BoxDecoration(
@@ -178,13 +141,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     dropdownWidth: MediaQuery.of(context).size.width * 0.8,
                     dropdownList: dropdownItemList,
                     onChange: (newVal) {
-
-                      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                      print(newVal["value"]);
                       valueChosen = newVal["value"];
                       valueIcon = newVal["icon"].toString();
-                      // label_name = dropdownItemList.toString();
-                      // iconColor = Colors.orangeAccent;
                     },
                     defaultValue: dropdownItemList[3],
                   ),
@@ -199,12 +157,15 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Padding buildBottomWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.32,  bottom: MediaQuery.of(context).size.height * 0.05),
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.32,
+          bottom: MediaQuery.of(context).size.height * 0.05),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.55,
         color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.07),
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height * 0.07),
           child: Stack(
             children: [
               Column(
@@ -217,10 +178,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           flex: 1,
                           child: buildTextButton("7"),
                         ),
-                        Expanded(
-                            flex: 1,
-                            child: buildTextButton("8")
-                        ),
+                        Expanded(flex: 1, child: buildTextButton("8")),
                         Expanded(
                           flex: 1,
                           child: buildTextButton("9"),
@@ -276,20 +234,17 @@ class _AddTransactionState extends State<AddTransaction> {
                               child: const Text(
                                 ".",
                                 style: TextStyle(
-                                    fontSize: 45,
-                                    color: Colors.black),
+                                    fontSize: 45, color: Colors.black),
                               ),
                               onPressed: () {
                                 setState(() {
                                   if (userInput == '0') {
                                     userInput = '0.';
                                   } else {
-                                    userInput = userInput + '.';
-                                    second = double.parse(userInput
-                                        .substring(userInput.length -
-                                        (userInput.length -
-                                            index)));
-
+                                    userInput = '$userInput.';
+                                    second = double.parse(userInput.substring(
+                                        userInput.length -
+                                            (userInput.length - index)));
                                   }
                                 });
                               }),
@@ -304,9 +259,8 @@ class _AddTransactionState extends State<AddTransaction> {
                               icon: const Icon(Icons.backspace),
                               onPressed: () {
                                 setState(() {
-                                  userInput = userInput.substring(0, userInput.length - 1);
-                                  print("LLLLLLLLOOOOOOOOOOOOOOOOKKKKKKKKKKK");
-                                  print(userInput);
+                                  userInput = userInput.substring(
+                                      0, userInput.length - 1);
                                 });
                               }),
                         )
@@ -321,36 +275,23 @@ class _AddTransactionState extends State<AddTransaction> {
       ),
     );
   }
+
   TextButton buildTextButton(String valueButton) {
     return TextButton(
         child: Text(
           valueButton,
-          style: const TextStyle(
-              fontSize: 30,
-              color: Colors.black),
+          style: const TextStyle(fontSize: 30, color: Colors.black),
         ),
         onPressed: () {
           setState(() {
             if (userInput == '0') {
               userInput = valueButton;
-            }
-            else {
+            } else {
               userInput = userInput + valueButton;
               second = double.parse(userInput
-                  .substring(userInput.length -
-                  (userInput.length -
-                      index)));
-
+                  .substring(userInput.length - (userInput.length - index)));
             }
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const AddTransaction()),
-            // );
-            // Navigator.pushNamed(context, '/TopWidgetTransaction',
-            // arguments: {"input": userInput}
-            // );
           });
         });
   }
-
 }

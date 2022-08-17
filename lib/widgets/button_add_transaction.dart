@@ -42,7 +42,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Colors.orangeAccent, width: 2),
+                  side: const BorderSide(color: Colors.orangeAccent, width: 2),
                 ),
                 onPressed: () async{
                   setState(() async {
@@ -101,8 +101,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                     else if(valueChosen == 'Health'){
                       chartData.add(ChartData(valueChosen, healthTransactions));
                     }
-
-                    // sumTransactions = sumTransactions + double.parse(userInput);
                     userInput = "0";
                     Navigator.push(
                       context,
@@ -110,7 +108,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                     );
                   });
                 },
-                child: Text("Add transaction", style: TextStyle(color: Colors.black, fontSize: 16),)),
+                child: const Text("Add transaction", style: const TextStyle(color: Colors.black, fontSize: 16),)),
           ),
         ),
       ),

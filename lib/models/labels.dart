@@ -19,22 +19,14 @@ class Labels extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            // margin: EdgeInsets.all(20),
-            // padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              // shape: BoxShape.circle,
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(width: 2, color: Colors.orangeAccent)),
             width: 37,
             height: 37,
-            // decoration: const BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     color: Colors.orange
-            // ),
             child: name == 'Groceries' ? const Icon(
               Icons.local_grocery_store,
               color: Colors.orangeAccent,

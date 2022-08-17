@@ -18,9 +18,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        // fit: StackFit.passthrough,
         children: [
-          TopWidget(),
+          const TopWidget(),
           const BottomWidget(),
           Padding(
             padding:
@@ -36,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddTransaction()),
+                      MaterialPageRoute(builder: (context) => const AddTransaction()),
                     );
                   }),
             ),
