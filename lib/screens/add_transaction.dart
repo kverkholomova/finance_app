@@ -55,6 +55,7 @@ class _AddTransactionState extends State<AddTransaction> {
         leading: IconButton(
           icon: closeIcon,
           onPressed: () {
+            userInput = '0.00';
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => MyHomePage()),
@@ -242,8 +243,9 @@ class _AddTransactionState extends State<AddTransaction> {
                                 setState(() {
                                   if (userInput == '0.00') {
                                     userInput = '0.';
-                                  } else {
-                                    userInput = '$userInput.';
+                                  } else{
+                                    userInput = userInput.substring(0,
+                                        userInput.length -2);
                                     second = double.parse(userInput.substring(
                                         userInput.length -
                                             (userInput.length - index)));
@@ -290,12 +292,26 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         onPressed: () {
           setState(() {
+            print("AAAAAAAAAAAAAAAAAAAAAA");
+            if (userInput.length>=4) {
+              print(userInput[userInput.length-3]);
+            }
             if (userInput == '0.00') {
               userInput = valueButton;
-            } else {
+            } else if(userInput.length>=4 && userInput[userInput.length-3] == ".") {
+              userInput.substring(userInput.length - 2);
+              userInput = userInput + valueButton;
+            }
+            else if (userInput.contains(".")){
               userInput = userInput + valueButton;
               second = double.parse(userInput
                   .substring(userInput.length - (userInput.length - index)));
+            }
+            else{
+            userInput = userInput + valueButton + '.00';
+            second = double.parse(userInput
+                .substring(userInput.length - (userInput.length - index)));
+
             }
           });
         });
