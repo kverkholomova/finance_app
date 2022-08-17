@@ -80,6 +80,7 @@ class _TopWidgetState extends State<TopWidget> {
                       .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
 
+
                     if (streamSnapshot.data!.docs.isEmpty){
                       return Padding(
                         padding: EdgeInsets.only(
@@ -108,7 +109,9 @@ class _TopWidgetState extends State<TopWidget> {
                           itemCount: streamSnapshot.hasData ? streamSnapshot.data!.docs.length>1?1:streamSnapshot.data?.docs.length : 0,
                           // : streamSnapshot.data?.docs.length,
                           itemBuilder: (ctx, index) {
+
                             if (streamSnapshot.hasData) {
+                              sumTransactions = streamSnapshot.data?.docs[index]['summa'];
                               switch (streamSnapshot.connectionState) {
                                 case ConnectionState.waiting:
                                   return Padding(

@@ -46,6 +46,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                 ),
                 onPressed: () async{
                   setState(() async {
+
                     sumTransactions = sumTransactions + double.parse(userInput);
                     if(valueChosen == "Groceries"){
                       groceriesTransactions = groceriesTransactions + double.parse(userInput);
