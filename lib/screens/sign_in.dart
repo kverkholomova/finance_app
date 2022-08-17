@@ -30,6 +30,12 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String password = '';
 
+  bool passwordVisible = false;
+  @override
+  void initState() {
+    passwordVisible = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +84,39 @@ class _SignInState extends State<SignIn> {
                           }
                         },
                         child: TextFormField(
-                          decoration: textInputDecoration.copyWith(hintText: "Password"),
+                          obscureText: !passwordVisible,
+                          decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.orangeAccent, width: 3),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.orangeAccent,
+                                    width: 3,
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    // Based on passwordVisible state choose the icon
+                                    passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.orangeAccent,
+                                  ),
+                                  onPressed: () {
+                                    // Update the state i.e. toogle the state of passwordVisible variable
+                                    setState(() {
+                                      passwordVisible = !passwordVisible;
+                                    });
+                                  },
+                                ),
+
+                              hintText: "Password"),
                           validator: (val) => val!.length < 6
                               ? 'Enter a password 6+ chars long'
                               : null,

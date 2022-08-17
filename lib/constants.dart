@@ -16,6 +16,7 @@ var textInputDecoration=InputDecoration(
     ),
     filled: true,
     fillColor: Colors.white,
+
 );
 
 TextStyle titleStyle = GoogleFonts.raleway(
