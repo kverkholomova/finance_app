@@ -22,29 +22,29 @@ class _TopWidgetState extends State<TopWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.purple,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.orangeAccent,
-              size: 30,
-            ),
-            onPressed: () async {
-              setState(() async {
-                await _auth.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Wrapper()),
-                );
-              });
-            },
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   elevation: 0,
+      //   backgroundColor: Colors.purple,
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.logout,
+      //         color: Colors.orangeAccent,
+      //         size: 30,
+      //       ),
+      //       onPressed: () async {
+      //         setState(() async {
+      //           await _auth.signOut();
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(builder: (context) => Wrapper()),
+      //           );
+      //         });
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.4),
@@ -54,6 +54,22 @@ class _TopWidgetState extends State<TopWidget> {
           child: Center(
             child: Stack(
               children: [
+                Positioned(
+                    left: MediaQuery.of(context).size.width * 0.0,
+                    right: MediaQuery.of(context).size.width * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.1,
+                    child: const FittedBox(fit: BoxFit.fitHeight, child: RadialGauge())),
+                Positioned(
+                  left: MediaQuery.of(context).size.width * 0.0,
+                  right: MediaQuery.of(context).size.width * 0.0,
+                  top: MediaQuery.of(context).size.height * 0.20,
+                  bottom: MediaQuery.of(context).size.height * 0.03,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Histogram(),
+                  ),
+                ),
+
                 StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('users')
@@ -63,15 +79,19 @@ class _TopWidgetState extends State<TopWidget> {
                   builder:
                       (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                     if (streamSnapshot.data!.docs.isEmpty) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.1,
-                        ),
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Text("0 PLN",
-                              style: titleStyle),
-                        ),
+                      return Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.1,
+                            ),
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Text("0 PLN",
+                                  style: titleStyle),
+                            ),
+                          ),
+                        ],
                       );
                     } else if (streamSnapshot.data!.docs.isNotEmpty) {
                       return ListView.builder(
@@ -107,35 +127,14 @@ class _TopWidgetState extends State<TopWidget> {
                                   );
 
                                 case ConnectionState.active:
-
-                                    // sumTransactions = double.parse(
-                                    //     "${streamSnapshot.data?.docs[index]['summa']}");
-                                    // groceriesTransactions = double.parse(
-                                    //     "${streamSnapshot.data?.docs[index]['groceries_summa']}");
-                                    // leisureTransactions = double.parse(
-                                    //     "${streamSnapshot.data?.docs[index]['leisure_summa']}");
-                                    // fuelTransactions = double.parse(
-                                    //     "${streamSnapshot.data?.docs[index]['fuel_summa']}");
-                                    // cosmeticsTransactions = double.parse(
-                                    //     "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
-                                    // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                                    // print(groceriesTransactions);
-                                    // print(leisureTransactions);
-                                    // print(fuelTransactions);
-                                    // print(cosmeticsTransactions);
-                                    // print(healthTransactions);
-
                                   return Padding(
                                     padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0,
+                                      left: MediaQuery.of(context).size.width*0.3,
+                                      top: MediaQuery.of(context).size.width*0.05,
                                     ),
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
-                                          '${streamSnapshot.data?.docs[index]['summa']} PLN',
-                                          style: titleStyle),
-                                    ),
+                                    child: Text(
+                                        '${streamSnapshot.data?.docs[index]['summa']} PLN',
+                                        style: titleStyle),
                                   );
 
                                 case ConnectionState.none:
@@ -160,21 +159,27 @@ class _TopWidgetState extends State<TopWidget> {
                     return Container();
                   },
                 ),
-                Positioned(
-                    left: MediaQuery.of(context).size.width * 0.0,
-                    right: MediaQuery.of(context).size.width * 0.0,
-                    bottom: MediaQuery.of(context).size.height * 0.1,
-                    child: const FittedBox(fit: BoxFit.fitHeight, child: RadialGauge())),
-                Positioned(
-                  left: MediaQuery.of(context).size.width * 0.0,
-                  right: MediaQuery.of(context).size.width * 0.0,
-                  top: MediaQuery.of(context).size.height * 0.20,
-                  bottom: MediaQuery.of(context).size.height * 0.03,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Histogram(),
+
+                Padding(
+                  padding: EdgeInsets.only(top:MediaQuery.of(context).size.width*0.09, left: MediaQuery.of(context).size.width*0.85,),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.orangeAccent,
+                      size: 30,
+                    ),
+                    onPressed: () async {
+                      setState(() async {
+                        await _auth.signOut();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Wrapper()),
+                        );
+                      });
+                    },
                   ),
-                )
+                ),
+
               ],
             ),
           ),
