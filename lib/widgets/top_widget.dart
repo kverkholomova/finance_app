@@ -168,7 +168,7 @@ class _TopWidgetState extends State<TopWidget> {
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.0,
                   right: MediaQuery.of(context).size.width * 0.0,
-                  top: MediaQuery.of(context).size.height * 0.36,
+                  top: MediaQuery.of(context).size.height * 0.20,
                   bottom: MediaQuery.of(context).size.height * 0.03,
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),

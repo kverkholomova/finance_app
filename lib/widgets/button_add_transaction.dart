@@ -141,7 +141,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                         'health_summa':healthTransactions,
                       });
                     }
-                    userInput = "0";
+                    userInput = "0.00";
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyHomePage()),

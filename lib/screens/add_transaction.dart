@@ -20,7 +20,7 @@ class AddTransaction extends StatefulWidget {
 
 String valueChosen =dropdownItemList[3]["value"];
 
-String userInput = '0';
+String userInput = '0.00';
 
 class _AddTransactionState extends State<AddTransaction> {
   String option = '';
@@ -146,7 +146,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       });
                       // valueIcon = newVal["icon"].toString();
                     },
-                    defaultValue:  {'label': 'Choose an option', 'value': 'Choose an option', 'icon': Icon(Icons.warning_rounded, color: iconColor,)},
+                    defaultValue: dropdownItemList[3],
                   ),
                 ),
               )
@@ -240,7 +240,7 @@ class _AddTransactionState extends State<AddTransaction> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  if (userInput == '0') {
+                                  if (userInput == '0.00') {
                                     userInput = '0.';
                                   } else {
                                     userInput = '$userInput.';
@@ -261,8 +261,12 @@ class _AddTransactionState extends State<AddTransaction> {
                               icon: const Icon(Icons.backspace),
                               onPressed: () {
                                 setState(() {
+                                  if (userInput.length>1){
                                   userInput = userInput.substring(
-                                      0, userInput.length - 1);
+                                      0, userInput.length - 1);}
+                                  else{
+                                    userInput = "0.00";
+                                  }
                                 });
                               }),
                         )
@@ -286,7 +290,7 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         onPressed: () {
           setState(() {
-            if (userInput == '0') {
+            if (userInput == '0.00') {
               userInput = valueButton;
             } else {
               userInput = userInput + valueButton;
