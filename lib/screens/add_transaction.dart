@@ -18,8 +18,8 @@ class AddTransaction extends StatefulWidget {
   State<AddTransaction> createState() => _AddTransactionState();
 }
 
-var valueChosen = '';
-var valueIcon;
+String valueChosen =dropdownItemList[3]["value"];
+
 String userInput = '0';
 
 class _AddTransactionState extends State<AddTransaction> {
@@ -75,7 +75,7 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   Padding buildTopWidget(BuildContext context) {
-    valueChosen = dropdownItemList[3]["value"];
+
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.5),
@@ -141,10 +141,12 @@ class _AddTransactionState extends State<AddTransaction> {
                     dropdownWidth: MediaQuery.of(context).size.width * 0.8,
                     dropdownList: dropdownItemList,
                     onChange: (newVal) {
-                      valueChosen = newVal["value"];
-                      valueIcon = newVal["icon"].toString();
+                      setState(() {
+                        valueChosen = newVal["value"];
+                      });
+                      // valueIcon = newVal["icon"].toString();
                     },
-                    defaultValue: dropdownItemList[3],
+                    defaultValue:  {'label': 'Choose an option', 'value': 'Choose an option', 'icon': Icon(Icons.warning_rounded, color: iconColor,)},
                   ),
                 ),
               )

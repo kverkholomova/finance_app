@@ -81,9 +81,17 @@ class _TopWidgetState extends State<TopWidget> {
                                   : streamSnapshot.data?.docs.length
                               : 0,
                           itemBuilder: (ctx, index) {
+                            sumTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['summa']}");
+                            groceriesTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['groceries_summa']}");
+                            leisureTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['leisure_summa']}");
+                            fuelTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['fuel_summa']}");
+                            cosmeticsTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
                             if (streamSnapshot.hasData) {
-                              sumTransactions = double.parse(
-                                  "${streamSnapshot.data?.docs[index]['summa']}");
                               switch (streamSnapshot.connectionState) {
                                 case ConnectionState.waiting:
                                   return Padding(
@@ -99,6 +107,24 @@ class _TopWidgetState extends State<TopWidget> {
                                   );
 
                                 case ConnectionState.active:
+
+                                    // sumTransactions = double.parse(
+                                    //     "${streamSnapshot.data?.docs[index]['summa']}");
+                                    // groceriesTransactions = double.parse(
+                                    //     "${streamSnapshot.data?.docs[index]['groceries_summa']}");
+                                    // leisureTransactions = double.parse(
+                                    //     "${streamSnapshot.data?.docs[index]['leisure_summa']}");
+                                    // fuelTransactions = double.parse(
+                                    //     "${streamSnapshot.data?.docs[index]['fuel_summa']}");
+                                    // cosmeticsTransactions = double.parse(
+                                    //     "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
+                                    // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                    // print(groceriesTransactions);
+                                    // print(leisureTransactions);
+                                    // print(fuelTransactions);
+                                    // print(cosmeticsTransactions);
+                                    // print(healthTransactions);
+
                                   return Padding(
                                     padding: EdgeInsets.only(
                                       top: MediaQuery.of(context).size.height *
@@ -115,8 +141,7 @@ class _TopWidgetState extends State<TopWidget> {
                                 case ConnectionState.none:
 
                                 case ConnectionState.done:
-                                  // TODO: Handle this case.
-                                  break;
+
                               }
                             }
                             return Padding(

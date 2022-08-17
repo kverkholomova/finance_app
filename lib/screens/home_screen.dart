@@ -1,4 +1,6 @@
 import 'package:finance_app/screens/add_transaction.dart';
+import 'package:finance_app/widgets/button_add_transaction.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_widget.dart';
