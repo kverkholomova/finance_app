@@ -1,12 +1,8 @@
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../constants.dart';
 import '../models/data.dart';
-
 import '../widgets/button_add_transaction.dart';
-
 import 'home_screen.dart';
 
 Color iconColor = Colors.orangeAccent;
@@ -292,9 +288,7 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         onPressed: () {
           setState(() {
-            print("AAAAAAAAAAAAAAAAAAAAAA");
             if (userInput.length>=4) {
-              print(userInput[userInput.length-3]);
             }
             if (userInput == '0.00') {
               userInput = valueButton;
@@ -308,7 +302,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   .substring(userInput.length - (userInput.length - index)));
             }
             else{
-            userInput = userInput + valueButton + '.00';
+            userInput = '$userInput$valueButton.00';
             second = double.parse(userInput
                 .substring(userInput.length - (userInput.length - index)));
 

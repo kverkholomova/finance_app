@@ -4,7 +4,7 @@ import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:finance_app/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../models/data.dart';
 import '../models/histogram.dart';
 import '../models/radial_gauge.dart';
 import '../services/auth.dart';
@@ -20,31 +20,14 @@ class _TopWidgetState extends State<TopWidget> {
   final AuthService _auth = AuthService();
 
   @override
+  void initState(){
+    super.initState();
+    const Histogram();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   elevation: 0,
-      //   backgroundColor: Colors.purple,
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(
-      //         Icons.logout,
-      //         color: Colors.orangeAccent,
-      //         size: 30,
-      //       ),
-      //       onPressed: () async {
-      //         setState(() async {
-      //           await _auth.signOut();
-      //           Navigator.push(
-      //             context,
-      //             MaterialPageRoute(builder: (context) => Wrapper()),
-      //           );
-      //         });
-      //       },
-      //     ),
-      //   ],
-      // ),
+
       body: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.4),
@@ -62,9 +45,9 @@ class _TopWidgetState extends State<TopWidget> {
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.0,
                   right: MediaQuery.of(context).size.width * 0.0,
-                  top: MediaQuery.of(context).size.height * 0.30,
+                  top: MediaQuery.of(context).size.height * 0.36,
                   bottom: MediaQuery.of(context).size.height * 0.03,
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Histogram(),
                   ),
@@ -111,6 +94,15 @@ class _TopWidgetState extends State<TopWidget> {
                                 "${streamSnapshot.data?.docs[index]['fuel_summa']}");
                             cosmeticsTransactions = double.parse(
                                 "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
+                            healthTransactions = double.parse(
+                                "${streamSnapshot.data?.docs[index]['health_summa']}");
+                            chartData.add(ChartData("Groceries", groceriesTransactions));
+                            chartData.add(ChartData('Leisure', leisureTransactions));
+                            chartData.add(ChartData('Fuel', fuelTransactions));
+                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
+                            chartData.add(ChartData('Health', healthTransactions));
+
+
                             if (streamSnapshot.hasData) {
                               switch (streamSnapshot.connectionState) {
                                 case ConnectionState.waiting:

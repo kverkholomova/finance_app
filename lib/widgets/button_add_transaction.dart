@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/screens/home_screen.dart';
-import 'package:finance_app/widgets/bottom_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -45,15 +44,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                   side: const BorderSide(color: Colors.orangeAccent, width: 2),
                 ),
                 onPressed: () async{
-
-                  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                  print(groceriesTransactions);
-                  print(leisureTransactions);
-                  print(fuelTransactions);
-                  print(cosmeticsTransactions);
-                  print(healthTransactions);
-
-                  print(valueChosen);
                     setState(() {
                       sumTransactions = sumTransactions + double.parse(userInput);
 
@@ -92,54 +82,48 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     if(valueChosen == "Groceries"){
                       // groceriesTransactions += double.parse(userInput);
-                      print("LLLLLLLLLLOOOOOOOOOOOOOKKKKKKKKK HHHHHHHHHere");
-                      print(groceriesTransactions);
-                      chartData.add(ChartData(valueChosen, groceriesTransactions));
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'groceries_summa': groceriesTransactions,
                       });
+                      chartData.add(ChartData(valueChosen, groceriesTransactions));
+
                     }
                     else if(valueChosen == 'Leisure'){
                       // leisureTransactions += double.parse(userInput);
-                      print("LLLLLLLLLLOOOOOOOOOOOOOKKKKKKKKK HHHHHHHHHere");
-                      print(leisureTransactions);
-                      chartData.add(ChartData(valueChosen, leisureTransactions));
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'leisure_summa':leisureTransactions,
                       });
+                      chartData.add(ChartData(valueChosen, leisureTransactions));
+
                     }
                     else if(valueChosen == 'Fuel'){
                       // fuelTransactions += double.parse(userInput);
-                      print("LLLLLLLLLLOOOOOOOOOOOOOKKKKKKKKK HHHHHHHHHere");
-                      print(fuelTransactions);
-                      chartData.add(ChartData(valueChosen, fuelTransactions));
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'fuel_summa': fuelTransactions,
                       });
+                      chartData.add(ChartData(valueChosen, fuelTransactions));
+
                     }
                     else if(valueChosen == 'Cosmetics'){
                       // cosmeticsTransactions += double.parse(userInput);
-                      print("LLLLLLLLLLOOOOOOOOOOOOOKKKKKKKKK HHHHHHHHHere");
-                      print(cosmeticsTransactions);
-                      chartData.add(ChartData(valueChosen, cosmeticsTransactions));
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'cosmetics_summa':cosmeticsTransactions,
                       });
+                      chartData.add(ChartData(valueChosen, cosmeticsTransactions));
 
                     }
                     else if(valueChosen == 'Health'){
                       // healthTransactions += double.parse(userInput);
-                      print("LLLLLLLLLLOOOOOOOOOOOOOKKKKKKKKK HHHHHHHHHere");
-                      print(healthTransactions);
-                      chartData.add(ChartData(valueChosen, healthTransactions));
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'health_summa':healthTransactions,
                       });
+                      chartData.add(ChartData(valueChosen, healthTransactions));
+
                     }
                     userInput = "0.00";
                     Navigator.push(
@@ -148,7 +132,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                     );
 
                 },
-                child: const Text("Add transaction", style: const TextStyle(color: Colors.black, fontSize: 16),)),
+                child: const Text("Add transaction", style: TextStyle(color: Colors.black, fontSize: 16),)),
           ),
         ),
       ),
