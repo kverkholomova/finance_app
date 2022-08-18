@@ -52,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   event: ^2.1.2
   syncfusion_flutter_calendar: ^20.2.44
+  flutter_slidable: ^2.0.0
 
 
 dev_dependencies:
