@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/constants.dart';
+import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:finance_app/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +24,7 @@ class _TopWidgetState extends State<TopWidget> {
   void initState(){
     super.initState();
     const Histogram();
+    userInput = "0.00";
   }
   @override
   Widget build(BuildContext context) {

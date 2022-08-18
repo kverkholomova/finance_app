@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:cool_dropdown/cool_dropdown.dart';
+import 'package:finance_app/calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:intl/intl.dart';
 import '../constants.dart';
 import '../models/data.dart';
 import '../widgets/button_add_transaction.dart';
@@ -17,6 +22,8 @@ class AddTransaction extends StatefulWidget {
 String valueChosen =dropdownItemList[3]["value"];
 
 String userInput = '0.00';
+String transactionDate =DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
+// String transactionDate = '${DateTime.now().day.toString().length < 2 ? "0${DateTime.now().day}" : DateTime.now().day} / ${DateTime.now().month.toString().length < 2 ? "0${DateTime.now().month}" : DateTime.now().month} / ${DateTime.now().year}';
 
 class _AddTransactionState extends State<AddTransaction> {
   String option = '';
@@ -29,13 +36,19 @@ class _AddTransactionState extends State<AddTransaction> {
   double answer = 0;
   num third = 0;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Calendar()),
+                );
+              },
               icon: const Icon(
                 Icons.calendar_month,
                 color: Colors.orangeAccent,
@@ -44,7 +57,7 @@ class _AddTransactionState extends State<AddTransaction> {
         title: Align(
           alignment: Alignment.topCenter,
           child: Text(
-            '${DateTime.now().day.toString().length < 2 ? "0${DateTime.now().day}" : DateTime.now().day} / ${DateTime.now().month.toString().length < 2 ? "0${DateTime.now().month}" : DateTime.now().month} / ${DateTime.now().year}',
+            transactionDate,
             style: headStyle,
           ),
         ),
@@ -239,7 +252,13 @@ class _AddTransactionState extends State<AddTransaction> {
                                 setState(() {
                                   if (userInput == '0.00') {
                                     userInput = '0.';
-                                  } else{
+                                  } else if(userInput.length>=4 && userInput[userInput.length-3] == ".") {
+                                    userInput = userInput.substring(0, userInput.length - 2);
+                                    print(userInput);
+                                    // userInput = userInput + valueButton;
+                                    print(userInput);
+                                  }
+                                  else{
                                     userInput = userInput.substring(0,
                                         userInput.length -2);
                                     second = double.parse(userInput.substring(
@@ -259,9 +278,17 @@ class _AddTransactionState extends State<AddTransaction> {
                               icon: const Icon(Icons.backspace),
                               onPressed: () {
                                 setState(() {
-                                  if (userInput.length>1){
+                                  if (userInput.length>1 ){
                                   userInput = userInput.substring(
-                                      0, userInput.length - 1);}
+                                      0, userInput.length - 1);
+                                  // if (userInput[userInput.length-1] == '.'){
+                                  //   userInput = userInput+'00';
+                                  //   userInput =userInput.substring(userInput.length-3, 1);
+                                  // }
+                                  }
+                                  // else if(userInput[userInput.length-1]=='0' && userInput[userInput.length-1]=='0'){
+                                  //   userInput = userInput[userInput.length-1].substring(0,userInput.length-1);
+                                  // }
                                   else{
                                     userInput = "0.00";
                                   }
@@ -289,22 +316,23 @@ class _AddTransactionState extends State<AddTransaction> {
         onPressed: () {
           setState(() {
             if (userInput.length>=4) {
+              print("pppppppppppppppppppppppppppppppppppppppppppppppp");
+              print(userInput.length>=4 && userInput[userInput.length-3] == ".");
             }
             if (userInput == '0.00') {
-              userInput = valueButton;
-            } else if(userInput.length>=4 && userInput[userInput.length-3] == ".") {
-              userInput.substring(userInput.length - 2);
-              userInput = userInput + valueButton;
+              userInput = "$valueButton.00";
             }
-            else if (userInput.contains(".")){
+
+            else if (userInput[userInput.length-1]=='.' || userInput[userInput.length-2]=='.'){
               userInput = userInput + valueButton;
-              second = double.parse(userInput
-                  .substring(userInput.length - (userInput.length - index)));
+              // second = double.parse(userInput
+              //     .substring(userInput.length - (userInput.length - index)));
             }
             else{
-            userInput = '$userInput$valueButton.00';
-            second = double.parse(userInput
-                .substring(userInput.length - (userInput.length - index)));
+              userInput = userInput.substring(0, userInput.length - 3);
+            userInput = '${userInput}${valueButton}.00';
+            // second = double.parse(userInput
+            //     .substring(userInput.length - (userInput.length - index)));
 
             }
           });

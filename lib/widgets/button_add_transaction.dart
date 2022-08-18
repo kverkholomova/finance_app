@@ -75,8 +75,9 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "category_name": valueChosen,
                       // "summa": sumTransactions,
                       "time": '${DateTime.now()}',
+                      "date": transactionDate
                       // "category_icon": valueIcon.toString(),
-                      "date": '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
+                      // "date": '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
 
                     });
 
