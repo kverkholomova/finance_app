@@ -39,7 +39,7 @@ List dropdownItemList = [
     'label': 'Cosmetics',
     'value': 'Cosmetics',
     'icon': Icon(
-      Icons.network_wifi_rounded,
+      Icons.l
       color: iconColor,
     )
   },

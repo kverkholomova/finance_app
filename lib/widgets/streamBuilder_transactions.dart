@@ -49,7 +49,9 @@ class StreamBuilderTransactions extends StatelessWidget {
               top: MediaQuery.of(context).size.height * 0.03,
             ),
             child: ListView.builder(
-              physics: limitedLength==true? NeverScrollableScrollPhysics():AlwaysScrollableScrollPhysics(),
+                physics: limitedLength == true
+                    ? NeverScrollableScrollPhysics()
+                    : AlwaysScrollableScrollPhysics(),
                 itemCount: streamSnapshot.hasData
                     ? limitedLength == true
                         ? streamSnapshot.data!.docs.length > 3
@@ -81,20 +83,28 @@ class StreamBuilderTransactions extends StatelessWidget {
                               key: const ValueKey(0),
 
                               // The start action pane is the one at the left or the top side.
-                              startActionPane: ActionPane(
-                                // A motion is a widget used to control how the pane animates.
-                                motion: const ScrollMotion(),
+                              // startActionPane: ActionPane(
+                              //   // A motion is a widget used to control how the pane animates.
+                              //   motion: const ScrollMotion(),
+                              //
+                              //   // A pane can dismiss the Slidable.
+                              //   // dismissible:
+                              //   //     DismissiblePane(onDismissed: () {
+                              //   //
+                              //   //
+                              //   //     }),
+                              //
+                              //   // All actions are defined in the children parameter.
+                              //   children: [
+                              //     // A SlidableAction can have an icon and/or a label.
+                              //
+                              //   ],
+                              // ),
 
-                                // A pane can dismiss the Slidable.
-                                // dismissible:
-                                //     DismissiblePane(onDismissed: () {
-                                //
-                                //
-                                //     }),
-
-                                // All actions are defined in the children parameter.
+                              //The end action pane is the one at the right or the bottom side.
+                              endActionPane: ActionPane(
+                                motion: ScrollMotion(),
                                 children: [
-                                  // A SlidableAction can have an icon and/or a label.
                                   SlidableAction(
                                     onPressed: (BuildContext context) async {
                                       showDialog(
@@ -114,11 +124,16 @@ class StreamBuilderTransactions extends StatelessWidget {
                                                     child: const Text('Close')),
                                                 TextButton(
                                                     onPressed: () async {
-                                                      await FirebaseFirestore.instance
-                                                          .runTransaction((Transaction
-                                                      myTransaction) async {
-                                                        myTransaction.delete(streamSnapshot
-                                                            .data!.docs[index].reference);
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .runTransaction(
+                                                              (Transaction
+                                                                  myTransaction) async {
+                                                        myTransaction.delete(
+                                                            streamSnapshot
+                                                                .data!
+                                                                .docs[index]
+                                                                .reference);
                                                       });
                                                       Navigator.of(context)
                                                           .pop();
@@ -127,7 +142,6 @@ class StreamBuilderTransactions extends StatelessWidget {
                                               ],
                                             );
                                           });
-
                                     },
                                     backgroundColor: Colors.redAccent,
                                     foregroundColor: Colors.white,
@@ -144,33 +158,6 @@ class StreamBuilderTransactions extends StatelessWidget {
                                   ),
                                 ],
                               ),
-
-                              // The end action pane is the one at the right or the bottom side.
-                              // endActionPane: ActionPane(
-                              //   motion: ScrollMotion(),
-                              //   children: [
-                              //     SlidableAction(
-                              //       // An action can be bigger than the others.
-                              //       flex: 2,
-                              //       onPressed: (BuildContext context){
-                              //
-                              //       },
-                              //       backgroundColor: Color(0xFF7BC043),
-                              //       foregroundColor: Colors.white,
-                              //       icon: Icons.archive,
-                              //       label: 'Archive',
-                              //     ),
-                              //     SlidableAction(
-                              //       onPressed: (BuildContext context){
-                              //
-                              //       },
-                              //       backgroundColor: Color(0xFF0392CF),
-                              //       foregroundColor: Colors.white,
-                              //       icon: Icons.save,
-                              //       label: 'Save',
-                              //     ),
-                              //   ],
-                              // ),
                               child: Padding(
                                 padding: EdgeInsets.only(
                                     top: MediaQuery.of(context).size.height *
