@@ -49,6 +49,7 @@ class StreamBuilderTransactions extends StatelessWidget {
               top: MediaQuery.of(context).size.height * 0.03,
             ),
             child: ListView.builder(
+              physics: limitedLength==true? NeverScrollableScrollPhysics():AlwaysScrollableScrollPhysics(),
                 itemCount: streamSnapshot.hasData
                     ? limitedLength == true
                         ? streamSnapshot.data!.docs.length > 3

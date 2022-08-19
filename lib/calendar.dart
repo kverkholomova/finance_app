@@ -32,88 +32,116 @@ class _CalendarState extends State<Calendar> {
     setState(() {
       transactionDate = _text;
     });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddTransaction()));
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Container(
-                child: const Text("Transaction date")),
-            content:
-            Text(_text),
-            actions: <Widget>[
-             TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Close')),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AddTransaction()),
-                    );
-                  },
-                  child: const Text('Ok'))
-            ],
-          );
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Container(
+    //             child: const Text("Transaction date")),
+    //         content:
+    //         Text(_text),
+    //         actions: <Widget>[
+    //          TextButton(
+    //               onPressed: () {
+    //                 Navigator.of(context).pop();
+    //               },
+    //               child: const Text('Close')),
+    //           TextButton(
+    //               onPressed: () {
+    //                 Navigator.push(
+    //                   context,
+    //                   MaterialPageRoute(builder: (context) => const AddTransaction()),
+    //                 );
+    //               },
+    //               child: const Text('Ok'))
+    //         ],
+    //       );
+    //     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SfCalendar(
 
-          onSelectionChanged: selectionChanged,
-          appointmentTextStyle: const TextStyle(
-            color: Colors.orangeAccent
-          ),
-
-          viewHeaderStyle: const ViewHeaderStyle(
-            dateTextStyle: TextStyle(
-              color: Colors.orangeAccent
+        body: Stack(
+          children: [
+            Container(
+              color: Colors.purple,
+              height: 50,
             ),
-            dayTextStyle: TextStyle(
-              color: Colors.orangeAccent,
+            Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: SfCalendar(
 
+                onSelectionChanged: selectionChanged,
+                appointmentTextStyle: const TextStyle(
+                  color: Colors.orangeAccent
+                ),
+
+                viewHeaderStyle: const ViewHeaderStyle(
+                  dateTextStyle: TextStyle(
+                    color: Colors.orangeAccent
+                  ),
+                  dayTextStyle: TextStyle(
+                    color: Colors.orangeAccent,
+
+                  ),
+                  backgroundColor: Colors.purple
+                ),
+                viewNavigationMode: ViewNavigationMode.none,
+                showCurrentTimeIndicator: false,
+                allowViewNavigation: false,
+                showDatePickerButton: true,
+                maxDate: DateTime.now(),
+                selectionDecoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border:
+                  Border.all(color: Colors.orangeAccent,
+                      width: 2),
+                  // borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  shape: BoxShape.rectangle,
+                ),
+                firstDayOfWeek: 1,
+                todayTextStyle: const TextStyle(
+                  color: Colors.black
+                ),
+                headerStyle: CalendarHeaderStyle(
+                  textStyle: headStyle,
+                  backgroundColor: Colors.purple,
+
+                ),
+                blackoutDatesTextStyle: const TextStyle(
+                  color: Colors.orangeAccent
+                ),
+
+                headerHeight: 150,
+                todayHighlightColor: Colors.orangeAccent,
+                cellBorderColor: Colors.orangeAccent,
+                view: CalendarView.month,
+                // dataSource: MeetingDataSource(_getDataSource()),
+                // monthViewSettings: const MonthViewSettings(
+                //     appointmentDisplayMode: MonthAppointmentDisplayMode.indicator),
+              ),
             ),
-            backgroundColor: Colors.purple
-          ),
-          viewNavigationMode: ViewNavigationMode.none,
-          showCurrentTimeIndicator: false,
-          allowViewNavigation: false,
-          showDatePickerButton: true,
-          maxDate: DateTime.now(),
-          selectionDecoration: BoxDecoration(
-            color: Colors.transparent,
-            border:
-            Border.all(color: Colors.orangeAccent,
-                width: 2),
-            // borderRadius: const BorderRadius.all(Radius.circular(4)),
-            shape: BoxShape.rectangle,
-          ),
-          firstDayOfWeek: 1,
-          todayTextStyle: const TextStyle(
-            color: Colors.black
-          ),
-          headerStyle: CalendarHeaderStyle(
-            textStyle: headStyle,
-            backgroundColor: Colors.purple,
+            Padding(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.05),
+              child: IconButton(
+                icon: closeIcon,
+                onPressed: () {
+                  userInput = '0.00';
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddTransaction()),
+                  );
+                },
+              ),
+            ),
+          ],
+        )
 
-          ),
-          blackoutDatesTextStyle: const TextStyle(
-            color: Colors.orangeAccent
-          ),
-
-          headerHeight: 150,
-          todayHighlightColor: Colors.orangeAccent,
-          cellBorderColor: Colors.orangeAccent,
-          view: CalendarView.month,
-          // dataSource: MeetingDataSource(_getDataSource()),
-          // monthViewSettings: const MonthViewSettings(
-          //     appointmentDisplayMode: MonthAppointmentDisplayMode.indicator),
-        ));
+    );
   }
 
   // List<Meeting> _getDataSource() {

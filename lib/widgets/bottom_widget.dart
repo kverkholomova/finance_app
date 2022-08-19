@@ -17,11 +17,12 @@ class BottomWidget extends StatelessWidget {
         top: MediaQuery.of(context).size.height * 0.6,
       ),
       child: Stack(
+
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            color: Colors.white,
-          ),
+          // Container(
+          //   height: MediaQuery.of(context).size.height * 0.4,
+          //   color: Colors.white,
+          // ),
           Container(
             height: MediaQuery.of(context).size.height * 0.4,
             color: Colors.white,
