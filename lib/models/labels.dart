@@ -40,11 +40,11 @@ class Labels extends StatelessWidget {
               color: Colors.orangeAccent,
               size: 25,
             ):name == "Cosmetics"? const Icon(
-              Icons.network_wifi_rounded,
+              Icons.local_mall_rounded,
               color: Colors.orangeAccent,
               size: 25,
             ):name == "Health"? const Icon(
-              Icons.medical_services_outlined,
+              Icons.medical_services_rounded,
               color: Colors.orangeAccent,
               size: 25,
             ):const Icon(

@@ -55,6 +55,7 @@ dependencies:
   flutter_slidable: ^2.0.0
   flutter_launcher_icons: ^0.10.0
   iconforest_grommet_icons: ^1.0.0+1
+  advance_text_field: ^0.0.5
 
 
 dev_dependencies:

@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:finance_app/app.dart';
 import 'package:finance_app/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';

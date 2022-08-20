@@ -26,7 +26,7 @@ class BottomWidget extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height * 0.4,
             color: Colors.white,
-            child: const StreamBuilderTransactions(limitedLength: true),
+            child: StreamBuilderTransactions(limitedLength: true),
           ),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),

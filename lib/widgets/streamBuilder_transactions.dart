@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/change_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -7,10 +8,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../models/labels.dart';
 
+String transactionDate = '';
+double transactionAmount = 0;
+String transactionCategory = '';
+String? transactionId = '';
+
+
 class StreamBuilderTransactions extends StatelessWidget {
   final bool? limitedLength;
 
-  const StreamBuilderTransactions({Key? key, required this.limitedLength})
+  StreamBuilderTransactions({Key? key, required this.limitedLength})
       : super(key: key);
 
   @override
@@ -50,8 +57,8 @@ class StreamBuilderTransactions extends StatelessWidget {
             ),
             child: ListView.builder(
                 physics: limitedLength == true
-                    ? NeverScrollableScrollPhysics()
-                    : AlwaysScrollableScrollPhysics(),
+                    ? const NeverScrollableScrollPhysics()
+                    : const AlwaysScrollableScrollPhysics(),
                 itemCount: streamSnapshot.hasData
                     ? limitedLength == true
                         ? streamSnapshot.data!.docs.length > 3
@@ -103,7 +110,7 @@ class StreamBuilderTransactions extends StatelessWidget {
 
                               //The end action pane is the one at the right or the bottom side.
                               endActionPane: ActionPane(
-                                motion: ScrollMotion(),
+                                motion: const ScrollMotion(),
                                 children: [
                                   SlidableAction(
                                     onPressed: (BuildContext context) async {
@@ -149,12 +156,35 @@ class StreamBuilderTransactions extends StatelessWidget {
                                     label: 'Delete',
                                   ),
                                   SlidableAction(
-                                    onPressed: (BuildContext context) {},
+                                    onPressed: (BuildContext context) async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const ChangeTransaction()),
+                                      );
+                                      transactionDate = streamSnapshot.data?.docs[index]
+                                      ['date'];
+                                      transactionAmount = streamSnapshot.data?.docs[index]["transfer_amount"];
+                                      transactionCategory = streamSnapshot.data?.docs[index]
+                                      ['category_name'];
+                                      transactionId = streamSnapshot.data?.docs[index].id;
+                                      await FirebaseFirestore.instance
+                                          .collection('transactions')
+                                          .doc(streamSnapshot.data?.docs[index].id)
+                                          .update({
+                                        "transaction_id": streamSnapshot.data?.docs[index].id,
+                                      });
+
+
+                                      print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRr");
+                                      print(transactionDate);
+                                      print(transactionAmount);
+                                      print(transactionCategory);
+                                    },
                                     backgroundColor: Colors.orangeAccent,
                                     foregroundColor: Colors.white,
                                     icon: Icons.settings,
                                     padding: const EdgeInsets.all(2),
-                                    label: 'Change',
+                                    label: 'Edit',
                                   ),
                                 ],
                               ),

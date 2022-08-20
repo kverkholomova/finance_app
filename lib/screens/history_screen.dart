@@ -1,7 +1,6 @@
 import 'package:finance_app/constants.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../widgets/streamBuilder_transactions.dart';
 
 class History extends StatefulWidget {
@@ -41,7 +40,7 @@ class _HistoryState extends State<History> {
             icon: closeIcon,
           ),
         ),
-        body: const StreamBuilderTransactions(limitedLength: false,),
+        body: StreamBuilderTransactions(limitedLength: false,),
       ),
     );
   }
