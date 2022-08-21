@@ -30,7 +30,8 @@ class _CalendarEditState extends State<CalendarEdit> {
     }
     setState(() {
       dateTime = _text;
-      transactionDate = _text;
+      dateTr = true;
+      // transactionDate = _text;
     });
 
     Navigator.push(

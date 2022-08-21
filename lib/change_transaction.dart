@@ -13,6 +13,10 @@ import 'constants.dart';
 import 'models/data.dart';
 
 String dateTime = '';
+String? categoryChosen;
+bool amount = false;
+bool dateTr = false;
+bool category = false;
 
 class ChangeTransaction extends StatefulWidget {
   const ChangeTransaction({Key? key}) : super(key: key);
@@ -22,9 +26,8 @@ class ChangeTransaction extends StatefulWidget {
 }
 
 double transferAmountNew = 0;
+
 class _ChangeTransactionState extends State<ChangeTransaction> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,245 +51,369 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
       ),
       body: Stack(
         children: [
-
-      StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('transactions')
-          .where('transaction_id', isEqualTo: transactionId)
-          .snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-        if (streamSnapshot.data!.docs.isEmpty) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 100),
-              child: Column(
-                children: const [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text("There is no data...",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Colors.black,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                  )
-                ],
-              ),
-            ),
-          );
-        } else if (streamSnapshot.data!.docs.isNotEmpty) {
-          return Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.03,
-            ),
-            child: ListView.builder(
-                itemCount: streamSnapshot.hasData
-                    ? streamSnapshot.data!.docs.length > 3
-                    ? 3
-                    : streamSnapshot.data?.docs.length
-                    : streamSnapshot.data?.docs.length,
-                itemBuilder: (ctx, index) {
-                  if (streamSnapshot.hasData) {
-                    switch (streamSnapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.0,
-                          ),
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Text("Waiting for data",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                )),
-                          ),
-                        );
-                      case ConnectionState.active:
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                child: AdvanceTextField(
-                                  height: 55,
-
-                                  type: AdvanceTextFieldType.EDIT,
-                                  editLabel: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                  ),
-                                  saveLabel: const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  ),
-                                  text: "${streamSnapshot.data?.docs[index]["transfer_amount"]}",
-                                  textStyle: const TextStyle(
-                                    fontSize: 19,
-                                  ),
-
-                                  backgroundColor: Colors.orangeAccent,
-                                  onEditTap: () {},
-                                  onSaveTap: (text) async {
-                                    print('value is: $text');
-                                      await FirebaseFirestore.instance
-                                          .collection('transactions')
-                                          .doc(streamSnapshot.data?.docs[index].id).update(
-                                          {
-                                            "transfer_amount": double.parse(text),
-                                          });
-                                  },
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: EdgeInsets.only(
-                              //       top: MediaQuery.of(context).size.height *
-                              //           0.03),
-                              //   child: Text(
-                              //       "${streamSnapshot.data?.docs[index]
-                              //                 ["transfer_amount"]
-                              //           }")
-                              // ),
-
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height * 0.1),
-                                child: AdvanceTextField(
-                                  height: 55,
-                                  type: AdvanceTextFieldType.EDIT,
-                                  editLabel: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                  ),
-                                  saveLabel: const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  ),
-                                  text: dateTime == ''? "${streamSnapshot.data?.docs[index]['date']}": dateTime,
-                                  textStyle: const TextStyle(
-                                    fontSize: 19,
-                                  ),
-
-                                  backgroundColor: Colors.orangeAccent,
-                                  onEditTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarEdit()));
-                                  },
-                                  onSaveTap: (text) async {
-
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height * 0.2),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: CoolDropdown(
-                                    dropdownPadding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                    resultPadding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                    selectedItemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                    unselectedItemTS: const TextStyle(
-                                        color: Colors.orangeAccent, fontSize: 20),
-                                    dropdownItemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                    resultHeight: MediaQuery.of(context).size.height * 0.09,
-                                    resultBD: BoxDecoration(
-                                        color: Colors.purple,
-                                        borderRadius: BorderRadius.circular(10),
-                                        border:
-                                        Border.all(width: 3.5, color: Colors.orangeAccent)),
-                                    resultTS: const TextStyle(
-                                        color: Colors.orangeAccent, fontSize: 20),
-                                    placeholderTS: TextStyle(
-                                        color: Colors.orangeAccent.withOpacity(0.7),
-                                        fontSize: 20),
-                                    selectedItemTS: const TextStyle(
-                                        color: Colors.orangeAccent, fontSize: 20),
-                                    selectedItemBD: BoxDecoration(
-                                        color: Colors.orangeAccent.withOpacity(0.2)),
-                                    dropdownBD: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          spreadRadius: 1,
-                                          blurRadius: 10,
-                                          offset: const Offset(0, 1),
-                                        ),
-                                      ],
-                                    ),
-                                    resultWidth: double.infinity,
-                                    dropdownWidth: MediaQuery.of(context).size.width * 0.8,
-                                    dropdownList: dropdownItemList,
-                                    onChange: (newVal) {
-                                      setState(() async {
-                                        valueChosen = newVal["value"];
-                                        await FirebaseFirestore.instance
-                                            .collection('transactions')
-                                            .doc(streamSnapshot.data?.docs[index].id).update(
-                                            {
-                                              "date": dateTime == ''? "${streamSnapshot.data?.docs[index]['date']}": dateTime,
-                                              "category_name": valueChosen
-                                            });
-
-                                      });
-                                      // valueIcon = newVal["icon"].toString();
-                                    },
-                                    defaultValue: changeItem[0],
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        );
-                      case ConnectionState.none:
-
-                      case ConnectionState.done:
-                      // TODO: Handle this case.
-                        break;
-                    }
-                  }
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: Column(
-                        children: const [
-                          SpinKitChasingDots(
-                            color: Colors.orangeAccent,
-                            size: 50.0,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text("Waiting...",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                )),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 20),
-                          )
-                        ],
-                      ),
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('transactions')
+                .where('transaction_id', isEqualTo: transactionId)
+                .snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+              if (streamSnapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Column(
+                      children: const [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text("There is no data...",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.black,
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                        )
+                      ],
                     ),
-                  );
-                }),
-          );
-        }
-        return Container();
-      },
-    ),
+                  ),
+                );
+              } else if (streamSnapshot.data!.docs.isNotEmpty) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  child: ListView.builder(
+                      itemCount: streamSnapshot.hasData
+                          ? streamSnapshot.data!.docs.length > 3
+                              ? 3
+                              : streamSnapshot.data?.docs.length
+                          : streamSnapshot.data?.docs.length,
+                      itemBuilder: (ctx, index) {
+                        if (streamSnapshot.hasData) {
+                          switch (streamSnapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height * 0.0,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text("Waiting for data",
+                                      style: GoogleFonts.raleway(
+                                        fontSize: 25,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                              );
+                            case ConnectionState.active:
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Stack(
+                                  children: [
+                                    //     Padding(
+                                    // padding: EdgeInsets.only(
+                                    // top: MediaQuery.of(context).size.height * 0.02),
+                                    //     child: Text("Amount of your transfer"),
+                                    //     ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.03),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: AdvanceTextField(
+                                          height: 55,
+                                          type: AdvanceTextFieldType.EDIT,
+                                          editLabel: const Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          saveLabel: const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          ),
+                                          text:
+                                              "${streamSnapshot.data?.docs[index]["transfer_amount"]}",
+                                          textStyle: const TextStyle(
+                                            fontSize: 19,
+                                          ),
+                                          backgroundColor: Colors.orangeAccent,
+                                          onEditTap: () {},
+                                          onSaveTap: (text) async {
+                                            print('value is: $text');
+                                            transferAmountNew = double.parse(text);
+                                            amount = true;
 
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(
+                                    //       top: MediaQuery.of(context).size.height *
+                                    //           0.03),
+                                    //   child: Text(
+                                    //       "${streamSnapshot.data?.docs[index]
+                                    //                 ["transfer_amount"]
+                                    //           }")
+                                    // ),
+
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(
+                                    //       top: MediaQuery.of(context).size.height * 0.18),
+                                    //   child: Text("Date of your transfer"),
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.14),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: AdvanceTextField(
+                                          height: 55,
+                                          type: AdvanceTextFieldType.EDIT,
+                                          editLabel: const Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          saveLabel: const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                          ),
+                                          text: dateTime == ''
+                                              ? "${streamSnapshot.data?.docs[index]['date']}"
+                                              : dateTime,
+                                          textStyle: const TextStyle(
+                                            fontSize: 19,
+                                          ),
+                                          backgroundColor: Colors.orangeAccent,
+                                          onEditTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const CalendarEdit()));
+                                          },
+                                          onSaveTap: (text) async {},
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.25),
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: CoolDropdown(
+                                          dropdownPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                          resultPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                          selectedItemPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                          unselectedItemTS: const TextStyle(
+                                              color: Colors.orangeAccent,
+                                              fontSize: 20),
+                                          dropdownItemPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                          resultHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.09,
+                                          resultBD: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: Colors.orangeAccent)),
+                                          resultTS: const TextStyle(
+                                              color: Colors.orangeAccent,
+                                              fontSize: 20),
+                                          placeholderTS: TextStyle(
+                                              color: Colors.orangeAccent
+                                                  .withOpacity(0.7),
+                                              fontSize: 20),
+                                          selectedItemTS: const TextStyle(
+                                              color: Colors.orangeAccent,
+                                              fontSize: 20),
+                                          selectedItemBD: BoxDecoration(
+                                              color: Colors.orangeAccent
+                                                  .withOpacity(0.2)),
+                                          dropdownBD: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                spreadRadius: 1,
+                                                blurRadius: 10,
+                                                offset: const Offset(0, 1),
+                                              ),
+                                            ],
+                                          ),
+                                          resultWidth: double.infinity,
+                                          dropdownWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          dropdownList: dropdownItemList,
+                                          onChange: (newVal) {
+                                            setState(() async {
+                                              // valueChosen = newVal["value"];
+                                              categoryChosen = newVal["value"];
+                                              category = true;
+
+                                            });
+                                            // valueIcon = newVal["icon"].toString();
+                                          },
+                                          defaultValue: changeItem[0],
+                                        ),
+                                      ),
+                                    ),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.7,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.05),
+                                      child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: double.infinity,
+                                          child: RaisedButton(
+                                              color: Colors.white,
+                                              elevation: 0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                side: const BorderSide(
+                                                    color:
+                                                        Colors.orangeAccent,
+                                                    width: 2),
+                                              ),
+                                              onPressed: () async {
+
+                                                  if(amount==true){
+                                                    await FirebaseFirestore.instance
+                                                        .collection('transactions')
+                                                        .doc(streamSnapshot
+                                                        .data?.docs[index].id)
+                                                        .update({
+                                                      "transfer_amount": transferAmountNew,
+                                                    });
+                                                  }
+                                                  if(dateTr==true){
+                                                    await FirebaseFirestore.instance
+                                                        .collection('transactions')
+                                                        .doc(streamSnapshot
+                                                        .data?.docs[index].id)
+                                                        .update({
+
+                                                      "date": dateTime == ''
+                                                          ? "${streamSnapshot.data?.docs[index]['date']}"
+                                                          : dateTime,
+
+                                                    });
+                                                  }
+                                                  if(category==true){
+                                                    await FirebaseFirestore.instance
+                                                        .collection('transactions')
+                                                        .doc(streamSnapshot
+                                                        .data?.docs[index].id)
+                                                        .update({
+
+                                                      "category_name": categoryChosen
+                                                    });
+                                                  }
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) =>MyHomePage()),
+                                                  );
+                                                  // await FirebaseFirestore.instance
+                                                  //     .collection('transactions')
+                                                  //     .doc(streamSnapshot
+                                                  //     .data?.docs[index].id)
+                                                  //     .update({
+                                                  //   "transfer_amount": transferAmountNew,
+                                                  //   "date": dateTime == ''
+                                                  //       ? "${streamSnapshot.data?.docs[index]['date']}"
+                                                  //       : dateTime,
+                                                  //   "category_name": categoryChosen
+                                                  // });
+
+                                              },
+                                              child: const Text(
+                                                "Save changes",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16),
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            case ConnectionState.none:
+
+                            case ConnectionState.done:
+                              // TODO: Handle this case.
+                              break;
+                          }
+                        }
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 100),
+                            child: Column(
+                              children: const [
+                                SpinKitChasingDots(
+                                  color: Colors.orangeAccent,
+                                  size: 50.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text("Waiting...",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                        color: Colors.black,
+                                      )),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 20),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                );
+              }
+              return Container();
+            },
+          ),
         ],
       ),
     );
