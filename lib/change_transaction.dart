@@ -166,21 +166,7 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                         ),
                                       ),
                                     ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(
-                                    //       top: MediaQuery.of(context).size.height *
-                                    //           0.03),
-                                    //   child: Text(
-                                    //       "${streamSnapshot.data?.docs[index]
-                                    //                 ["transfer_amount"]
-                                    //           }")
-                                    // ),
 
-                                    // Padding(
-                                    //   padding: EdgeInsets.only(
-                                    //       top: MediaQuery.of(context).size.height * 0.18),
-                                    //   child: Text("Date of your transfer"),
-                                    // ),
                                     Padding(
                                       padding: EdgeInsets.only(
                                           top: MediaQuery.of(context)
@@ -498,8 +484,8 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
           print("ghbrhgbhbhbAAAAAALOOKOOKOK");
           print(newVal["value"]);
 
-          categoryChosen = newVal!["value"];
-          category = true;
+              categoryChosen = newVal!["value"];
+              category = true;
 
           // });
           // categoryChosen = newVal!["value"];
