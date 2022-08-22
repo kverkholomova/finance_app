@@ -74,17 +74,13 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       'userID': ID,
                       "transfer_amount": double.parse(userInput),
                       "category_name": valueChosen,
-                      // "summa": sumTransactions,
                       "time": '${DateTime.now()}',
                       "date": transactionDate,
                       "transaction_id": ""
-                      // "category_icon": valueIcon.toString(),
-                      // "date": '${DateTime.now().day.toString().length<2? "0${DateTime.now().day}":DateTime.now().day} / ${DateTime.now().month.toString().length<2? "0${DateTime.now().month}":DateTime.now().month} / ${DateTime.now().year}',
 
                     });
 
                     if(valueChosen == "Groceries"){
-                      // groceriesTransactions += double.parse(userInput);
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'groceries_summa': groceriesTransactions,
@@ -93,7 +89,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     }
                     else if(valueChosen == 'Leisure'){
-                      // leisureTransactions += double.parse(userInput);
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'leisure_summa':leisureTransactions,
@@ -102,7 +97,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     }
                     else if(valueChosen == 'Fuel'){
-                      // fuelTransactions += double.parse(userInput);
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'fuel_summa': fuelTransactions,
@@ -111,7 +105,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     }
                     else if(valueChosen == 'Cosmetics'){
-                      // cosmeticsTransactions += double.parse(userInput);
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'cosmetics_summa':cosmeticsTransactions,
@@ -120,7 +113,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     }
                     else if(valueChosen == 'Health'){
-                      // healthTransactions += double.parse(userInput);
                       await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                         "summa": sumTransactions,
                         'health_summa':healthTransactions,

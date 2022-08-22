@@ -3,8 +3,8 @@ import 'package:finance_app/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'authenticate/authenticate.dart';
-import 'models/database/users.dart';
+import '../authenticate/authenticate.dart';
+import '../models/database/users.dart';
 
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);

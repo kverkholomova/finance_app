@@ -4,7 +4,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/screens/sign_in.dart';
 import 'package:finance_app/services/auth.dart';
-import 'package:finance_app/wrapper.dart';
+import 'package:finance_app/services/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
