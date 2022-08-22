@@ -3,6 +3,7 @@ import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../models/data.dart';
 
@@ -128,6 +129,8 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
 
                     }
                     userInput = "0.00";
+                    transactionDate =DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyHomePage()),
