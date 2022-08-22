@@ -308,7 +308,26 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                                       if (initialAmount ==
                                                           transferAmountNew) {
                                                       } else {
+                                                        if(transactionCategory == 'Groceries') {
+                                                          groceriesTransactions = groceriesTransactions - initialAmount;
+                                                          groceriesTransactions = groceriesTransactions + transferAmountNew;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                              .update({
+                                                            "groceries_summa": groceriesTransactions
+                                                          });
+                                                        }
 
+                                                        // transactionCategory == "Leisure"? "Leisure":
+                                                        // transactionCategory == "Fuel"? "Fuel":
+                                                        // transactionCategory == "Cosmetics"? "Cosmetics" :
+                                                        // transactionCategory == "Health"? "Health":
+                                                        // "Category",
                                                         await FirebaseFirestore
                                                             .instance
                                                             .collection('users')
