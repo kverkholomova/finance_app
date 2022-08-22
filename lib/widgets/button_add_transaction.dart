@@ -36,7 +36,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
           child: SizedBox(
             height: 50,
             width: double.infinity,
-            child: RaisedButton(
+            child: MaterialButton(
                 color: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(

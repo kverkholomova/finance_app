@@ -5,7 +5,9 @@ import 'package:finance_app/calendar.dart';
 import 'package:finance_app/calendar_edit.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/screens/home_screen.dart';
+import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:finance_app/widgets/streamBuilder_transactions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +16,7 @@ import 'models/data.dart';
 
 String dateTime = '';
 // String? categoryChosen;
-String categoryChosen =dropdownItemList[3]["value"];
+String categoryChosen = dropdownItemList[3]["value"];
 bool amount = false;
 bool dateTr = false;
 bool category = false;
@@ -27,6 +29,9 @@ class ChangeTransaction extends StatefulWidget {
 }
 
 double transferAmountNew = 0;
+String? initialCategory;
+double initialAmount = 0;
+String? initialDate;
 
 class _ChangeTransactionState extends State<ChangeTransaction> {
   @override
@@ -92,6 +97,13 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                               : streamSnapshot.data?.docs.length
                           : streamSnapshot.data?.docs.length,
                       itemBuilder: (ctx, index) {
+                        transactionCategory =
+                            "${streamSnapshot.data?.docs[index]["category_name"]}";
+                        initialCategory =
+                            "${streamSnapshot.data?.docs[index]["category_name"]}";
+                        initialAmount =
+                            streamSnapshot.data?.docs[index]["transfer_amount"];
+                        initialDate = streamSnapshot.data?.docs[index]["date"];
                         if (streamSnapshot.hasData) {
                           switch (streamSnapshot.connectionState) {
                             case ConnectionState.waiting:
@@ -147,9 +159,9 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                           onEditTap: () {},
                                           onSaveTap: (text) async {
                                             print('value is: $text');
-                                            transferAmountNew = double.parse(text);
+                                            transferAmountNew =
+                                                double.parse(text);
                                             amount = true;
-
                                           },
                                         ),
                                       ),
@@ -214,80 +226,7 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                               0.25),
                                       child: Align(
                                         alignment: Alignment.center,
-                                        child: CoolDropdown(
-                                          dropdownPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                          resultPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                          selectedItemPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                          unselectedItemTS: const TextStyle(
-                                              color: Colors.orangeAccent,
-                                              fontSize: 20),
-                                          dropdownItemPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                          resultHeight: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.09,
-                                          resultBD: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  width: 2,
-                                                  color: Colors.orangeAccent)),
-                                          resultTS: const TextStyle(
-                                              color: Colors.orangeAccent,
-                                              fontSize: 20),
-                                          placeholderTS: TextStyle(
-                                              color: Colors.orangeAccent
-                                                  .withOpacity(0.7),
-                                              fontSize: 20),
-                                          selectedItemTS: const TextStyle(
-                                              color: Colors.orangeAccent,
-                                              fontSize: 20),
-                                          selectedItemBD: BoxDecoration(
-                                              color: Colors.orangeAccent
-                                                  .withOpacity(0.2)),
-                                          dropdownBD: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black
-                                                    .withOpacity(0.1),
-                                                spreadRadius: 1,
-                                                blurRadius: 10,
-                                                offset: const Offset(0, 1),
-                                              ),
-                                            ],
-                                          ),
-                                          resultWidth: double.infinity,
-                                          dropdownWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.8,
-                                          dropdownList: dropdownItemList,
-                                          onChange: (newVal) {
-                                            setState(() async{
-                                              // valueChosen = newVal["value"];
-                                              print("ghbrhgbhbhbAAAAAALOOKOOKOK");
-                                              print(newVal["value"]);
-
-                                              categoryChosen = newVal!["value"];
-                                              category = true;
-
-                                            });
-                                            // valueIcon = newVal["icon"].toString();
-                                          },
-                                          defaultValue: dropdownItemList[3],
-                                        ),
+                                        child: buildCoolDropdownEdit(context),
                                       ),
                                     ),
 
@@ -306,66 +245,143 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                         child: SizedBox(
                                           height: 50,
                                           width: double.infinity,
-                                          child: RaisedButton(
+                                          child: MaterialButton(
                                               color: Colors.white,
                                               elevation: 0,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 side: const BorderSide(
-                                                    color:
-                                                        Colors.orangeAccent,
+                                                    color: Colors.orangeAccent,
                                                     width: 2),
                                               ),
-                                              onPressed: () async {
+                                              onPressed: () {
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 500),
+                                                    () async {
+                                                  print(
+                                                      "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+                                                  print(initialCategory);
+                                                  print(initialAmount);
+                                                  print(transferAmountNew);
+                                                  // if (initialCategory ==
+                                                  //     categoryChosen) {
+                                                    if (initialAmount ==
+                                                        transferAmountNew) {
+                                                    } else {
+                                                      print(
+                                                          "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                                      print(sumTransactions);
+                                                      sumTransactions =
+                                                          sumTransactions -
+                                                              initialAmount;
+                                                      print(sumTransactions);
+                                                      sumTransactions =
+                                                          sumTransactions +
+                                                              transferAmountNew;
+                                                      print(sumTransactions);
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection('users')
+                                                          .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                          .update({
+                                                        "summa": sumTransactions
+                                                      });
+                                                    // }
+                                                  }
+                                                });
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 500),
+                                                        () async {
+                                                      print(
+                                                          "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+                                                      print(initialCategory);
+                                                      print(initialAmount);
+                                                      print(transferAmountNew);
+                                                      if (initialCategory ==
+                                                          categoryChosen) {
+                                                      if (initialAmount ==
+                                                          transferAmountNew) {
+                                                      } else {
 
-                                                  if(amount==true){
-                                                    await FirebaseFirestore.instance
-                                                        .collection('transactions')
-                                                        .doc(streamSnapshot
-                                                        .data?.docs[index].id)
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection('users')
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .uid)
+                                                            .update({
+                                                          "summa": sumTransactions
+                                                        });
+                                                        }
+                                                      }
+                                                    });
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 500),
+                                                    () async {
+                                                  if (amount == true) {
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'transactions')
+                                                        .doc(streamSnapshot.data
+                                                            ?.docs[index].id)
                                                         .update({
-                                                      "transfer_amount": transferAmountNew,
+                                                      "transfer_amount":
+                                                          transferAmountNew,
                                                     });
                                                   }
-                                                  if(dateTr==true){
-                                                    await FirebaseFirestore.instance
-                                                        .collection('transactions')
-                                                        .doc(streamSnapshot
-                                                        .data?.docs[index].id)
+                                                  if (dateTr == true) {
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'transactions')
+                                                        .doc(streamSnapshot.data
+                                                            ?.docs[index].id)
                                                         .update({
-
                                                       "date": dateTime == ''
                                                           ? "${streamSnapshot.data?.docs[index]['date']}"
                                                           : dateTime,
-
                                                     });
                                                   }
-                                                  if(category==true){
-                                                    await FirebaseFirestore.instance
-                                                        .collection('transactions')
-                                                        .doc(streamSnapshot
-                                                        .data?.docs[index].id)
+                                                  if (category == true) {
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'transactions')
+                                                        .doc(streamSnapshot.data
+                                                            ?.docs[index].id)
                                                         .update({
-                                                      "category_name": categoryChosen
+                                                      "category_name":
+                                                          categoryChosen
                                                     });
                                                   }
+
                                                   Navigator.push(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) =>MyHomePage()),
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MyHomePage()),
                                                   );
-                                                  // await FirebaseFirestore.instance
-                                                  //     .collection('transactions')
-                                                  //     .doc(streamSnapshot
-                                                  //     .data?.docs[index].id)
-                                                  //     .update({
-                                                  //   "transfer_amount": transferAmountNew,
-                                                  //   "date": dateTime == ''
-                                                  //       ? "${streamSnapshot.data?.docs[index]['date']}"
-                                                  //       : dateTime,
-                                                  //   "category_name": categoryChosen
-                                                  // });
-
+                                                });
+                                                // await FirebaseFirestore.instance
+                                                //     .collection('transactions')
+                                                //     .doc(streamSnapshot
+                                                //     .data?.docs[index].id)
+                                                //     .update({
+                                                //   "transfer_amount": transferAmountNew,
+                                                //   "date": dateTime == ''
+                                                //       ? "${streamSnapshot.data?.docs[index]['date']}"
+                                                //       : dateTime,
+                                                //   "category_name": categoryChosen
+                                                // });
                                               },
                                               child: const Text(
                                                 "Save changes",
@@ -419,6 +435,59 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
           ),
         ],
       ),
+    );
+  }
+
+  CoolDropdown buildCoolDropdownEdit(BuildContext context) {
+    return CoolDropdown(
+      dropdownPadding: const EdgeInsets.symmetric(horizontal: 20),
+      resultPadding: const EdgeInsets.symmetric(horizontal: 20),
+      selectedItemPadding: const EdgeInsets.symmetric(horizontal: 20),
+      unselectedItemTS:
+          const TextStyle(color: Colors.orangeAccent, fontSize: 20),
+      dropdownItemPadding: const EdgeInsets.symmetric(horizontal: 20),
+      resultHeight: MediaQuery.of(context).size.height * 0.09,
+      resultBD: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(width: 2, color: Colors.orangeAccent)),
+      resultTS: const TextStyle(color: Colors.orangeAccent, fontSize: 20),
+      placeholderTS:
+          TextStyle(color: Colors.orangeAccent.withOpacity(0.7), fontSize: 20),
+      selectedItemTS: const TextStyle(color: Colors.orangeAccent, fontSize: 20),
+      selectedItemBD:
+          BoxDecoration(color: Colors.orangeAccent.withOpacity(0.2)),
+      dropdownBD: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 1),
+          ),
+        ],
+      ),
+      resultWidth: double.infinity,
+      dropdownWidth: MediaQuery.of(context).size.width * 0.8,
+      dropdownList: dropdownItemList,
+      onChange: (newVal) {
+        Future.delayed(const Duration(seconds: 2), () async {
+          // setState(() {
+          // valueChosen = newVal["value"];
+          print("ghbrhgbhbhbAAAAAALOOKOOKOK");
+          print(newVal["value"]);
+
+          categoryChosen = newVal!["value"];
+          category = true;
+
+          // });
+          // categoryChosen = newVal!["value"];
+        });
+        // valueIcon = newVal["icon"].toString();
+      },
+      defaultValue: changeItem[0],
     );
   }
 }
