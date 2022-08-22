@@ -13,7 +13,8 @@ import 'constants.dart';
 import 'models/data.dart';
 
 String dateTime = '';
-String? categoryChosen;
+// String? categoryChosen;
+String categoryChosen =dropdownItemList[3]["value"];
 bool amount = false;
 bool dateTr = false;
 bool category = false;
@@ -274,15 +275,18 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                               0.8,
                                           dropdownList: dropdownItemList,
                                           onChange: (newVal) {
-                                            setState(() async {
+                                            setState(() async{
                                               // valueChosen = newVal["value"];
-                                              categoryChosen = newVal["value"];
+                                              print("ghbrhgbhbhbAAAAAALOOKOOKOK");
+                                              print(newVal["value"]);
+
+                                              categoryChosen = newVal!["value"];
                                               category = true;
 
                                             });
                                             // valueIcon = newVal["icon"].toString();
                                           },
-                                          defaultValue: changeItem[0],
+                                          defaultValue: dropdownItemList[3],
                                         ),
                                       ),
                                     ),
@@ -343,7 +347,6 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                                         .doc(streamSnapshot
                                                         .data?.docs[index].id)
                                                         .update({
-
                                                       "category_name": categoryChosen
                                                     });
                                                   }
