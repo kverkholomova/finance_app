@@ -101,6 +101,7 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                             "${streamSnapshot.data?.docs[index]["category_name"]}";
                         initialCategory =
                             "${streamSnapshot.data?.docs[index]["category_name"]}";
+                        categoryChosen = initialCategory!;
                         initialAmount =
                             streamSnapshot.data?.docs[index]["transfer_amount"];
                         initialDate = streamSnapshot.data?.docs[index]["date"];
@@ -307,23 +308,180 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
                                                               .update({
                                                             "groceries_summa": groceriesTransactions
                                                           });
+                                                        } else if(transactionCategory == 'Leisure') {
+                                                          leisureTransactions = leisureTransactions - initialAmount;
+                                                          leisureTransactions = leisureTransactions + transferAmountNew;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                              .update({
+                                                            "leisure_summa": leisureTransactions
+                                                          });
+                                                        } else if(transactionCategory == 'Fuel') {
+                                                          fuelTransactions = fuelTransactions - initialAmount;
+                                                          fuelTransactions = fuelTransactions + transferAmountNew;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                              .update({
+                                                            "fuel_summa": fuelTransactions
+                                                          });
+                                                        } else if(transactionCategory == 'Cosmetics') {
+                                                          cosmeticsTransactions = cosmeticsTransactions - initialAmount;
+                                                          cosmeticsTransactions = cosmeticsTransactions + transferAmountNew;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                              .update({
+                                                            "cosmetics_summa": cosmeticsTransactions
+                                                          });
+                                                        } else if(transactionCategory == 'Health') {
+                                                          healthTransactions = healthTransactions - initialAmount;
+                                                          healthTransactions = healthTransactions + transferAmountNew;
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                              .update({
+                                                            "health_summa": healthTransactions
+                                                          });
                                                         }
 
-                                                        // transactionCategory == "Leisure"? "Leisure":
-                                                        // transactionCategory == "Fuel"? "Fuel":
                                                         // transactionCategory == "Cosmetics"? "Cosmetics" :
                                                         // transactionCategory == "Health"? "Health":
                                                         // "Category",
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection('users')
-                                                            .doc(FirebaseAuth
-                                                            .instance
-                                                            .currentUser!
-                                                            .uid)
-                                                            .update({
-                                                          "summa": sumTransactions
-                                                        });
+                                                        // await FirebaseFirestore
+                                                        //     .instance
+                                                        //     .collection('users')
+                                                        //     .doc(FirebaseAuth
+                                                        //     .instance
+                                                        //     .currentUser!
+                                                        //     .uid)
+                                                        //     .update({
+                                                        //   "summa": sumTransactions
+                                                        // });
+                                                        }
+                                                      } else{
+                                                        if (initialCategory == "Groceries"){
+                                                          groceriesTransactions = groceriesTransactions - initialAmount;
+                                                          if(categoryChosen == 'Leisure'){
+                                                            print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                                                            print(leisureTransactions);
+                                                            leisureTransactions = leisureTransactions + transferAmountNew;
+                                                            print(leisureTransactions);
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "groceries_summa": groceriesTransactions,
+                                                              "leisure_summa": leisureTransactions,
+                                                            });
+                                                          }
+
+                                                        }
+
+                                                      }
+                                                    });
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 500),
+                                                        () async {
+                                                      print(
+                                                          "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+                                                      print(initialCategory);
+                                                      print(initialAmount);
+                                                      print(transferAmountNew);
+                                                      if (initialCategory ==
+                                                          categoryChosen) {
+                                                        if (initialAmount ==
+                                                            transferAmountNew) {
+                                                        } else {
+                                                          if(transactionCategory == 'Groceries') {
+                                                            groceriesTransactions = groceriesTransactions - initialAmount;
+                                                            groceriesTransactions = groceriesTransactions + transferAmountNew;
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "groceries_summa": groceriesTransactions
+                                                            });
+                                                          } else if(transactionCategory == 'Leisure') {
+                                                            leisureTransactions = leisureTransactions - initialAmount;
+                                                            leisureTransactions = leisureTransactions + transferAmountNew;
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "leisure_summa": leisureTransactions
+                                                            });
+                                                          } else if(transactionCategory == 'Fuel') {
+                                                            fuelTransactions = fuelTransactions - initialAmount;
+                                                            fuelTransactions = fuelTransactions + transferAmountNew;
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "fuel_summa": fuelTransactions
+                                                            });
+                                                          } else if(transactionCategory == 'Cosmetics') {
+                                                            cosmeticsTransactions = cosmeticsTransactions - initialAmount;
+                                                            cosmeticsTransactions = cosmeticsTransactions + transferAmountNew;
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "cosmetics_summa": cosmeticsTransactions
+                                                            });
+                                                          } else if(transactionCategory == 'Health') {
+                                                            healthTransactions = healthTransactions - initialAmount;
+                                                            healthTransactions = healthTransactions + transferAmountNew;
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection('users')
+                                                                .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                                .update({
+                                                              "health_summa": healthTransactions
+                                                            });
+                                                          }
+
                                                         }
                                                       }
                                                     });
