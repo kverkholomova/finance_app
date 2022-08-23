@@ -12,57 +12,7 @@ class ChartData {
 
 List<ChartData> chartData = [];
 
-List changeItem = [
-  {
-    'label': transactionCategory == 'Groceries'
-        ? 'Groceries'
-        : transactionCategory == "Leisure"
-            ? "Leisure"
-            : transactionCategory == "Fuel"
-                ? "Fuel"
-                : transactionCategory == "Cosmetics"
-                    ? "Cosmetics"
-                    : transactionCategory == "Health"
-                        ? "Health"
-                        : "Category",
-    'value': transactionCategory,
-    'icon': transactionCategory == 'Groceries'
-        ? const Icon(
-            Icons.local_grocery_store,
-            color: Colors.orangeAccent,
-            size: 25,
-          )
-        : transactionCategory == "Leisure"
-            ? const Icon(
-                Icons.event_seat,
-                color: Colors.orangeAccent,
-                size: 25,
-              )
-            : transactionCategory == "Fuel"
-                ? const Icon(
-                    Icons.car_crash_rounded,
-                    color: Colors.orangeAccent,
-                    size: 25,
-                  )
-                : transactionCategory == "Cosmetics"
-                    ? const Icon(
-                        Icons.local_mall_rounded,
-                        color: Colors.orangeAccent,
-                        size: 25,
-                      )
-                    : transactionCategory == "Health"
-                        ? const Icon(
-                            Icons.medical_services_rounded,
-                            color: Colors.orangeAccent,
-                            size: 25,
-                          )
-                        : const Icon(
-                            Icons.add,
-                            color: Colors.orangeAccent,
-                            size: 25,
-                          ),
-  }
-];
+List changeItem = [];
 
 List dropdownItemList = [
   {

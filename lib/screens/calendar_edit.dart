@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import 'edit_screen.dart';
+
 /// The hove page which hosts the calendar
 class CalendarEdit extends StatefulWidget {
   /// Creates the home page to display teh calendar widget.
@@ -33,7 +35,7 @@ class _CalendarEditState extends State<CalendarEdit> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ChangeTransaction()),
+      MaterialPageRoute(builder: (context) => const EditTransaction()),
     );
   }
 
@@ -89,7 +91,7 @@ class _CalendarEditState extends State<CalendarEdit> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ChangeTransaction()),
+                    builder: (context) => const EditTransaction()),
               );
             },
           ),

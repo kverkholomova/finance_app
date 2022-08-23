@@ -8,8 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../models/data.dart';
 import '../models/labels.dart';
+import '../screens/edit_screen.dart';
 
-int index = 0;
+var stream;
+int index = -1;
 String transactionDate = '';
 double transactionAmount = 0;
 String transactionCategory = '';
@@ -40,7 +42,7 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
           if (streamSnapshot.data!.docs.isEmpty) {
             return Center(
               child: Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.03,),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,),
                 child: Column(
                   children: const [
                     Align(
@@ -170,7 +172,7 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ChangeTransaction()),
+                                                  const EditTransaction()),
                                         );
                                         transactionDate = streamSnapshot
                                             .data?.docs[index]['date'];
@@ -189,86 +191,95 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                               streamSnapshot.data?.docs[index].id,
                                         });
 
-                                        Future.delayed(const Duration(seconds: 2),
-                                            () async {
-                                          setState(() {
+                                        // Future.delayed(const Duration(seconds: 2),
+                                        //     () async {
+
                                             index = index + 1;
                                             print(index);
-                                            changeItem.add({
-                                              'label': transactionCategory ==
-                                                      'Groceries'
-                                                  ? 'Groceries'
-                                                  : transactionCategory ==
-                                                          "Leisure"
-                                                      ? "Leisure"
-                                                      : transactionCategory ==
-                                                              "Fuel"
-                                                          ? "Fuel"
-                                                          : transactionCategory ==
-                                                                  "Cosmetics"
-                                                              ? "Cosmetics"
-                                                              : transactionCategory ==
-                                                                      "Health"
-                                                                  ? "Health"
-                                                                  : "Category",
-                                              'value': transactionCategory,
-                                              'icon': transactionCategory ==
-                                                      'Groceries'
-                                                  ? const Icon(
-                                                      Icons.local_grocery_store,
-                                                      color: Colors.orangeAccent,
-                                                      size: 25,
-                                                    )
-                                                  : transactionCategory ==
-                                                          "Leisure"
-                                                      ? const Icon(
-                                                          Icons.event_seat,
-                                                          color:
-                                                              Colors.orangeAccent,
-                                                          size: 25,
-                                                        )
-                                                      : transactionCategory ==
-                                                              "Fuel"
-                                                          ? const Icon(
-                                                              Icons
-                                                                  .car_crash_rounded,
-                                                              color: Colors
-                                                                  .orangeAccent,
-                                                              size: 25,
-                                                            )
-                                                          : transactionCategory ==
-                                                                  "Cosmetics"
-                                                              ? const Icon(
-                                                                  Icons
-                                                                      .local_mall_rounded,
-                                                                  color: Colors
-                                                                      .orangeAccent,
-                                                                  size: 25,
-                                                                )
-                                                              : transactionCategory ==
-                                                                      "Health"
-                                                                  ? const Icon(
-                                                                      Icons
-                                                                          .medical_services_rounded,
-                                                                      color: Colors
-                                                                          .orangeAccent,
-                                                                      size: 25,
-                                                                    )
-                                                                  : const Icon(
-                                                                      Icons.add,
-                                                                      color: Colors
-                                                                          .orangeAccent,
-                                                                      size: 25,
-                                                                    ),
-                                            });
-                                          });
-                                        });
+                                            // changeItem.add({
+                                            //   'label': transactionCategory ==
+                                            //           'Groceries'
+                                            //       ? 'Groceries'
+                                            //       : transactionCategory ==
+                                            //               "Leisure"
+                                            //           ? "Leisure"
+                                            //           : transactionCategory ==
+                                            //                   "Fuel"
+                                            //               ? "Fuel"
+                                            //               : transactionCategory ==
+                                            //                       "Cosmetics"
+                                            //                   ? "Cosmetics"
+                                            //                   : transactionCategory ==
+                                            //                           "Health"
+                                            //                       ? "Health"
+                                            //                       : "Category",
+                                            //   'value': transactionCategory,
+                                            //   'icon': transactionCategory ==
+                                            //           'Groceries'
+                                            //       ? const Icon(
+                                            //           Icons.local_grocery_store,
+                                            //           color: Colors.orangeAccent,
+                                            //           size: 25,
+                                            //         )
+                                            //       : transactionCategory ==
+                                            //               "Leisure"
+                                            //           ? const Icon(
+                                            //               Icons.event_seat,
+                                            //               color:
+                                            //                   Colors.orangeAccent,
+                                            //               size: 25,
+                                            //             )
+                                            //           : transactionCategory ==
+                                            //                   "Fuel"
+                                            //               ? const Icon(
+                                            //                   Icons
+                                            //                       .car_crash_rounded,
+                                            //                   color: Colors
+                                            //                       .orangeAccent,
+                                            //                   size: 25,
+                                            //                 )
+                                            //               : transactionCategory ==
+                                            //                       "Cosmetics"
+                                            //                   ? const Icon(
+                                            //                       Icons
+                                            //                           .local_mall_rounded,
+                                            //                       color: Colors
+                                            //                           .orangeAccent,
+                                            //                       size: 25,
+                                            //                     )
+                                            //                   : transactionCategory ==
+                                            //                           "Health"
+                                            //                       ? const Icon(
+                                            //                           Icons
+                                            //                               .medical_services_rounded,
+                                            //                           color: Colors
+                                            //                               .orangeAccent,
+                                            //                           size: 25,
+                                            //                         )
+                                            //                       : const Icon(
+                                            //                           Icons.add,
+                                            //                           color: Colors
+                                            //                               .orangeAccent,
+                                            //                           size: 25,
+                                            //                         ),
+                                            // });
+                                          // });
+                                        // });
 
                                         print(
                                             "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRr");
                                         print(transactionDate);
                                         print(transactionAmount);
                                         print(transactionCategory);
+                                        stream = streamSnapshot.data?.docs[index].id;
+                              //           transactionCategory =
+                              // "${streamSnapshot.data?.docs[index]["category_name"]}";
+                          initialCategory =
+                              "${streamSnapshot.data?.docs[index]["category_name"]}";
+
+                          initialAmount =
+                              streamSnapshot.data?.docs[index]["transfer_amount"];
+                          initialDate = streamSnapshot.data?.docs[index]["date"];
                                       },
                                       backgroundColor: Colors.orangeAccent,
                                       foregroundColor: Colors.white,

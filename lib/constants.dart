@@ -20,6 +20,28 @@ var textInputDecoration=InputDecoration(
 
 );
 
+var editInputDecoration=InputDecoration(
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+            color: Colors.orangeAccent, width: 3),
+    ),
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: const BorderSide(
+            color: Colors.orangeAccent,
+            width: 3,
+        ),
+    ),
+    hintStyle: TextStyle(
+        fontSize: 18
+    ),
+
+    filled: true,
+    fillColor: Colors.white,
+
+);
+
 TextStyle titleStyle = GoogleFonts.raleway(
     fontSize: 25,
     color: Colors.white,

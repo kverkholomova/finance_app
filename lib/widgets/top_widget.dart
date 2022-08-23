@@ -3,6 +3,7 @@ import 'package:finance_app/constants.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:finance_app/services/wrapper.dart';
+import 'package:finance_app/widgets/streamBuilder_transactions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/data.dart';
@@ -17,6 +18,8 @@ class TopWidget extends StatefulWidget {
   State<TopWidget> createState() => _TopWidgetState();
 }
 
+
+
 class _TopWidgetState extends State<TopWidget> {
   final AuthService _auth = AuthService();
 
@@ -25,6 +28,11 @@ class _TopWidgetState extends State<TopWidget> {
     super.initState();
     const Histogram();
     userInput = "0.00";
+    // index = index+1;
+    // changeItem.add(
+
+    // );
+    // print(changeItem[index]);
   }
   @override
   Widget build(BuildContext context) {
