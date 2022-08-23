@@ -12,28 +12,27 @@ import '../models/data.dart';
 import '../widgets/edit_amount_text_field.dart';
 import '../widgets/edit_date_of_transaction_text_field.dart';
 
+String? categoryDefault;
 String dateTime = '';
-// String? categoryChosen;
-String categoryChosen = dropdownItemList[3]["value"];
+String? categoryChosen;
+// String categoryChosen = dropdownItemList[3]["value"];
 bool amount = false;
 bool dateTr = false;
 bool category = false;
-
+double transferAmountNew = 0;
+String? initialCategory;
+double initialAmount = 0;
+String? initialDate;
 class ChangeTransaction extends StatefulWidget {
   const ChangeTransaction({Key? key}) : super(key: key);
 
   @override
   State<ChangeTransaction> createState() => _ChangeTransactionState();
 }
-
-double transferAmountNew = 0;
-String? initialCategory;
-double initialAmount = 0;
-String? initialDate;
-
 class _ChangeTransactionState extends State<ChangeTransaction> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -44,6 +43,10 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
         leading: IconButton(
           icon: closeIcon,
           onPressed: () {
+            transactionCategory ="";
+            initialCategory ="";
+            initialAmount = 0;
+            initialDate = '';
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => MyHomePage()),
@@ -53,184 +56,205 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
         elevation: 0,
         backgroundColor: Colors.purple,
       ),
-      body: Stack(
-        children: [
-          StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('transactions')
-                .where('transaction_id', isEqualTo: transactionId)
-                .snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-              if (streamSnapshot.data!.docs.isEmpty) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Column(
-                      children: const [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text("There is no data...",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Colors.black,
-                              )),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                        )
-                      ],
+      body: Container(
+        height: height,
+        child: Stack(
+          children: [
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('transactions')
+                  .where('transaction_id', isEqualTo: transactionId)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                if (streamSnapshot.data!.docs.isEmpty) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: Column(
+                        children: const [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text("There is no data...",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: Colors.black,
+                                )),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else if (streamSnapshot.data!.docs.isNotEmpty) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                  ),
-                  child: ListView.builder(
-                      itemCount: streamSnapshot.hasData
-                          ? streamSnapshot.data!.docs.length > 3
-                              ? 3
-                              : streamSnapshot.data?.docs.length
-                          : streamSnapshot.data?.docs.length,
-                      itemBuilder: (ctx, index) {
-                        transactionCategory =
-                            "${streamSnapshot.data?.docs[index]["category_name"]}";
-                        initialCategory =
-                            "${streamSnapshot.data?.docs[index]["category_name"]}";
+                  );
+                } else if (streamSnapshot.data!.docs.isNotEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                        itemCount: streamSnapshot.hasData
+                            ? streamSnapshot.data?.docs.length
+                            : 0,
+                        itemBuilder: (ctx, index) {
+                          transactionCategory =
+                              "${streamSnapshot.data?.docs[index]["category_name"]}";
+                          initialCategory =
+                              "${streamSnapshot.data?.docs[index]["category_name"]}";
 
-                        initialAmount =
-                            streamSnapshot.data?.docs[index]["transfer_amount"];
-                        initialDate = streamSnapshot.data?.docs[index]["date"];
-                        if (streamSnapshot.hasData) {
-                          switch (streamSnapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height * 0.0,
-                                ),
-                                child: Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text("Waiting for data",
-                                      style: GoogleFonts.raleway(
-                                        fontSize: 25,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                              );
-                            case ConnectionState.active:
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Stack(
-                                  children: [
-                                    AdvanceTextFieldEditTransaction(textToChange: "${streamSnapshot.data?.docs[index]["transfer_amount"]}",),
+                          initialAmount =
+                              streamSnapshot.data?.docs[index]["transfer_amount"];
+                          initialDate = streamSnapshot.data?.docs[index]["date"];
+                          if (streamSnapshot.hasData) {
+                            switch (streamSnapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height * 0.0,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Text("Waiting for data",
+                                        style: GoogleFonts.raleway(
+                                          fontSize: 25,
+                                          color: Colors.white,
+                                        )),
+                                  ),
+                                );
+                              case ConnectionState.active:
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.end,
+                                    // mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Stack(
+                                        children: [
 
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.14),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: AdvanceTextFieldChangeDate(dateToChange: "${streamSnapshot.data?.docs[index]['date']}",),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.25),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: buildCoolDropdownEdit(context),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.7,
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.05),
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: SizedBox(
-                                          height: 50,
-                                          width: double.infinity,
-                                          child: MaterialButton(
-                                              color: Colors.white,
-                                              elevation: 0,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                side: const BorderSide(
-                                                    color: Colors.orangeAccent,
-                                                    width: 2),
-                                              ),
-                                              onPressed: () async {
-                                                await changeMainSum();
-                                                await changeAllSums();
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 300),
+                                            child: TextFormField(
+                                              decoration: textInputDecoration.copyWith(hintText: "${streamSnapshot.data?.docs[index]["transfer_amount"]}"),
+                                              validator: (val) =>
+                                              val!.isEmpty ? 'Enter an email' : null,
+                                              onChanged: (val) {
+                                                setState(() {
 
-                                                await changeTransaction(streamSnapshot, index, context);
+                                                });
                                               },
-                                              child: const Text(
-                                                "Save changes",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16),
-                                              )),
+                                            ),
+                                          ),
+                                          AdvanceTextFieldEditTransaction(textToChange: "${streamSnapshot.data?.docs[index]["transfer_amount"]}",),
+
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.14),
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: AdvanceTextFieldChangeDate(dateToChange: "${streamSnapshot.data?.docs[index]['date']}",),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.25),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: buildCoolDropdownEdit(context),
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+
+                                      // Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            top: MediaQuery.of(context)
+                                                .size
+                                                .height *
+                                                0.2),                                        child: Align(
+                                          alignment: const Alignment(0,0.95),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: double.infinity,
+                                            child: MaterialButton(
+                                                color: Colors.white,
+                                                elevation: 0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  side: const BorderSide(
+                                                      color: Colors.orangeAccent,
+                                                      width: 2),
+                                                ),
+                                                onPressed: () async {
+                                                  await changeMainSum();
+                                                  await changeAllSums();
+
+                                                  await changeTransaction(streamSnapshot, index, context);
+                                                },
+                                                child: const Text(
+                                                  "Save changes",
+                                                  style: TextStyle(
+                                                      color: Colors.orangeAccent,
+                                                      fontSize: 20),
+                                                )),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            case ConnectionState.none:
+                                    ],
+                                  ),
+                                );
+                              case ConnectionState.none:
 
-                            case ConnectionState.done:
-                              // TODO: Handle this case.
-                              break;
+                              case ConnectionState.done:
+                                // TODO: Handle this case.
+                                break;
+                            }
                           }
-                        }
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 100),
-                            child: Column(
-                              children: const [
-                                SpinKitChasingDots(
-                                  color: Colors.orangeAccent,
-                                  size: 50.0,
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text("Waiting...",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                        color: Colors.black,
-                                      )),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 20),
-                                )
-                              ],
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: Column(
+                                children: const [
+                                  SpinKitChasingDots(
+                                    color: Colors.orangeAccent,
+                                    size: 50.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text("Waiting...",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          color: Colors.black,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                );
-              }
-              return Container();
-            },
-          ),
-        ],
+                          );
+                        }),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -861,7 +885,7 @@ class _ChangeTransactionState extends State<ChangeTransaction> {
           category = true;
         });
       },
-      defaultValue: changeItem[0],
+      defaultValue: changeItem[index],
     );
   }
 }
