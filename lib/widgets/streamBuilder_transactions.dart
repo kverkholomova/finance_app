@@ -11,7 +11,7 @@ import '../models/labels.dart';
 import '../screens/edit_screen.dart';
 
 var stream;
-int index = -1;
+
 String transactionDate = '';
 double transactionAmount = 0;
 String transactionCategory = '';
@@ -194,8 +194,8 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                         // Future.delayed(const Duration(seconds: 2),
                                         //     () async {
 
-                                            index = index + 1;
-                                            print(index);
+                                            // index = index + 1;
+                                            // print(index);
                                             // changeItem.add({
                                             //   'label': transactionCategory ==
                                             //           'Groceries'
@@ -272,6 +272,7 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                         print(transactionAmount);
                                         print(transactionCategory);
                                         stream = streamSnapshot.data?.docs[index].id;
+                                        print(stream);
                               //           transactionCategory =
                               // "${streamSnapshot.data?.docs[index]["category_name"]}";
                           initialCategory =

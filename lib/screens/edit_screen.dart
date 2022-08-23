@@ -206,7 +206,11 @@ class _EditTransactionState extends State<EditTransaction> {
                   print("SSSSSSSSSSSSSSSSSSSUUUUUUUUUUUUUUUUUUUMMMMMMMMMMMMMMMMMMMMMMMM");
                   print(initialAmount);
                   print(transferAmountNew);
-                  Future.delayed(const Duration(milliseconds: 500), () async {
+                  // Future.delayed(const Duration(milliseconds: 200), () async {
+                  //
+                  // });
+
+                  Future.delayed(const Duration(milliseconds: 200), () async {
                     if (initialAmount == transferAmountNew) {
                     } else {
                       sumTransactions = sumTransactions - initialAmount;
@@ -217,9 +221,6 @@ class _EditTransactionState extends State<EditTransaction> {
                           .update({"summa": sumTransactions});
                       // }
                     }
-                  });
-
-                  Future.delayed(const Duration(milliseconds: 300), () async {
                     if (amount == true) {
                       await FirebaseFirestore.instance
                           .collection('transactions')
@@ -242,11 +243,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           .doc(stream)
                           .update({"category_name": categoryChosen});
                     }
-                  });
 
-                  Future.delayed(const Duration(milliseconds: 200), () async {
-                    // categoryChosen ??
-                    //     initialCategory!;
                     if (initialCategory == categoryChosen) {
                       if (initialAmount == transferAmountNew) {
                       } else {
@@ -259,8 +256,9 @@ class _EditTransactionState extends State<EditTransaction> {
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .update(
-                                  {"groceries_summa": groceriesTransactions});
-                        } else if (transactionCategory == 'Leisure') {
+                              {"groceries_summa": groceriesTransactions});
+                        }
+                        else if (transactionCategory == 'Leisure') {
                           leisureTransactions =
                               leisureTransactions - initialAmount;
                           leisureTransactions =
@@ -269,7 +267,8 @@ class _EditTransactionState extends State<EditTransaction> {
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .update({"leisure_summa": leisureTransactions});
-                        } else if (transactionCategory == 'Fuel') {
+                        }
+                        else if (transactionCategory == 'Fuel') {
                           fuelTransactions = fuelTransactions - initialAmount;
                           fuelTransactions =
                               fuelTransactions + transferAmountNew;
@@ -277,7 +276,8 @@ class _EditTransactionState extends State<EditTransaction> {
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .update({"fuel_summa": fuelTransactions});
-                        } else if (transactionCategory == 'Cosmetics') {
+                        }
+                        else if (transactionCategory == 'Cosmetics') {
                           cosmeticsTransactions =
                               cosmeticsTransactions - initialAmount;
                           cosmeticsTransactions =
@@ -286,7 +286,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .update(
-                                  {"cosmetics_summa": cosmeticsTransactions});
+                              {"cosmetics_summa": cosmeticsTransactions});
                         } else if (transactionCategory == 'Health') {
                           healthTransactions =
                               healthTransactions - initialAmount;
@@ -519,30 +519,40 @@ class _EditTransactionState extends State<EditTransaction> {
                         }
                       }
                     }
+
                   });
 
-                  transactionDate = '';
-                  transactionAmount = 0;
-                  transactionCategory = '';
-                  transactionId = '';
-                  initialCategory = "";
+                  setState(() {
+                    transactionDate = '';
+                    transactionAmount = 0;
+                    transactionCategory = '';
+                    transactionId = '';
+                    initialCategory = "";
 
-                  initialAmount = 0;
-                  initialDate = '';
-                  colorButton1 = Colors.white;
-                  colorButton2 = Colors.white;
-                  iconButton1 = Icon(
-                    Icons.check,
-                    color: Colors.orangeAccent,
-                  );
-                  iconButton2 = Icon(
-                    Icons.check,
-                    color: Colors.orangeAccent,
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                  );
+                    initialAmount = 0;
+                    initialDate = '';
+                    colorButton1 = Colors.white;
+                    colorButton2 = Colors.white;
+                    iconButton1 = Icon(
+                      Icons.check,
+                      color: Colors.orangeAccent,
+                    );
+                    iconButton2 = Icon(
+                      Icons.check,
+                      color: Colors.orangeAccent,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                    );
+                  });
+                  // Future.delayed(const Duration(milliseconds: 200), () async {
+                  //   // categoryChosen ??
+                  //   //     initialCategory!;
+                  //
+                  // });
+
+
                 },
                 child: const Text(
                   "Save changes",
