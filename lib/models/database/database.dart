@@ -6,6 +6,7 @@ import 'all_users.dart';
 
 class DatabaseService{
 
+  double initVal = 0.0;
   final String uid;
   DatabaseService({required this.uid});
   //collection reference
@@ -15,12 +16,12 @@ class DatabaseService{
     return await userCollection.doc(uid).set({
       'name': name,
       'email': email_address,
-      'summa': 0.0,
-      'groceries_summa': 0.0,
-      'leisure_summa':0.0,
-      'fuel_summa':0.0,
-      'cosmetics_summa':0.0,
-      'health_summa':0.0,
+      'summa': initVal,
+      'groceries_summa': initVal,
+      'leisure_summa':initVal,
+      'fuel_summa': initVal,
+      'cosmetics_summa': initVal,
+      'health_summa': initVal,
       'ID': FirebaseAuth.instance.currentUser!.uid
 
 

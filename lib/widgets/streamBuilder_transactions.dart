@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/models/histogram.dart';
 import 'package:finance_app/screens/change_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/data.dart';
 import '../models/labels.dart';
 import '../screens/edit_screen.dart';
+import '../screens/home_screen.dart';
+import 'button_add_transaction.dart';
 
 var stream;
 
@@ -139,7 +142,9 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                                         Navigator.of(context)
                                                             .pop();
                                                       },
-                                                      child: const Text('Close')),
+                                                      child: const Text('Cancel', style: TextStyle(
+                                                        color: Colors.orangeAccent
+                                                      ),)),
                                                   TextButton(
                                                       onPressed: () async {
                                                         await FirebaseFirestore
@@ -153,10 +158,65 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                                                   .docs[index]
                                                                   .reference);
                                                         });
-                                                        Navigator.of(context)
-                                                            .pop();
+                                                        if(streamSnapshot.data?.docs[index]["category_name"] == "Groceries"){
+                                                          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                                            "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                            'groceries_summa': groceriesTransactions = groceriesTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                          });
+                                                        }
+                                                        else if(streamSnapshot.data?.docs[index]["category_name"] == 'Leisure'){
+                                                          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                                            "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                            'leisure_summa':leisureTransactions = leisureTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                          });
+                                                          // chartData.add(ChartData(valueChosen, leisureTransactions));
+
+                                                        }
+                                                        else if(streamSnapshot.data?.docs[index]["category_name"] == 'Fuel'){
+                                                          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                                            "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                            'fuel_summa': fuelTransactions = fuelTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                          });
+                                                          // chartData.add(ChartData(valueChosen, fuelTransactions));
+
+                                                        }
+                                                        else if(streamSnapshot.data?.docs[index]["category_name"] == 'Cosmetics'){
+                                                          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                                            "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                            'cosmetics_summa':cosmeticsTransactions = cosmeticsTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                          });
+                                                          // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
+
+                                                        }
+                                                        else if(streamSnapshot.data?.docs[index]["category_name"] == 'Health'){
+                                                          await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                                                            "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                            'health_summa':healthTransactions = healthTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
+                                                          });
+                                                          // chartData.add(ChartData(valueChosen, healthTransactions));
+
+                                                        }
+
+                                                        // await FirebaseFirestore.instance
+                                                        //     .collection('users')
+                                                        //     .doc(FirebaseAuth.instance.currentUser!.uid)
+                                                        //     .update({
+                                                        //   "cosmetics_summa": cosmeticsTransactions,
+                                                        //   "health_summa": healthTransactions,
+                                                        // });
+
+                                                        getDataHistogram();
+                                                        Histogram();
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(builder: (context) => MyHomePage()),
+                                                        );
+                                                        // Navigator.of(context)
+                                                        //     .pop();
                                                       },
-                                                      child: const Text('Ok'))
+                                                      child: const Text('OK', style: TextStyle(
+                                                          color: Colors.orangeAccent
+                                                      ),))
                                                 ],
                                               );
                                             });

@@ -32,8 +32,8 @@ class _TopWidgetState extends State<TopWidget> {
     //   setState(() {
     //
     // Future.delayed(const Duration(milliseconds: 200), () async {
-    //   const Histogram();
-    //   getDataHistogram();
+      const Histogram();
+      getDataHistogram();
     // });
     //   });
     // });
@@ -47,8 +47,8 @@ class _TopWidgetState extends State<TopWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    getDataHistogram();
-    Histogram();
+    // getDataHistogram();
+    // Histogram();
     // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     // print(chartData[0]);
     // print(ChartData(x, y))
@@ -122,7 +122,7 @@ class _TopWidgetState extends State<TopWidget> {
                                 "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
                             healthTransactions = double.parse(
                                 "${streamSnapshot.data?.docs[index]['health_summa']}");
-                            // getDataHistogram();
+                            getDataHistogram();
                             // chartData.add(ChartData("Groceries", double.parse(
                             //     "${streamSnapshot.data?.docs[index]['groceries_summa']}")));
                             // chartData.add(ChartData('Leisure', double.parse(
