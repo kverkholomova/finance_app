@@ -88,7 +88,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "summa": sumTransactions,
                       'groceries_summa': groceriesTransactions,
                     });
-                    chartData.add(ChartData(valueChosen, groceriesTransactions));
+                    // chartData.add(ChartData(valueChosen, groceriesTransactions));
 
                   }
                   else if(valueChosen == 'Leisure'){
@@ -97,7 +97,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "summa": sumTransactions,
                       'leisure_summa':leisureTransactions,
                     });
-                    chartData.add(ChartData(valueChosen, leisureTransactions));
+                    // chartData.add(ChartData(valueChosen, leisureTransactions));
 
                   }
                   else if(valueChosen == 'Fuel'){
@@ -106,7 +106,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "summa": sumTransactions,
                       'fuel_summa': fuelTransactions,
                     });
-                    chartData.add(ChartData(valueChosen, fuelTransactions));
+                    // chartData.add(ChartData(valueChosen, fuelTransactions));
 
                   }
                   else if(valueChosen == 'Cosmetics'){
@@ -115,7 +115,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "summa": sumTransactions,
                       'cosmetics_summa':cosmeticsTransactions,
                     });
-                    chartData.add(ChartData(valueChosen, cosmeticsTransactions));
+                    // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
 
                   }
                   else if(valueChosen == 'Health'){
@@ -124,9 +124,10 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                       "summa": sumTransactions,
                       'health_summa':healthTransactions,
                     });
-                    chartData.add(ChartData(valueChosen, healthTransactions));
+                    // chartData.add(ChartData(valueChosen, healthTransactions));
 
                   }
+                  getDataHistogram();
                   userInput = "0.00";
                   Navigator.push(
                     context,

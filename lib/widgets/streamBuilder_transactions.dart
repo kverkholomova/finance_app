@@ -278,8 +278,8 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                           initialCategory =
                               "${streamSnapshot.data?.docs[index]["category_name"]}";
 
-                          initialAmount =
-                              streamSnapshot.data?.docs[index]["transfer_amount"];
+                          // initialAmount =
+                          //     streamSnapshot.data?.docs[index]["transfer_amount"];
                           initialDate = streamSnapshot.data?.docs[index]["date"];
                                       },
                                       backgroundColor: Colors.orangeAccent,

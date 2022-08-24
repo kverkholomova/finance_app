@@ -15,12 +15,12 @@ class DatabaseService{
     return await userCollection.doc(uid).set({
       'name': name,
       'email': email_address,
-      'summa': 0,
-      'groceries_summa': 0,
-      'leisure_summa':0,
-      'fuel_summa':0,
-      'cosmetics_summa':0,
-      'health_summa':0,
+      'summa': 0.0,
+      'groceries_summa': 0.0,
+      'leisure_summa':0.0,
+      'fuel_summa':0.0,
+      'cosmetics_summa':0.0,
+      'health_summa':0.0,
       'ID': FirebaseAuth.instance.currentUser!.uid
 
 

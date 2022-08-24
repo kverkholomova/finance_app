@@ -3,6 +3,8 @@ import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../models/data.dart';
+import '../models/histogram.dart';
 import '../widgets/bottom_widget.dart';
 import '../widgets/top_widget.dart';
 
@@ -16,6 +18,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    const Histogram();
+    getDataHistogram();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

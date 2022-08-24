@@ -74,13 +74,18 @@ class _AddTransactionState extends State<AddTransaction> {
         elevation: 0,
         backgroundColor: Colors.purple,
       ),
-      body: Stack(
-        children: [
-          buildTopWidget(context),
-          buildBottomWidget(context),
-          const ButtonAddTransaction(),
-        ],
+      body: SizedBox(
+        height: double.infinity,
+        child: Stack(
+          children: [
+            buildTopWidget(context),
+            buildBottomWidget(context),
+          ],
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: const ButtonAddTransaction(),
+
     );
   }
 
@@ -88,9 +93,9 @@ class _AddTransactionState extends State<AddTransaction> {
 
     return Padding(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.5),
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.4),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.5,
         color: Colors.purple,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -171,13 +176,13 @@ class _AddTransactionState extends State<AddTransaction> {
     return Padding(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.32,
-          bottom: MediaQuery.of(context).size.height * 0.05),
+          bottom: MediaQuery.of(context).size.height * 0),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.55,
+        height: MediaQuery.of(context).size.height * 0.6,
         color: Colors.white,
         child: Padding(
           padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.07),
+              bottom: MediaQuery.of(context).size.height * 0.09),
           child: Stack(
             children: [
               Column(

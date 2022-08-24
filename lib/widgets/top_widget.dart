@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/constants.dart';
 import 'package:finance_app/screens/add_transaction.dart';
@@ -26,7 +28,16 @@ class _TopWidgetState extends State<TopWidget> {
   @override
   void initState(){
     super.initState();
-    const Histogram();
+    // new Timer.periodic(Duration(seconds: 1), (timer) {
+    //   setState(() {
+    //
+    // Future.delayed(const Duration(milliseconds: 200), () async {
+    //   const Histogram();
+    //   getDataHistogram();
+    // });
+    //   });
+    // });
+
     userInput = "0.00";
     // index = index+1;
     // changeItem.add(
@@ -36,6 +47,11 @@ class _TopWidgetState extends State<TopWidget> {
   }
   @override
   Widget build(BuildContext context) {
+    getDataHistogram();
+    Histogram();
+    // print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // print(chartData[0]);
+    // print(ChartData(x, y))
     return Scaffold(
 
       body: Padding(
@@ -106,12 +122,19 @@ class _TopWidgetState extends State<TopWidget> {
                                 "${streamSnapshot.data?.docs[index]['cosmetics_summa']}");
                             healthTransactions = double.parse(
                                 "${streamSnapshot.data?.docs[index]['health_summa']}");
-                            chartData.add(ChartData("Groceries", groceriesTransactions));
-                            chartData.add(ChartData('Leisure', leisureTransactions));
-                            chartData.add(ChartData('Fuel', fuelTransactions));
-                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
-                            chartData.add(ChartData('Health', healthTransactions));
+                            // getDataHistogram();
+                            // chartData.add(ChartData("Groceries", double.parse(
+                            //     "${streamSnapshot.data?.docs[index]['groceries_summa']}")));
+                            // chartData.add(ChartData('Leisure', double.parse(
+                            //     "${streamSnapshot.data?.docs[index]['leisure_summa']}")));
+                            // chartData.add(ChartData('Fuel', double.parse(
+                            //     "${streamSnapshot.data?.docs[index]['fuel_summa']}")));
+                            // chartData.add(ChartData('Cosmetics', double.parse(
+                            //     "${streamSnapshot.data?.docs[index]['cosmetics_summa']}")));
+                            // chartData.add(ChartData('Health', double.parse(
+                            //     "${streamSnapshot.data?.docs[index]['health_summa']}")));
 
+                            // print(chartData);
 
                             if (streamSnapshot.hasData) {
                               switch (streamSnapshot.connectionState) {

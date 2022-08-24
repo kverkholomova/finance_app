@@ -22,7 +22,7 @@ bool dateTr = false;
 bool category = false;
 double transferAmountNew = 0;
 String? initialCategory;
-double initialAmount = 0;
+
 String? initialDate;
 Color colorButton1 = Colors.white;
 Color colorButton2 = Colors.white;
@@ -47,9 +47,11 @@ class _EditTransactionState extends State<EditTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    category = true;
-    categoryChosen = initialCategory;
-    double height = MediaQuery.of(context).size.height;
+    print("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp");
+    print(transactionAmount);
+    print(transferAmountNew);
+    // categoryChosen = transactionCategory;
+    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -61,12 +63,12 @@ class _EditTransactionState extends State<EditTransaction> {
           icon: closeIcon,
           onPressed: () {
             transactionDate = '';
-            transactionAmount = 0;
+            transferAmountNew = 0;
             transactionCategory = '';
             transactionId = '';
             initialCategory = "";
 
-            initialAmount = 0;
+            transactionAmount = 0;
             initialDate = '';
             Navigator.push(
               context,
@@ -204,24 +206,89 @@ class _EditTransactionState extends State<EditTransaction> {
                 ),
                 onPressed: () async {
                   print("SSSSSSSSSSSSSSSSSSSUUUUUUUUUUUUUUUUUUUMMMMMMMMMMMMMMMMMMMMMMMM");
-                  print(initialAmount);
+                  // print(sumTransactions);
                   print(transferAmountNew);
                   // Future.delayed(const Duration(milliseconds: 200), () async {
                   //
                   // });
+                  // print(transactionDate);
+                  // print(transactionAmount);
+                  print(transactionCategory);
+                  // print(transactionId);
+                  print(initialCategory);
+                  print(categoryChosen);
+                  // print(initialAmount);
+                  // print(initialDate);
+                  print(amount);
+                  print(dateTr);
+                  print(category);
+                  chartData.clear();
+                  print("CCCCCCCCCCCCCChart DDDDDDDDDdata");
+                  print(chartData);
 
                   Future.delayed(const Duration(milliseconds: 200), () async {
-                    if (initialAmount == transferAmountNew) {
-                    } else {
-                      sumTransactions = sumTransactions - initialAmount;
-                      sumTransactions = sumTransactions + transferAmountNew;
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .update({"summa": sumTransactions});
-                      // }
-                    }
+
+
                     if (amount == true) {
+                      // if (initialAmount == transferAmountNew) {
+                      // } else {
+                        print(sumTransactions);
+                        // print(double.parse(sumTransactions.toString()) - double.parse(initialAmount.toString()));
+                        sumTransactions = sumTransactions - transactionAmount;
+                        print(sumTransactions);
+                        sumTransactions = sumTransactions + transferAmountNew;
+                        print(sumTransactions);
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .update({
+                          "summa": sumTransactions,
+                        });
+                        if(categoryChosen == null){
+                          if(initialCategory == "Groceries"){
+                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                              "summa": sumTransactions,
+                              'groceries_summa': transferAmountNew,
+                            });
+                            chartData.add(ChartData(initialCategory, transferAmountNew));
+
+                          }
+                          else if(initialCategory == 'Leisure'){
+                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                              "summa": sumTransactions,
+                              'leisure_summa':transferAmountNew,
+                            });
+                            chartData.add(ChartData(initialCategory, transferAmountNew));
+
+                          }
+                          else if(initialCategory == 'Fuel'){
+                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                              "summa": sumTransactions,
+                              'fuel_summa': transferAmountNew,
+                            });
+                            chartData.add(ChartData(initialCategory, transferAmountNew));
+
+                          }
+                          else if(initialCategory == 'Cosmetics'){
+                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                              "summa": sumTransactions,
+                              'cosmetics_summa':transferAmountNew,
+                            });
+                            chartData.add(ChartData(initialCategory, transferAmountNew));
+
+                          }
+                          else if(initialCategory == 'Health'){
+                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+                              "summa": sumTransactions,
+                              'health_summa':transferAmountNew,
+                            });
+                            chartData.add(ChartData(initialCategory, transferAmountNew));
+
+                          }
+                        }
+
+                        // }
+                      // }
                       await FirebaseFirestore.instance
                           .collection('transactions')
                           .doc(stream)
@@ -237,318 +304,592 @@ class _EditTransactionState extends State<EditTransaction> {
                         "date": dateTime == '' ? transactionDate : dateTime,
                       });
                     }
-                    if (category == true) {
+                    if (category == true && amount == true) {
+                      if (initialCategory == categoryChosen) {
+                        if (transactionAmount == transferAmountNew) {
+                        } else {
+                          if (transactionCategory == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions - transactionAmount;
+                            groceriesTransactions =
+                                groceriesTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update(
+                                {"groceries_summa": groceriesTransactions});
+                          }
+                          else if (transactionCategory == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions - transactionAmount;
+                            leisureTransactions =
+                                leisureTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({"leisure_summa": leisureTransactions});
+                          }
+                          else if (transactionCategory == 'Fuel') {
+                            fuelTransactions = fuelTransactions - transactionAmount;
+                            fuelTransactions =
+                                fuelTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({"fuel_summa": fuelTransactions});
+                          }
+                          else if (transactionCategory == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions - transactionAmount;
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update(
+                                {"cosmetics_summa": cosmeticsTransactions});
+                          } else if (transactionCategory == 'Health') {
+                            healthTransactions =
+                                healthTransactions - transactionAmount;
+                            healthTransactions =
+                                healthTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({"health_summa": healthTransactions});
+                          }
+                        }
+                      } else {
+                        if (initialCategory == "Groceries") {
+                          groceriesTransactions =
+                              groceriesTransactions - transactionAmount;
+
+                          chartData.add(ChartData('Groceries', groceriesTransactions));
+                          print(chartData);
+                          if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "leisure_summa": leisureTransactions,
+                            });
+                            chartData.add(ChartData('Leisure', leisureTransactions));
+                            print(chartData[0]);
+
+                          } else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                            chartData.add(ChartData('Fuel', fuelTransactions));
+
+                          } else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
+
+                          } else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                            chartData.add(ChartData('Health', healthTransactions));
+                          }
+                        }
+                        else if (initialCategory == 'Leisure') {
+                          leisureTransactions =
+                              leisureTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "leisure_summa": leisureTransactions,
+                            });
+                          } else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transferAmountNew;
+                            print(fuelTransactions);
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          } else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          } else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == "Fuel") {
+                          fuelTransactions = fuelTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          } else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          } else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          } else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == 'Cosmetics') {
+                          cosmeticsTransactions =
+                              cosmeticsTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          } else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          } else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          } else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "cosmetics_summa": cosmeticsTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == "Health") {
+                          healthTransactions = healthTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          } else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          } else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          } else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transferAmountNew;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "cosmetics_summa": cosmeticsTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                      }
+                      await FirebaseFirestore.instance
+                          .collection('transactions')
+                          .doc(stream)
+                          .update({"category_name": categoryChosen});
+                    }
+                    else if (category==true && amount==false){
+                      if (initialCategory == "Groceries") {
+                          groceriesTransactions =
+                              groceriesTransactions - transactionAmount;
+
+                          chartData.add(ChartData('Groceries', groceriesTransactions));
+                          print(chartData);
+                          if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "leisure_summa": leisureTransactions,
+                            });
+                            chartData.add(ChartData('Leisure', leisureTransactions));
+                            print(chartData[0]);
+
+                          }
+                          else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                            chartData.add(ChartData('Fuel', fuelTransactions));
+
+                          }
+                          else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
+
+                          }
+                          else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                            chartData.add(ChartData('Health', healthTransactions));
+                          }
+                        }
+                        else if (initialCategory == 'Leisure') {
+                          leisureTransactions =
+                              leisureTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "leisure_summa": leisureTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transactionAmount;
+                            print(fuelTransactions);
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == "Fuel") {
+                          fuelTransactions = fuelTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "fuel_summa": fuelTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == 'Cosmetics') {
+                          cosmeticsTransactions =
+                              cosmeticsTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "cosmetics_summa": cosmeticsTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Health') {
+                            healthTransactions =
+                                healthTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "cosmetics_summa": cosmeticsTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                        }
+                        else if (initialCategory == "Health") {
+                          healthTransactions = healthTransactions - transactionAmount;
+                          if (categoryChosen == 'Groceries') {
+                            groceriesTransactions =
+                                groceriesTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "groceries_summa": groceriesTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Leisure') {
+                            leisureTransactions =
+                                leisureTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "leisure_summa": leisureTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Fuel') {
+                            fuelTransactions =
+                                fuelTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "fuel_summa": fuelTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                          else if (categoryChosen == 'Cosmetics') {
+                            cosmeticsTransactions =
+                                cosmeticsTransactions + transactionAmount;
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              "cosmetics_summa": cosmeticsTransactions,
+                              "health_summa": healthTransactions,
+                            });
+                          }
+                      }
                       await FirebaseFirestore.instance
                           .collection('transactions')
                           .doc(stream)
                           .update({"category_name": categoryChosen});
                     }
 
-                    if (initialCategory == categoryChosen) {
-                      if (initialAmount == transferAmountNew) {
-                      } else {
-                        if (transactionCategory == 'Groceries') {
-                          groceriesTransactions =
-                              groceriesTransactions - initialAmount;
-                          groceriesTransactions =
-                              groceriesTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update(
-                              {"groceries_summa": groceriesTransactions});
-                        }
-                        else if (transactionCategory == 'Leisure') {
-                          leisureTransactions =
-                              leisureTransactions - initialAmount;
-                          leisureTransactions =
-                              leisureTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({"leisure_summa": leisureTransactions});
-                        }
-                        else if (transactionCategory == 'Fuel') {
-                          fuelTransactions = fuelTransactions - initialAmount;
-                          fuelTransactions =
-                              fuelTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({"fuel_summa": fuelTransactions});
-                        }
-                        else if (transactionCategory == 'Cosmetics') {
-                          cosmeticsTransactions =
-                              cosmeticsTransactions - initialAmount;
-                          cosmeticsTransactions =
-                              cosmeticsTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update(
-                              {"cosmetics_summa": cosmeticsTransactions});
-                        } else if (transactionCategory == 'Health') {
-                          healthTransactions =
-                              healthTransactions - initialAmount;
-                          healthTransactions =
-                              healthTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({"health_summa": healthTransactions});
-                        }
-                      }
-                    } else {
-                      if (initialCategory == "Groceries") {
-                        groceriesTransactions =
-                            groceriesTransactions - initialAmount;
-                        if (categoryChosen == 'Leisure') {
-                          leisureTransactions =
-                              leisureTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "leisure_summa": leisureTransactions,
-                          });
-                        } else if (categoryChosen == 'Fuel') {
-                          fuelTransactions =
-                              fuelTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "fuel_summa": fuelTransactions,
-                          });
-                        } else if (categoryChosen == 'Cosmetics') {
-                          cosmeticsTransactions =
-                              cosmeticsTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Health') {
-                          healthTransactions =
-                              healthTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        }
-                      } else if (initialCategory == 'Leisure') {
-                        leisureTransactions =
-                            leisureTransactions - initialAmount;
-                        if (categoryChosen == 'Groceries') {
-                          groceriesTransactions =
-                              groceriesTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "leisure_summa": leisureTransactions,
-                          });
-                        } else if (categoryChosen == 'Fuel') {
-                          fuelTransactions =
-                              fuelTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "fuel_summa": fuelTransactions,
-                          });
-                        } else if (categoryChosen == 'Cosmetics') {
-                          cosmeticsTransactions =
-                              cosmeticsTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Health') {
-                          healthTransactions =
-                              healthTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        }
-                      } else if (initialCategory == "Fuel") {
-                        fuelTransactions = fuelTransactions - initialAmount;
-                        if (categoryChosen == 'Groceries') {
-                          groceriesTransactions =
-                              groceriesTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "fuel_summa": fuelTransactions,
-                          });
-                        } else if (categoryChosen == 'Leisure') {
-                          leisureTransactions =
-                              leisureTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "fuel_summa": fuelTransactions,
-                          });
-                        } else if (categoryChosen == 'Cosmetics') {
-                          cosmeticsTransactions =
-                              cosmeticsTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "fuel_summa": fuelTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Health') {
-                          healthTransactions =
-                              healthTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "fuel_summa": fuelTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        }
-                      } else if (initialCategory == 'Cosmetics') {
-                        cosmeticsTransactions =
-                            cosmeticsTransactions - initialAmount;
-                        if (categoryChosen == 'Groceries') {
-                          groceriesTransactions =
-                              groceriesTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Leisure') {
-                          leisureTransactions =
-                              leisureTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Fuel') {
-                          fuelTransactions =
-                              fuelTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "fuel_summa": fuelTransactions,
-                            "cosmetics_summa": cosmeticsTransactions,
-                          });
-                        } else if (categoryChosen == 'Health') {
-                          healthTransactions =
-                              healthTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "cosmetics_summa": cosmeticsTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        }
-                      } else if (initialCategory == "Health") {
-                        healthTransactions = healthTransactions - initialAmount;
-                        if (categoryChosen == 'Groceries') {
-                          groceriesTransactions =
-                              groceriesTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "groceries_summa": groceriesTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        } else if (categoryChosen == 'Leisure') {
-                          leisureTransactions =
-                              leisureTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "leisure_summa": leisureTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        } else if (categoryChosen == 'Fuel') {
-                          fuelTransactions =
-                              fuelTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "fuel_summa": fuelTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        } else if (categoryChosen == 'Cosmetics') {
-                          cosmeticsTransactions =
-                              cosmeticsTransactions + transferAmountNew;
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({
-                            "cosmetics_summa": cosmeticsTransactions,
-                            "health_summa": healthTransactions,
-                          });
-                        }
-                      }
-                    }
 
-                  });
 
-                  setState(() {
-                    transactionDate = '';
-                    transactionAmount = 0;
-                    transactionCategory = '';
-                    transactionId = '';
-                    initialCategory = "";
+                      transactionDate = '';
+                    transferAmountNew=0;
+                      transactionAmount = 0;
+                      transactionCategory = '';
+                      transactionId = '';
+                      initialCategory = "";
+                      categoryChosen='';
+                      // initialAmount = 0;
+                      initialDate = '';
+                      colorButton1 = Colors.white;
+                      colorButton2 = Colors.white;
+                      iconButton1 = Icon(
+                        Icons.check,
+                        color: Colors.orangeAccent,
+                      );
+                      iconButton2 = Icon(
+                        Icons.check,
+                        color: Colors.orangeAccent,
+                      );
 
-                    initialAmount = 0;
-                    initialDate = '';
-                    colorButton1 = Colors.white;
-                    colorButton2 = Colors.white;
-                    iconButton1 = Icon(
-                      Icons.check,
-                      color: Colors.orangeAccent,
-                    );
-                    iconButton2 = Icon(
-                      Icons.check,
-                      color: Colors.orangeAccent,
-                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyHomePage()),
                     );
+
                   });
+
+
                   // Future.delayed(const Duration(milliseconds: 200), () async {
-                  //   // categoryChosen ??
-                  //   //     initialCategory!;
+
                   //
                   // });
 
