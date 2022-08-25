@@ -19,10 +19,11 @@ class AddTransaction extends StatefulWidget {
   State<AddTransaction> createState() => _AddTransactionState();
 }
 
-String valueChosen =dropdownItemList[3]["value"];
+String valueChosen = dropdownItemList[3]["value"];
 
 String userInput = '0.00';
-String transactionDate =DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
+String transactionDate =
+    DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 // String transactionDate = '${DateTime.now().day.toString().length < 2 ? "0${DateTime.now().day}" : DateTime.now().day} / ${DateTime.now().month.toString().length < 2 ? "0${DateTime.now().month}" : DateTime.now().month} / ${DateTime.now().year}';
 
 class _AddTransactionState extends State<AddTransaction> {
@@ -35,7 +36,6 @@ class _AddTransactionState extends State<AddTransaction> {
   int answerInt = 0;
   double answer = 0;
   num third = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +85,10 @@ class _AddTransactionState extends State<AddTransaction> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const ButtonAddTransaction(),
-
     );
   }
 
   Padding buildTopWidget(BuildContext context) {
-
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.4),
@@ -257,15 +255,16 @@ class _AddTransactionState extends State<AddTransaction> {
                                 setState(() {
                                   if (userInput == '0.00') {
                                     userInput = '0.';
-                                  } else if(userInput.length>=4 && userInput[userInput.length-3] == ".") {
-                                    userInput = userInput.substring(0, userInput.length - 2);
+                                  } else if (userInput.length >= 4 &&
+                                      userInput[userInput.length - 3] == ".") {
+                                    userInput = userInput.substring(
+                                        0, userInput.length - 2);
                                     print(userInput);
                                     // userInput = userInput + valueButton;
                                     print(userInput);
-                                  }
-                                  else{
-                                    userInput = userInput.substring(0,
-                                        userInput.length -2);
+                                  } else {
+                                    userInput = userInput.substring(
+                                        0, userInput.length - 2);
                                     second = double.parse(userInput.substring(
                                         userInput.length -
                                             (userInput.length - index)));
@@ -283,28 +282,50 @@ class _AddTransactionState extends State<AddTransaction> {
                               icon: const Icon(Icons.backspace),
                               onPressed: () {
                                 setState(() {
-                                  if (userInput.length>1 ){
-                                    if (userInput=="0.00"){
+                                  if (userInput.length > 1) {
+                                    if (userInput == "0.00") {
+                                    } else if (userInput.length == 5) {
+                                      if (userInput[userInput.length - 1] ==
+                                              "0" &&
+                                          userInput[userInput.length - 2] ==
+                                              "0") {
+                                        print(
+                                            "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
-                                    }else if(userInput[userInput.length-1]=="0"){
+                                        userInput =
+                                            "${userInput.substring(0, 1)}.00";
+                                      }
+                                      else if(userInput[userInput.length-1]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 1)}0";
+                                      } else if(userInput[userInput.length-1]=="0"&&userInput[userInput.length-2]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 2)}00";
+                                      }
 
-                                    }
-                                    else{
-                                      userInput = userInput.substring(
-                                          0, userInput.length - 1);
-                                    }
+                                    } else if (userInput.length == 4) {
+                                        if (userInput[userInput.length - 1] ==
+                                                "0" &&
+                                            userInput[userInput.length - 2] ==
+                                                "0") {
+                                          print(
+                                              "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD00000");
 
-                                  // if (userInput[userInput.length-1] == '.'){
-                                  //   userInput = userInput+'00';
-                                  //   userInput =userInput.substring(userInput.length-3, 1);
-                                  // }
+                                          userInput = "0.00";
+                                        }
+                                      }
+
+
+                                    // if (userInput[userInput.length-1] == '.'){
+                                    //   userInput = userInput+'00';
+                                    //   userInput =userInput.substring(userInput.length-3, 1);
+                                    // }
                                   }
 
-
-                                    // else if(userInput[userInput.length-1]=='0' && userInput[userInput.length-1]=='0'){
+                                  // else if(userInput[userInput.length-1]=='0' && userInput[userInput.length-1]=='0'){
                                   //   userInput = userInput[userInput.length-1].substring(0,userInput.length-1);
                                   // }
-                                  else{
+                                  else {
                                     userInput = "0.00";
                                   }
                                 });
@@ -330,24 +351,23 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
         onPressed: () {
           setState(() {
-            if (userInput.length>=4) {
+            if (userInput.length >= 4) {
               print("pppppppppppppppppppppppppppppppppppppppppppppppp");
-              print(userInput.length>=4 && userInput[userInput.length-3] == ".");
+              print(userInput.length >= 4 &&
+                  userInput[userInput.length - 3] == ".");
             }
             if (userInput == '0.00') {
               userInput = "$valueButton.00";
-            }
-
-            else if (userInput[userInput.length-1]=='.' || userInput[userInput.length-2]=='.'){
+            } else if (userInput[userInput.length - 1] == '.' ||
+                userInput[userInput.length - 2] == '.') {
               userInput = userInput + valueButton;
               // second = double.parse(userInput
               //     .substring(userInput.length - (userInput.length - index)));
-            }
-            else{
+            } else {
               userInput = userInput.substring(0, userInput.length - 3);
-            userInput = '${userInput}${valueButton}.00';
-            // second = double.parse(userInput
-            //     .substring(userInput.length - (userInput.length - index)));
+              userInput = '${userInput}${valueButton}.00';
+              // second = double.parse(userInput
+              //     .substring(userInput.length - (userInput.length - index)));
 
             }
           });
