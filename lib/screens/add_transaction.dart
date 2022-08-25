@@ -286,7 +286,10 @@ class _AddTransactionState extends State<AddTransaction> {
                                   if (userInput.length>1 ){
                                     if (userInput=="0.00"){
 
-                                    } else{
+                                    }else if(userInput[userInput.length-1]=="0"){
+
+                                    }
+                                    else{
                                       userInput = userInput.substring(
                                           0, userInput.length - 1);
                                     }
