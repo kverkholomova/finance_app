@@ -56,6 +56,7 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   iconforest_grommet_icons: ^1.0.0+1
   advance_text_field: ^0.0.5
+  restart_app: ^1.1.0+1
 
 
 dev_dependencies:

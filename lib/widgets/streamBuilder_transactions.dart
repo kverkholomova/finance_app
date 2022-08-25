@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../models/data.dart';
 import '../models/labels.dart';
@@ -303,14 +304,17 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                                     // });
                                                     print("Delete button");
 
+
                                                           Future.delayed(const Duration(milliseconds: 600), () async {
+                                                            Navigator.pop(context);
+                                                            // Restart.restartApp();
                                                             // main();
                                                             // getDataHistogram();
                                                             // Navigator.pushReplacement(context, MaterialPageRoute(builder:
                                                             //     (BuildContext context) => MyHomePage()));
                                                           Navigator.push(
                                                             context,
-                                                            MaterialPageRoute(builder: (context) => MyHomePage()),
+                                                            MaterialPageRoute(builder: (context) => MyApp()),
                                                           );
                                                           });
 

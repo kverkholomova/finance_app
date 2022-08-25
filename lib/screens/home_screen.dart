@@ -28,11 +28,27 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     super.initState();
   }
+
+  updateTopWidget(){
+    Future.delayed(const Duration(milliseconds: 600), () async {
+      Navigator.pop(context);
+      // Restart.restartApp();
+      // main();
+      // getDataHistogram();
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder:
+      //     (BuildContext context) => MyHomePage()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TopWidget()),
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
+          // updateTopWidget(),
           const TopWidget(),
           const BottomWidget(),
           Padding(

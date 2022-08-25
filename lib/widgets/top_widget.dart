@@ -38,7 +38,9 @@ class _TopWidgetState extends State<TopWidget> {
       setState(() {
         const Histogram();
         getDataHistogram();
+
       });
+
 
     // });
 
@@ -114,7 +116,12 @@ class _TopWidgetState extends State<TopWidget> {
                                   : streamSnapshot.data?.docs.length
                               : 0,
                           itemBuilder: (ctx, index) {
-                            sumTransactions = double.parse(
+                            // chartData[0].y = streamSnapshot.data?.docs[index]['cosmetics_summa'];
+                            // chartData[1].y = streamSnapshot.data?.docs[index]['fuel_summa'];
+                            // chartData[2].y = streamSnapshot.data?.docs[index]['groceries_summa'];
+                            // chartData[3].y = streamSnapshot.data?.docs[index]['leisure_summa'];
+                            // chartData[4].y = streamSnapshot.data?.docs[index]['health_summa'];
+                                sumTransactions = double.parse(
                                 "${streamSnapshot.data?.docs[index]['summa']}");
                             groceriesTransactions = double.parse(
                                 "${streamSnapshot.data?.docs[index]['groceries_summa']}");
