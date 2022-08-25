@@ -880,20 +880,14 @@ class _EditTransactionState extends State<EditTransaction> {
                         color: Colors.orangeAccent,
                       );
 
+
+
+                  });
+                  Future.delayed(const Duration(milliseconds: 1000), () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyHomePage()),
-                    );
-
-                  });
-
-
-                  // Future.delayed(const Duration(milliseconds: 200), () async {
-
-                  //
-                  // });
-
-
+                    );});
                 },
                 child: const Text(
                   "Save changes",

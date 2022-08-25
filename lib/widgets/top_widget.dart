@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../models/data.dart';
 import '../models/histogram.dart';
 import '../models/radial_gauge.dart';
+import '../screens/home_screen.dart';
 import '../services/auth.dart';
 
 class TopWidget extends StatefulWidget {
@@ -30,12 +31,15 @@ class _TopWidgetState extends State<TopWidget> {
     super.initState();
     // new Timer.periodic(Duration(seconds: 1), (timer) {
     //   setState(() {
-    //
-    // Future.delayed(const Duration(milliseconds: 200), () async {
-      const Histogram();
-      getDataHistogram();
+    //     MyHomePage();
     // });
-    //   });
+    //           });
+    // Future.delayed(const Duration(milliseconds: 200), () async {
+      setState(() {
+        const Histogram();
+        getDataHistogram();
+      });
+
     // });
 
     userInput = "0.00";

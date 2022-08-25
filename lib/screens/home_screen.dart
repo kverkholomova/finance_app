@@ -22,8 +22,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    const Histogram();
-    getDataHistogram();
+    setState(() {
+      const Histogram();
+      getDataHistogram();
+    });
     super.initState();
   }
   @override

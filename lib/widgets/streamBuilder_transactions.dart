@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/app.dart';
+import 'package:finance_app/main.dart';
 import 'package:finance_app/models/histogram.dart';
 import 'package:finance_app/screens/change_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -155,73 +157,163 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                                               )
                                               ),
                                                     child: TextButton(
-                                                        onPressed: () async {
-                                                          await FirebaseFirestore
-                                                              .instance
-                                                              .runTransaction(
-                                                                  (Transaction
-                                                                      myTransaction) async {
-                                                            myTransaction.delete(
-                                                                streamSnapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                    .reference);
-                                                          });
-                                                          if(streamSnapshot.data?.docs[index]["category_name"] == "Groceries"){
-                                                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                                                              "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                              'groceries_summa': groceriesTransactions = groceriesTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                            });
-                                                          }
-                                                          else if(streamSnapshot.data?.docs[index]["category_name"] == 'Leisure'){
-                                                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                                                              "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                              'leisure_summa':leisureTransactions = leisureTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                            });
-                                                            // chartData.add(ChartData(valueChosen, leisureTransactions));
+                                                        onPressed: () {
 
-                                                          }
-                                                          else if(streamSnapshot.data?.docs[index]["category_name"] == 'Fuel'){
-                                                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                                                              "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                              'fuel_summa': fuelTransactions = fuelTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                            });
-                                                            // chartData.add(ChartData(valueChosen, fuelTransactions));
+                                                    Future.delayed(const Duration(milliseconds: 200), () async {
+                                                      await FirebaseFirestore.instance.collection("transactions").doc(streamSnapshot.data?.docs[index].id).delete();
 
-                                                          }
-                                                          else if(streamSnapshot.data?.docs[index]["category_name"] == 'Cosmetics'){
-                                                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                                                              "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                              'cosmetics_summa':cosmeticsTransactions = cosmeticsTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                            });
-                                                            // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
+                                                      if (streamSnapshot.data
+                                                          ?.docs[index]["category_name"] ==
+                                                          "Groceries") {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!.uid)
+                                                            .update({
+                                                          "summa":
+                                                          sumTransactions =
+                                                              sumTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                          'groceries_summa':
+                                                          groceriesTransactions =
+                                                              groceriesTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                        });
+                                                      }
+                                                      else
+                                                      if (streamSnapshot.data
+                                                          ?.docs[index]["category_name"] ==
+                                                          'Leisure') {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!.uid)
+                                                            .update({
+                                                          "summa":
+                                                          sumTransactions =
+                                                              sumTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                          'leisure_summa':
+                                                          leisureTransactions =
+                                                              leisureTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                        });
+                                                        // chartData.add(ChartData(valueChosen, leisureTransactions));
 
-                                                          }
-                                                          else if(streamSnapshot.data?.docs[index]["category_name"] == 'Health'){
-                                                            await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                                                              "summa": sumTransactions = sumTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                              'health_summa':healthTransactions = healthTransactions - streamSnapshot.data?.docs[index]["transfer_amount"],
-                                                            });
-                                                            // chartData.add(ChartData(valueChosen, healthTransactions));
+                                                      }
+                                                      else
+                                                      if (streamSnapshot.data
+                                                          ?.docs[index]["category_name"] ==
+                                                          'Fuel') {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!.uid)
+                                                            .update({
+                                                          "summa":
+                                                          sumTransactions =
+                                                              sumTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                          'fuel_summa':
+                                                          fuelTransactions =
+                                                              fuelTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                        });
+                                                        // chartData.add(ChartData(valueChosen, fuelTransactions));
 
-                                                          }
+                                                      }
+                                                      else
+                                                      if (streamSnapshot.data
+                                                          ?.docs[index]["category_name"] ==
+                                                          'Cosmetics') {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!.uid)
+                                                            .update({
+                                                          "summa":
+                                                          sumTransactions =
+                                                              sumTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                          'cosmetics_summa':
+                                                          cosmeticsTransactions =
+                                                              cosmeticsTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                        });
+                                                        // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
 
-                                                          // await FirebaseFirestore.instance
-                                                          //     .collection('users')
-                                                          //     .doc(FirebaseAuth.instance.currentUser!.uid)
-                                                          //     .update({
-                                                          //   "cosmetics_summa": cosmeticsTransactions,
-                                                          //   "health_summa": healthTransactions,
-                                                          // });
+                                                      }
+                                                      else
+                                                      if (streamSnapshot.data
+                                                          ?.docs[index]["category_name"] ==
+                                                          'Health') {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!.uid)
+                                                            .update({
+                                                          "summa":
+                                                          sumTransactions =
+                                                              sumTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                          'health_summa':
+                                                          healthTransactions =
+                                                              healthTransactions -
+                                                                  streamSnapshot
+                                                                      .data
+                                                                      ?.docs[index]["transfer_amount"],
+                                                        });
+                                                        // chartData.add(ChartData(valueChosen, healthTransactions));
 
-                                                          getDataHistogram();
-                                                          Histogram();
+                                                      }
+
+                                                    });
+
+                                                    // setState(() {
+                                                    //   getDataHistogram();
+                                                    //   Histogram();
+                                                    // });
+                                                    print("Delete button");
+
+                                                          Future.delayed(const Duration(milliseconds: 600), () async {
+                                                            // main();
+                                                            // getDataHistogram();
+                                                            // Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                                                            //     (BuildContext context) => MyHomePage()));
                                                           Navigator.push(
                                                             context,
                                                             MaterialPageRoute(builder: (context) => MyHomePage()),
                                                           );
-                                                          // Navigator.of(context)
-                                                          //     .pop();
+                                                          });
+
                                                         },
                                                         child: const Text('OK', style: TextStyle(
                                                             color: Colors.orangeAccent

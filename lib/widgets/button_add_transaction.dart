@@ -47,7 +47,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                   setState(() {
                     sumTransactions = sumTransactions + double.parse(userInput);
 
-
                     if(valueChosen == "Groceries"){
                       groceriesTransactions = groceriesTransactions + double.parse(userInput);
                     }
@@ -122,14 +121,16 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                   userInput = "0.00";
                   transactionDate =DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 
-                    // Histogram();
-                    // getDataHistogram();
-
+                    // setState(() {
+                    //   Histogram();
+                    //   getDataHistogram();
+                    // });
+  Future.delayed(const Duration(milliseconds: 600), () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyHomePage()),
                     );
-
+                  });
               },
               child: const Text("Add transaction", style: TextStyle(color: Colors.black, fontSize: 16),)),
         ),

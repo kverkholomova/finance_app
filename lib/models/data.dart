@@ -14,7 +14,7 @@ class ChartData {
   ChartData(this.x, this.y);
 
   String? x;
-  final double y;
+  var y;
 
 
 }
@@ -125,6 +125,7 @@ class ChartData {
 List<ChartData> chartData = [];
 
 getDataHistogram() async {
+  // chartData.clear();
   await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get().then((value) {
 
       print(value.get("cosmetics_summa"));
@@ -138,6 +139,12 @@ getDataHistogram() async {
       chartData.add(ChartData("Groceries",value.get("groceries_summa") ));
       chartData.add(ChartData("Leisure",value.get("leisure_summa") ));
       chartData.add(ChartData("Health",value.get("health_summa") ));
+      print(ChartData("l",22));
+      print(chartData[1]);
+      print(chartData[2]);
+      print(chartData[3]);
+      print(chartData[4]);
+
 
   });
 

@@ -3,10 +3,27 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'data.dart';
 
-class Histogram extends StatelessWidget {
-  const Histogram({
-    Key? key,
-  }) : super(key: key);
+class Histogram extends StatefulWidget {
+  const Histogram({Key? key}) : super(key: key);
+
+  @override
+  State<Histogram> createState() => _HistogramState();
+}
+
+
+
+class _HistogramState extends State<Histogram> {
+//   final AuthService _auth = AuthService();
+// class Histogram extends StatelessWidget {
+//   Histogram({
+//     Key? key,
+//   }) : super(key: key);
+
+  @override
+  initState(){
+    super.initState();
+    getDataHistogram();
+  }
 
   @override
   Widget build(BuildContext context) {
