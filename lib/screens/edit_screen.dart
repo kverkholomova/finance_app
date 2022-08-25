@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../app.dart';
 import '../constants.dart';
 import '../models/data.dart';
 import '../widgets/edit_amount_text_field.dart';
@@ -26,11 +27,11 @@ String? initialCategory;
 String? initialDate;
 Color colorButton1 = Colors.white;
 Color colorButton2 = Colors.white;
-Icon iconButton1 = Icon(
+Icon iconButton1 = const Icon(
   Icons.check,
   color: Colors.orangeAccent,
 );
-Icon iconButton2 = Icon(
+Icon iconButton2 = const Icon(
   Icons.check,
   color: Colors.orangeAccent,
 );
@@ -103,7 +104,7 @@ class _EditTransactionState extends State<EditTransaction> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -118,7 +119,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           onPressed: () {
                             setState(() {
                               colorButton1 = Colors.orangeAccent;
-                              iconButton1 = Icon(
+                              iconButton1 = const Icon(
                                 Icons.check,
                                 color: Colors.white,
                               );
@@ -150,7 +151,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Container(
@@ -165,7 +166,7 @@ class _EditTransactionState extends State<EditTransaction> {
                             onPressed: () {
                               setState(() {
                                 colorButton2 = Colors.orangeAccent;
-                                iconButton2 = Icon(
+                                iconButton2 = const Icon(
                                   Icons.check,
                                   color: Colors.white,
                                 );
@@ -191,7 +192,7 @@ class _EditTransactionState extends State<EditTransaction> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Align(
           alignment: const Alignment(0, 0.95),
           child: SizedBox(
@@ -222,9 +223,9 @@ class _EditTransactionState extends State<EditTransaction> {
                   print(amount);
                   print(dateTr);
                   print(category);
-                  chartData.clear();
-                  print("CCCCCCCCCCCCCChart DDDDDDDDDdata");
-                  print(chartData);
+                  // chartData.clear();
+                  // print("CCCCCCCCCCCCCChart DDDDDDDDDdata");
+                  // print(chartData);
 
                   Future.delayed(const Duration(milliseconds: 200), () async {
 
@@ -250,7 +251,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "summa": sumTransactions,
                               'groceries_summa': transferAmountNew,
                             });
-                            chartData.add(ChartData(initialCategory, transferAmountNew));
+                            // chartData.add(ChartData(initialCategory, transferAmountNew));
 
                           }
                           else if(initialCategory == 'Leisure'){
@@ -258,7 +259,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "summa": sumTransactions,
                               'leisure_summa':transferAmountNew,
                             });
-                            chartData.add(ChartData(initialCategory, transferAmountNew));
+                            // chartData.add(ChartData(initialCategory, transferAmountNew));
 
                           }
                           else if(initialCategory == 'Fuel'){
@@ -266,7 +267,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "summa": sumTransactions,
                               'fuel_summa': transferAmountNew,
                             });
-                            chartData.add(ChartData(initialCategory, transferAmountNew));
+                            // chartData.add(ChartData(initialCategory, transferAmountNew));
 
                           }
                           else if(initialCategory == 'Cosmetics'){
@@ -274,7 +275,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "summa": sumTransactions,
                               'cosmetics_summa':transferAmountNew,
                             });
-                            chartData.add(ChartData(initialCategory, transferAmountNew));
+                            // chartData.add(ChartData(initialCategory, transferAmountNew));
 
                           }
                           else if(initialCategory == 'Health'){
@@ -282,7 +283,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "summa": sumTransactions,
                               'health_summa':transferAmountNew,
                             });
-                            chartData.add(ChartData(initialCategory, transferAmountNew));
+                            // chartData.add(ChartData(initialCategory, transferAmountNew));
 
                           }
                         }
@@ -364,8 +365,8 @@ class _EditTransactionState extends State<EditTransaction> {
                           groceriesTransactions =
                               groceriesTransactions - transactionAmount;
 
-                          chartData.add(ChartData('Groceries', groceriesTransactions));
-                          print(chartData);
+                          // chartData.add(ChartData('Groceries', groceriesTransactions));
+                          // print(chartData);
                           if (categoryChosen == 'Leisure') {
                             leisureTransactions =
                                 leisureTransactions + transferAmountNew;
@@ -376,8 +377,8 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "leisure_summa": leisureTransactions,
                             });
-                            chartData.add(ChartData('Leisure', leisureTransactions));
-                            print(chartData[0]);
+                            // chartData.add(ChartData('Leisure', leisureTransactions));
+                            // print(chartData[0]);
 
                           } else if (categoryChosen == 'Fuel') {
                             fuelTransactions =
@@ -389,7 +390,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "fuel_summa": fuelTransactions,
                             });
-                            chartData.add(ChartData('Fuel', fuelTransactions));
+                            // chartData.add(ChartData('Fuel', fuelTransactions));
 
                           } else if (categoryChosen == 'Cosmetics') {
                             cosmeticsTransactions =
@@ -401,7 +402,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "cosmetics_summa": cosmeticsTransactions,
                             });
-                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
+                            // chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
 
                           } else if (categoryChosen == 'Health') {
                             healthTransactions =
@@ -413,7 +414,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "health_summa": healthTransactions,
                             });
-                            chartData.add(ChartData('Health', healthTransactions));
+                            // chartData.add(ChartData('Health', healthTransactions));
                           }
                         }
                         else if (initialCategory == 'Leisure') {
@@ -606,8 +607,8 @@ class _EditTransactionState extends State<EditTransaction> {
                           groceriesTransactions =
                               groceriesTransactions - transactionAmount;
 
-                          chartData.add(ChartData('Groceries', groceriesTransactions));
-                          print(chartData);
+                          // chartData.add(ChartData('Groceries', groceriesTransactions));
+                          // print(chartData);
                           if (categoryChosen == 'Leisure') {
                             leisureTransactions =
                                 leisureTransactions + transactionAmount;
@@ -618,8 +619,8 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "leisure_summa": leisureTransactions,
                             });
-                            chartData.add(ChartData('Leisure', leisureTransactions));
-                            print(chartData[0]);
+                            // chartData.add(ChartData('Leisure', leisureTransactions));
+                            // print(chartData[0]);
 
                           }
                           else if (categoryChosen == 'Fuel') {
@@ -632,7 +633,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "fuel_summa": fuelTransactions,
                             });
-                            chartData.add(ChartData('Fuel', fuelTransactions));
+                            // chartData.add(ChartData('Fuel', fuelTransactions));
 
                           }
                           else if (categoryChosen == 'Cosmetics') {
@@ -645,7 +646,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "cosmetics_summa": cosmeticsTransactions,
                             });
-                            chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
+                            // chartData.add(ChartData('Cosmetics', cosmeticsTransactions));
 
                           }
                           else if (categoryChosen == 'Health') {
@@ -658,7 +659,7 @@ class _EditTransactionState extends State<EditTransaction> {
                               "groceries_summa": groceriesTransactions,
                               "health_summa": healthTransactions,
                             });
-                            chartData.add(ChartData('Health', healthTransactions));
+                            // chartData.add(ChartData('Health', healthTransactions));
                           }
                         }
                         else if (initialCategory == 'Leisure') {
@@ -871,11 +872,11 @@ class _EditTransactionState extends State<EditTransaction> {
                       initialDate = '';
                       colorButton1 = Colors.white;
                       colorButton2 = Colors.white;
-                      iconButton1 = Icon(
+                      iconButton1 = const Icon(
                         Icons.check,
                         color: Colors.orangeAccent,
                       );
-                      iconButton2 = Icon(
+                      iconButton2 = const Icon(
                         Icons.check,
                         color: Colors.orangeAccent,
                       );
@@ -883,10 +884,11 @@ class _EditTransactionState extends State<EditTransaction> {
 
 
                   });
-                  Future.delayed(const Duration(milliseconds: 1000), () async {
+                  Future.delayed(const Duration(milliseconds: 600), () async {
+
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                      MaterialPageRoute(builder: (context) => const MyApp()),
                     );});
                 },
                 child: const Text(

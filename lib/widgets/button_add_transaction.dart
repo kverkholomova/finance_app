@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:restart_app/restart_app.dart';
 
+import '../app.dart';
 import '../models/data.dart';
 
 var ID;
@@ -130,7 +131,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
   Future.delayed(const Duration(milliseconds: 600), () async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()),
+                      MaterialPageRoute(builder: (context) => MyApp()),
                     );
                   });
               },
