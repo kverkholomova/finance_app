@@ -1,4 +1,5 @@
 import 'package:finance_app/screens/add_transaction.dart';
+import 'package:finance_app/screens/history_screen.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,33 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: MaterialButton(
+                color: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(color: Colors.orangeAccent, width: 2),
+                ),
+                onPressed: () async{
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => History()),
+                  );
+
+                },
+                child: const Text("View more", style: TextStyle(color: Colors.black, fontSize: 16),)),
+          ),
+        ),
       ),
     );
   }

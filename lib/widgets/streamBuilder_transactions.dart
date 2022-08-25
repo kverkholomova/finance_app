@@ -75,8 +75,8 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                       : const AlwaysScrollableScrollPhysics(),
                   itemCount: streamSnapshot.hasData
                       ? widget.limitedLength == true
-                          ? streamSnapshot.data!.docs.length > 3
-                              ? 3
+                          ? streamSnapshot.data!.docs.length > 2
+                              ? 2
                               : streamSnapshot.data?.docs.length
                           : streamSnapshot.data?.docs.length
                       : 0,

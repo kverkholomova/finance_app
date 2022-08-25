@@ -34,23 +34,14 @@ class BottomWidget extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.045,
                   ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const History()),
-                      );
-                    },
-                    child: Text("History",
-                        style: GoogleFonts.raleway(
-                          fontSize: 22,
-                          color: Colors.black,
-                        ),
-                        textAlign: TextAlign.left),
-                  ),
+                  child: Text("History",
+                      style: GoogleFonts.raleway(
+                        fontSize: 22,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.left),
                 ),
               )),
         ],
