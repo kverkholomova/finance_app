@@ -284,7 +284,51 @@ class _AddTransactionState extends State<AddTransaction> {
                                 setState(() {
                                   if (userInput.length > 1) {
                                     if (userInput == "0.00") {
-                                    } else if (userInput.length == 5) {
+                                    }else if(userInput.length==7){
+                                      // if(userInput.indexOf(".")==3){
+                                      //
+                                      // }
+                                      if (userInput[userInput.length - 1] ==
+                                          "0" &&
+                                          userInput[userInput.length - 2] ==
+                                              "0") {
+                                        print(
+                                            "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
+                                        userInput =
+                                        "${userInput.substring(0, 3)}.00";
+                                      }
+                                      else if(userInput[userInput.length-1]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 1)}0";
+                                      } else if(userInput[userInput.length-1]=="0"&&userInput[userInput.length-2]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 2)}00";
+                                      }
+                                    }else if(userInput.length==6){
+                                      // if(userInput.indexOf(".")==3){
+                                      //
+                                      // }
+                                      if (userInput[userInput.length - 1] ==
+                                          "0" &&
+                                          userInput[userInput.length - 2] ==
+                                              "0") {
+                                        print(
+                                            "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
+                                        userInput =
+                                        "${userInput.substring(0, 2)}.00";
+                                      }
+                                      else if(userInput[userInput.length-1]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 1)}0";
+                                      } else if(userInput[userInput.length-1]=="0"&&userInput[userInput.length-2]!="0"){
+                                        userInput = "${userInput.substring(
+                                            0, userInput.length - 2)}00";
+                                      }
+                                    }
+
+                                    else if (userInput.length == 5) {
                                       if (userInput[userInput.length - 1] ==
                                               "0" &&
                                           userInput[userInput.length - 2] ==
