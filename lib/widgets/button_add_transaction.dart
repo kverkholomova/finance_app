@@ -129,6 +129,7 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                     //   getDataHistogram();
                     // });
   Future.delayed(const Duration(milliseconds: 600), () async {
+    valueChosen = dropdownItemList[3]["value"];
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyApp()),
