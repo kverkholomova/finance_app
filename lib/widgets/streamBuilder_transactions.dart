@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/app.dart';
 import 'package:finance_app/main.dart';
 import 'package:finance_app/models/histogram.dart';
+import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/screens/change_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,10 @@ class _StreamBuilderTransactionsState extends State<StreamBuilderTransactions> {
                           : streamSnapshot.data?.docs.length
                       : 0,
                   itemBuilder: (ctx, index) {
+                    // if (streamSnapshot.data?.docs[index]["date"] == currentDate){
+                    //   sumCurrentTransactions = sumCurrentTransactions + streamSnapshot.data?.docs[index]["transfer_amount"];
+                    //
+                    // }
                     if (streamSnapshot.hasData) {
                       switch (streamSnapshot.connectionState) {
                         case ConnectionState.waiting:

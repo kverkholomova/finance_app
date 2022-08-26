@@ -39,6 +39,7 @@ class _TopWidgetState extends State<TopWidget> {
         const Histogram();
         getDataHistogram();
 
+        addNote();
       });
 
 

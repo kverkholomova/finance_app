@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/widgets/streamBuilder_transactions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,61 @@ ChartData("Leisure", 0),
 ChartData("Health", 0),
 ];
 
+// class Database {
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<void> addNote(
+      // String name,
+      // String title,
+      // String? date,
+      ) async {
+    await firestore.collection('transactions').where("date", isEqualTo: currentDate).where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((snapshot) {
+      snapshot.docs
+          .forEach((documentSnapshot) async {
+        print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        print(sumCurrentTransactions);
+        sumCurrentTransactions = sumCurrentTransactions + documentSnapshot["transfer_amount"];
+
+        //There must be a field in document snapshot that represents this doc Id
+        // String thisDocId = documentSnapshot['docId'];
+        // await firestore.collection('notes').doc(thisDocId).update(
+        //     {
+        //       'name': name,
+        //       'title': title,
+        //       'date': date
+        //     }
+        // );
+      });
+    });
+  }
+// }
+//
+// getDataRadialGauge() async {
+//   // chartData.clear();
+//   // Future.delayed(const Duration(milliseconds: 100), () async {
+//
+//   await FirebaseFirestore.instance
+//       .collection('tutors')
+//       .where("date", isEqualTo: currentDate)
+//   //     // .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+//       .doc()
+//       .get()
+//       .then((value) {
+//     return value.data()['TotalClassesTook']; // Access your after your get the data
+//   });
+  // await FirebaseFirestore.instance
+  //     .collection("transactions")
+  //     // .where("date", isEqualTo: currentDate)
+  //     // .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //     .get()
+  //     .then((value) {
+  //       sumCurrentTransactions = sumCurrentTransactions + value.
+  //       get("transfer_amount");
+  //
+  // });
+  // });
+// }
 getDataHistogram() async {
   // chartData.clear();
   // Future.delayed(const Duration(milliseconds: 100), () async {

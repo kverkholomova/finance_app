@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/models/histogram.dart';
+import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,18 +19,15 @@ double fuelTransactions = 0;
 double cosmeticsTransactions = 0;
 double healthTransactions = 0;
 
-
 class ButtonAddTransaction extends StatefulWidget {
   const ButtonAddTransaction({Key? key}) : super(key: key);
-
 
   @override
   State<ButtonAddTransaction> createState() => _ButtonAddTransactionState();
 }
 
 class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -45,98 +43,113 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                 borderRadius: BorderRadius.circular(10),
                 side: const BorderSide(color: Colors.orangeAccent, width: 2),
               ),
-              onPressed: () async{
-                  setState(() {
-                    sumTransactions = sumTransactions + double.parse(userInput);
+              onPressed: () async {
+                setState(() {
+                  sumTransactions = sumTransactions + double.parse(userInput);
 
-                    if(valueChosen == "Groceries"){
-                      groceriesTransactions = groceriesTransactions + double.parse(userInput);
-                    }
-                    else if(valueChosen == 'Leisure'){
-                      leisureTransactions = leisureTransactions + double.parse(userInput);
-                    }
-                    else if(valueChosen == 'Fuel'){
-                      fuelTransactions = fuelTransactions + double.parse(userInput);
-                    }
-                    else if(valueChosen == 'Cosmetics'){
-                      cosmeticsTransactions = cosmeticsTransactions + double.parse(userInput);
-                    }
-                    else if(valueChosen == 'Health'){
-                      healthTransactions = healthTransactions + double.parse(userInput);
-                    }
+                  if (valueChosen == "Groceries") {
+                    groceriesTransactions =
+                        groceriesTransactions + double.parse(userInput);
+                  } else if (valueChosen == 'Leisure') {
+                    leisureTransactions =
+                        leisureTransactions + double.parse(userInput);
+                  } else if (valueChosen == 'Fuel') {
+                    fuelTransactions =
+                        fuelTransactions + double.parse(userInput);
+                  } else if (valueChosen == 'Cosmetics') {
+                    cosmeticsTransactions =
+                        cosmeticsTransactions + double.parse(userInput);
+                  } else if (valueChosen == 'Health') {
+                    healthTransactions =
+                        healthTransactions + double.parse(userInput);
+                  }
+                });
 
-                  });
+                ID = FirebaseAuth.instance.currentUser?.uid;
+                await FirebaseFirestore.instance
+                    .collection('transactions')
+                    .add({
+                  'userID': ID,
+                  "transfer_amount": double.parse(userInput),
+                  "category_name": valueChosen,
+                  "time": '${DateTime.now()}',
+                  "date": transactionDate,
+                  "transaction_id": ""
+                });
 
-                  ID = FirebaseAuth.instance.currentUser?.uid;
+                if (valueChosen == "Groceries") {
                   await FirebaseFirestore.instance
-                      .collection('transactions')
-                      .add({
-                    'userID': ID,
-                    "transfer_amount": double.parse(userInput),
-                    "category_name": valueChosen,
-                    "time": '${DateTime.now()}',
-                    "date": transactionDate,
-                    "transaction_id": ""
-
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .update({
+                    "summa": sumTransactions,
+                    'groceries_summa': groceriesTransactions,
                   });
+                  // chartData.add(ChartData(valueChosen, groceriesTransactions));
 
-                  if(valueChosen == "Groceries"){
-                    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                      "summa": sumTransactions,
-                      'groceries_summa': groceriesTransactions,
-                    });
-                    // chartData.add(ChartData(valueChosen, groceriesTransactions));
-
-                  }
-                  else if(valueChosen == 'Leisure'){
-                    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                      "summa": sumTransactions,
-                      'leisure_summa':leisureTransactions,
-                    });
-                    // chartData.add(ChartData(valueChosen, leisureTransactions));
-
-                  }
-                  else if(valueChosen == 'Fuel'){
-                    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                      "summa": sumTransactions,
-                      'fuel_summa': fuelTransactions,
-                    });
-                    // chartData.add(ChartData(valueChosen, fuelTransactions));
-
-                  }
-                  else if(valueChosen == 'Cosmetics'){
-                    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                      "summa": sumTransactions,
-                      'cosmetics_summa':cosmeticsTransactions,
-                    });
-                    // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
-
-                  }
-                  else if(valueChosen == 'Health'){
-                    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
-                      "summa": sumTransactions,
-                      'health_summa':healthTransactions,
-                    });
-                    // chartData.add(ChartData(valueChosen, healthTransactions));
-
-                  }
-                  userInput = "0.00";
-                  transactionDate =DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
-
-                  // chartData.length = 0;
-                    // setState(() {
-                    //   Histogram();
-                    //   getDataHistogram();
-                    // });
-  Future.delayed(const Duration(milliseconds: 600), () async {
-    valueChosen = dropdownItemList[3]["value"];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyApp()),
-                    );
+                } else if (valueChosen == 'Leisure') {
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .update({
+                    "summa": sumTransactions,
+                    'leisure_summa': leisureTransactions,
                   });
+                  // chartData.add(ChartData(valueChosen, leisureTransactions));
+
+                } else if (valueChosen == 'Fuel') {
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .update({
+                    "summa": sumTransactions,
+                    'fuel_summa': fuelTransactions,
+                  });
+                  // chartData.add(ChartData(valueChosen, fuelTransactions));
+
+                } else if (valueChosen == 'Cosmetics') {
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .update({
+                    "summa": sumTransactions,
+                    'cosmetics_summa': cosmeticsTransactions,
+                  });
+                  // chartData.add(ChartData(valueChosen, cosmeticsTransactions));
+
+                } else if (valueChosen == 'Health') {
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .update({
+                    "summa": sumTransactions,
+                    'health_summa': healthTransactions,
+                  });
+                  // chartData.add(ChartData(valueChosen, healthTransactions));
+
+                }
+                userInput = "0.00";
+                transactionDate = DateFormat('dd, MMMM yyyy')
+                    .format(DateTime.now())
+                    .toString();
+
+                // chartData.length = 0;
+                // setState(() {
+                //   Histogram();
+                //   getDataHistogram();
+                // });
+                Future.delayed(const Duration(milliseconds: 600), () async {
+                  valueChosen = dropdownItemList[3]["value"];
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyApp()),
+                  );
+                });
               },
-              child: const Text("Add transaction", style: TextStyle(color: Colors.black, fontSize: 16),)),
+              child: const Text(
+                "Add transaction",
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              )),
         ),
       ),
     );
