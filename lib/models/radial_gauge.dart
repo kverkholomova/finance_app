@@ -17,27 +17,38 @@ class RadialGauge extends StatelessWidget {
       axes: [
         RadialAxis(
           ranges: [
-            GaugeRange(startValue: 0, endValue: 200, color: Colors.green),
-            GaugeRange(startValue: 200, endValue: 500, color: Colors.yellowAccent),
-            GaugeRange(startValue: 500, endValue: 1000, color: Colors.red)
+            GaugeRange(startValue: 0, endValue: 400, color: Colors.greenAccent),
+            GaugeRange(startValue: 400, endValue: 800, color: Colors.yellowAccent),
+            GaugeRange(startValue: 800, endValue: 1200, color: Colors.redAccent)
           ],
           pointers: <GaugePointer>[
-            RangePointer(value: sumCurrentTransactions)],
-          annotations: <GaugeAnnotation>[
-            GaugeAnnotation(widget:
-            Container(child:
-            Text("$sumCurrentTransactions",style: TextStyle(fontSize: 20, color: Colors.orangeAccent))
-            // StreamBuilderSumPerDay()
-            ),
-                angle: 90, positionFactor: 0.1
+            MarkerPointer(
+              value: sumCurrentTransactions,
+            color: Colors.orangeAccent,
+            elevation: 2,
+            markerOffset: -2,
+            markerHeight: 15,
+            // gradient: SweepGradient(
+            //   colors: [
+            //     Colors.green, Colors.yellowAccent, Colors.redAccent
+            //   ]
+            // ),
             )],
+          // annotations: <GaugeAnnotation>[
+          //   GaugeAnnotation(widget:
+          //   // Container(child:
+          //   // Text("$sumCurrentTransactions",style: TextStyle(fontSize: 20, color: Colors.orangeAccent))
+          //   // // StreamBuilderSumPerDay()
+          //   // ),
+          //       angle: 90, positionFactor: 0.1
+          //   )],
           canScaleToFit: true,
           startAngle: 180,
           endAngle: 180,
           showLabels: false,
           showTicks: false,
           minimum: 0,
-          maximum: 1000,
+          maximum: 1200,
           interval: 10,
           radiusFactor: 0.26,
           axisLineStyle: const AxisLineStyle(

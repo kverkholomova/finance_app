@@ -134,12 +134,6 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                     .format(DateTime.now())
                     .toString();
 
-                // chartData.length = 0;
-                // setState(() {
-                //   Histogram();
-                //   getDataHistogram();
-                // });
-
     Future.delayed(const Duration(milliseconds: 400), () async {
       addNote(0);
 
