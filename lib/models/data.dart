@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/models/radial_gauge.dart';
 import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/widgets/streamBuilder_transactions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../app.dart';
 import '../screens/add_transaction.dart';
 import '../screens/edit_screen.dart';
 import 'labels.dart';
@@ -136,57 +138,30 @@ ChartData("Health", 0),
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> addNote(
-      // String name,
-      // String title,
-      // String? date,
-      ) async {
+ addNote(double sum) async {
     await firestore.collection('transactions').where("date", isEqualTo: currentDate).where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((snapshot) {
       snapshot.docs
-          .forEach((documentSnapshot) async {
-        print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        print(sumCurrentTransactions);
-        sumCurrentTransactions = sumCurrentTransactions + documentSnapshot["transfer_amount"];
-
-        //There must be a field in document snapshot that represents this doc Id
-        // String thisDocId = documentSnapshot['docId'];
-        // await firestore.collection('notes').doc(thisDocId).update(
-        //     {
-        //       'name': name,
-        //       'title': title,
-        //       'date': date
-        //     }
-        // );
+          .forEach((documentSnapshot){
+        // sumCurrentTransactions=0;
+        sum = sum + documentSnapshot["transfer_amount"];
       });
+      print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      print(sumCurrentTransactions);
+      print(sum);
     });
+    print(sum);
+    // Future.delayed(const Duration(milliseconds: 100), () async {
+      sumCurrentTransactions = sum;
+      print("IIIIIIIIIIIIIIIIIIIIIIII");
+      print(sumCurrentTransactions);
+    // });
+
+    print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
+    print(sumCurrentTransactions);
+    const RadialGauge();
+   return sum;
   }
-// }
-//
-// getDataRadialGauge() async {
-//   // chartData.clear();
-//   // Future.delayed(const Duration(milliseconds: 100), () async {
-//
-//   await FirebaseFirestore.instance
-//       .collection('tutors')
-//       .where("date", isEqualTo: currentDate)
-//   //     // .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-//       .doc()
-//       .get()
-//       .then((value) {
-//     return value.data()['TotalClassesTook']; // Access your after your get the data
-//   });
-  // await FirebaseFirestore.instance
-  //     .collection("transactions")
-  //     // .where("date", isEqualTo: currentDate)
-  //     // .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-  //     .get()
-  //     .then((value) {
-  //       sumCurrentTransactions = sumCurrentTransactions + value.
-  //       get("transfer_amount");
-  //
-  // });
-  // });
-// }
+
 getDataHistogram() async {
   // chartData.clear();
   // Future.delayed(const Duration(milliseconds: 100), () async {
@@ -195,12 +170,12 @@ getDataHistogram() async {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) {
-      print(value.get("cosmetics_summa"));
-      print(value.get("fuel_summa"));
-      print(value.get("groceries_summa"));
-      print(value.get("leisure_summa"));
-      print(value.get("health_summa"));
-      print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+      // print(value.get("cosmetics_summa"));
+      // print(value.get("fuel_summa"));
+      // print(value.get("groceries_summa"));
+      // print(value.get("leisure_summa"));
+      // print(value.get("health_summa"));
+      // print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
       chartData[0]=ChartData("Cosmetics", value.get("cosmetics_summa") ?? 0);
       chartData[1]=ChartData("Fuel", value.get("fuel_summa") ?? 0);
       chartData[2]=ChartData("Groceries", value.get("groceries_summa") ?? 0);
@@ -211,16 +186,16 @@ getDataHistogram() async {
       // chartData[2].y = value.get("groceries_summa");
       // chartData[3].y = value.get("leisure_summa");
       // chartData[4].y = value.get("health_summa");
-      print(chartData[0].x);
-      print(chartData[0].y);
-      print(chartData[1].x);
-      print(chartData[1].y);
-      print(chartData[2].x);
-      print(chartData[2].y);
-      print(chartData[3].x);
-      print(chartData[3].y);
-      print(chartData[4].x);
-      print(chartData[4].y);
+      // print(chartData[0].x);
+      // print(chartData[0].y);
+      // print(chartData[1].x);
+      // print(chartData[1].y);
+      // print(chartData[2].x);
+      // print(chartData[2].y);
+      // print(chartData[3].x);
+      // print(chartData[3].y);
+      // print(chartData[4].x);
+      // print(chartData[4].y);
       // print(chartData[5].x);
       // print(chartData[5].y);
     });

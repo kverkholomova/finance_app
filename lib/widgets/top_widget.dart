@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_app/app.dart';
 import 'package:finance_app/constants.dart';
+import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/widgets/button_add_transaction.dart';
 import 'package:finance_app/services/wrapper.dart';
@@ -36,10 +38,16 @@ class _TopWidgetState extends State<TopWidget> {
     //           });
     // Future.delayed(const Duration(milliseconds: 200), () async {
       setState(() {
+
         const Histogram();
         getDataHistogram();
+        // sumCurrentTransactions=0;
+        //
+        addNote(0);
+        // RadialGauge();
+        print("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+        print(sumCurrentTransactions);
 
-        addNote();
       });
 
 

@@ -1,3 +1,4 @@
+import 'package:finance_app/models/data.dart';
 import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -9,6 +10,9 @@ class RadialGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    addNote(0);
+    print("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+
     return SfRadialGauge(
       axes: [
         RadialAxis(
@@ -20,8 +24,9 @@ class RadialGauge extends StatelessWidget {
           pointers: <GaugePointer>[
             RangePointer(value: sumCurrentTransactions)],
           annotations: <GaugeAnnotation>[
-            GaugeAnnotation(widget: Container(child:
-            Text("${sumCurrentTransactions}",style: TextStyle(fontSize: 20, color: Colors.orangeAccent))
+            GaugeAnnotation(widget:
+            Container(child:
+            Text("$sumCurrentTransactions",style: TextStyle(fontSize: 20, color: Colors.orangeAccent))
             // StreamBuilderSumPerDay()
             ),
                 angle: 90, positionFactor: 0.1

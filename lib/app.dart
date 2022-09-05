@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:finance_app/models/data.dart';
 import 'package:finance_app/screens/home_screen.dart';
 import 'package:finance_app/screens/sign_in.dart';
 import 'package:finance_app/services/auth.dart';
@@ -27,6 +28,9 @@ class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> user;
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 300), () async {
+      addNote(0);
+    });
     user = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user == null) {
         print('User is currently signed out!');

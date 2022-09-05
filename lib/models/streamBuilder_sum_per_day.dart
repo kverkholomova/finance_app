@@ -18,45 +18,45 @@ String currentDate = DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString
 
 double sumCurrentTransactions = 0;
 
-class StreamBuilderSumPerDay extends StatefulWidget {
-
-  const StreamBuilderSumPerDay({Key? key})
-      : super(key: key);
-
-  @override
-  State<StreamBuilderSumPerDay> createState() =>
-      _StreamBuilderSumPerDayState();
-}
-
-class _StreamBuilderSumPerDayState extends State<StreamBuilderSumPerDay> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,),
-      child: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('transactions')
-            .where("date", isEqualTo: currentDate)
-            .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-            .snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-            return ListView.builder(
-                itemCount: streamSnapshot.hasData
-                    ? streamSnapshot.data?.docs.length
-                    : 0,
-                itemBuilder: (ctx, index) {
-                  // if (streamSnapshot.data?.docs[index]["date"] == currentDate){
-                    sumCurrentTransactions = sumCurrentTransactions + streamSnapshot.data?.docs[index]["transfer_amount"];
-                    print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    print(sumCurrentTransactions);
-
-
-                  // }
-                  return Center(child: Text("${sumCurrentTransactions}"));
-
-                });
-        },
-      ),
-    );
-  }
-}
+// class StreamBuilderSumPerDay extends StatefulWidget {
+//
+//   const StreamBuilderSumPerDay({Key? key})
+//       : super(key: key);
+//
+//   @override
+//   State<StreamBuilderSumPerDay> createState() =>
+//       _StreamBuilderSumPerDayState();
+// }
+//
+// class _StreamBuilderSumPerDayState extends State<StreamBuilderSumPerDay> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1,),
+//       child: StreamBuilder(
+//         stream: FirebaseFirestore.instance
+//             .collection('transactions')
+//             .where("date", isEqualTo: currentDate)
+//             .where("userID", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+//             .snapshots(),
+//         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+//             return ListView.builder(
+//                 itemCount: streamSnapshot.hasData
+//                     ? streamSnapshot.data?.docs.length
+//                     : 0,
+//                 itemBuilder: (ctx, index) {
+//                   // if (streamSnapshot.data?.docs[index]["date"] == currentDate){
+//                     sumCurrentTransactions = sumCurrentTransactions + streamSnapshot.data?.docs[index]["transfer_amount"];
+//                     print("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//                     print(sumCurrentTransactions);
+//
+//
+//                   // }
+//                   return Center(child: Text("${sumCurrentTransactions}"));
+//
+//                 });
+//         },
+//       ),
+//     );
+//   }
+// }

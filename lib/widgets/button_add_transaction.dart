@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/models/histogram.dart';
+import 'package:finance_app/models/radial_gauge.dart';
 import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/screens/add_transaction.dart';
 import 'package:finance_app/screens/home_screen.dart';
@@ -138,7 +139,14 @@ class _ButtonAddTransactionState extends State<ButtonAddTransaction> {
                 //   Histogram();
                 //   getDataHistogram();
                 // });
+
+    Future.delayed(const Duration(milliseconds: 400), () async {
+      addNote(0);
+
+    });
                 Future.delayed(const Duration(milliseconds: 600), () async {
+                  // sumCurrentTransactions = 0;
+                  // addNote(0);
                   valueChosen = dropdownItemList[3]["value"];
                   Navigator.push(
                     context,
