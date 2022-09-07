@@ -17,15 +17,15 @@ class RadialGauge extends StatelessWidget {
       axes: [
         RadialAxis(
           ranges: [
-            GaugeRange(startValue: 0, endValue: 400, color: Colors.greenAccent, startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions>400 &&sumCurrentTransactions<=800?5:10, endWidth: sumCurrentTransactions<= 400? 10:sumCurrentTransactions>400 &&sumCurrentTransactions<=800?10:5,),
-            GaugeRange(startValue: 400, endValue: 800, color: Colors.yellowAccent, startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:5, endWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:10,),
-            GaugeRange(startValue: 800, endValue: 1200, color: Colors.redAccent, startWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:sumCurrentTransactions<=1200&&sumCurrentTransactions>=800?10:5, endWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?5:10,)
+            GaugeRange(startValue: 0, endValue: 400, color: Color.fromRGBO(255, 198, 115, 1), startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions>400 &&sumCurrentTransactions<=800?5:10, endWidth: sumCurrentTransactions<= 400? 10:sumCurrentTransactions>400 &&sumCurrentTransactions<=800?10:5,),
+            GaugeRange(startValue: 400, endValue: 800, color: Color.fromRGBO(255, 174, 55, 1), startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:5, endWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:10,),
+            GaugeRange(startValue: 800, endValue: 1200, color: Color.fromRGBO(250, 149, 0, 1), startWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:sumCurrentTransactions<=1200&&sumCurrentTransactions>=800?10:5, endWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?5:10,)
           ],
           pointers: <GaugePointer>[
             MarkerPointer(
               value: sumCurrentTransactions,
-            color: Colors.orangeAccent,
-            elevation: 2,
+            color: Colors.white,
+            elevation: 3,
             markerOffset: -2,
             markerHeight: 15,
             // gradient: SweepGradient(
