@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/app.dart';
 import 'package:finance_app/main.dart';
 import 'package:finance_app/models/histogram.dart';
-import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
+import 'package:finance_app/to_delete/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/screens/change_transaction.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

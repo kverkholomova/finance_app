@@ -1,5 +1,5 @@
 import 'package:finance_app/models/data.dart';
-import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
+import 'package:finance_app/to_delete/streamBuilder_sum_per_day.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 

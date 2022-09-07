@@ -12,7 +12,7 @@ import '../screens/add_transaction.dart';
 import '../screens/edit_screen.dart';
 import '../widgets/button_add_transaction.dart';
 import '../widgets/streamBuilder_transactions.dart';
-import 'labels.dart';
+import '../models/labels.dart';
 
 String currentDate = DateFormat('dd, MMMM yyyy').format(DateTime.now()).toString();
 

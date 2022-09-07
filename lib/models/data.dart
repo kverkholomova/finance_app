@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_app/models/radial_gauge.dart';
-import 'package:finance_app/models/streamBuilder_sum_per_day.dart';
+import 'package:finance_app/to_delete/streamBuilder_sum_per_day.dart';
 import 'package:finance_app/widgets/streamBuilder_transactions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
