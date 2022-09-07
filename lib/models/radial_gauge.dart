@@ -17,9 +17,9 @@ class RadialGauge extends StatelessWidget {
       axes: [
         RadialAxis(
           ranges: [
-            GaugeRange(startValue: 0, endValue: 400, color: Colors.greenAccent),
-            GaugeRange(startValue: 400, endValue: 800, color: Colors.yellowAccent),
-            GaugeRange(startValue: 800, endValue: 1200, color: Colors.redAccent)
+            GaugeRange(startValue: 0, endValue: 400, color: Colors.greenAccent, startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions>400 &&sumCurrentTransactions<=800?5:10, endWidth: sumCurrentTransactions<= 400? 10:sumCurrentTransactions>400 &&sumCurrentTransactions<=800?10:5,),
+            GaugeRange(startValue: 400, endValue: 800, color: Colors.yellowAccent, startWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:5, endWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:10,),
+            GaugeRange(startValue: 800, endValue: 1200, color: Colors.redAccent, startWidth: sumCurrentTransactions<= 400? 5: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?10:sumCurrentTransactions<=1200&&sumCurrentTransactions>=800?10:5, endWidth: sumCurrentTransactions<= 400? 10: sumCurrentTransactions<=800&&sumCurrentTransactions>=400?5:10,)
           ],
           pointers: <GaugePointer>[
             MarkerPointer(
@@ -53,7 +53,7 @@ class RadialGauge extends StatelessWidget {
           radiusFactor: 0.26,
           axisLineStyle: const AxisLineStyle(
             thickness: 0.2,
-            color: Colors.orangeAccent,
+            color: Colors.purple,
             thicknessUnit: GaugeSizeUnit.factor,
             // cornerStyle: CornerStyle.bothCurve,
           ),
